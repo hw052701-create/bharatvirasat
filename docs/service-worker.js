@@ -1,17 +1,24 @@
-// BharatVirasat Service Worker v5.0
-const CACHE_NAME = 'bharatvirasat-v6';
+// BharatVirasat Service Worker v8.0
+const CACHE_NAME = 'bharatvirasat-v8';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './css/style.css',
-  './manifest.json'
+  './manifest.json',
+  './js/api.js',
+  './js/auth.js',
+  './js/explorer.js',
+  './js/geohunt.js',
+  './js/ai.js',
+  './js/community.js',
+  './js/app.js'
 ];
 
 // Install: cache static assets
 self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS)).catch(() => {})
   );
 });
 
@@ -24,20 +31,26 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch: Network first, cache fallback
+// Fetch: Network first, cache fallback with navigation recovery
 self.addEventListener('fetch', event => {
   const { request } = event;
+  if (request.method !== 'GET' || request.url.includes('/api/')) return;
 
-  // Network First for all HTML and JS scripts
   event.respondWith(
     fetch(request)
       .then(response => {
-        if (response.ok && request.method === 'GET' && !request.url.includes('/api/')) {
+        if (response && response.ok) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
         }
         return response;
       })
-      .catch(() => caches.match(request))
+      .catch(async () => {
+        const cached = await caches.match(request);
+        if (cached) return cached;
+        if (request.mode === 'navigate' || request.destination === 'document' || request.headers.get('accept')?.includes('text/html')) {
+          return (await caches.match('./index.html')) || (await caches.match('./'));
+        }
+      })
   );
 });

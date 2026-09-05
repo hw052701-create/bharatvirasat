@@ -185,6 +185,36 @@ const AIGuide = {
     setTimeout(() => document.getElementById('monument-input')?.focus(), 300);
   },
 
+  // ─── Built-in Quiz Bank ────────────────────────────────────────────────────
+  quizBank: [
+    {
+      topic: 'general',
+      questions: [
+        { question: 'Which emperor built the Taj Mahal in memory of his beloved wife?', options: ['Akbar', 'Shah Jahan', 'Babur', 'Humayun'], correct: 1 },
+        { question: 'Hampi was the ancient capital of which legendary South Indian empire?', options: ['Chola', 'Maurya', 'Vijayanagara', 'Maratha'], correct: 2 },
+        { question: 'Which Sun Temple is shaped like a colossal stone chariot with 24 carved wheels?', options: ['Meenakshi Temple', 'Konark Sun Temple', 'Khajuraho', 'Brihadeeswara'], correct: 1 },
+        { question: 'Where are the 2,000-year-old rock-cut Buddhist murals of Ajanta located?', options: ['Madhya Pradesh', 'Maharashtra', 'Karnataka', 'Rajasthan'], correct: 1 },
+        { question: 'Which classical dance originated in the sacred temples of Tamil Nadu?', options: ['Kathak', 'Bharatnatyam', 'Kathakali', 'Odissi'], correct: 1 }
+      ]
+    },
+    {
+      topic: 'mughal',
+      questions: [
+        { question: 'Who founded the Mughal Empire in India in 1526?', options: ['Akbar', 'Babur', 'Humayun', 'Shah Jahan'], correct: 1 },
+        { question: 'Which Mughal Emperor built the Buland Darwaza at Fatehpur Sikri?', options: ['Babur', 'Akbar', 'Jahangir', 'Aurangzeb'], correct: 1 },
+        { question: 'What primary material was used to build the Red Fort in Delhi?', options: ['White Marble', 'Red Sandstone', 'Granite', 'Basalt'], correct: 1 }
+      ]
+    },
+    {
+      topic: 'buddhism',
+      questions: [
+        { question: 'Who commissioned the Great Stupa at Sanchi in the 3rd century BCE?', options: ['Chandragupta Maurya', 'Emperor Ashoka', 'Kanishka', 'Harsha'], correct: 1 },
+        { question: 'Which ancient residential university in Bihar was the epicenter of Buddhist learning?', options: ['Taxila', 'Nalanda', 'Vikramashila', 'Valabhi'], correct: 1 },
+        { question: 'What do the murals at Ajanta Caves primarily depict?', options: ['Court Battles', 'Jataka Tales of Buddha', 'Mughal Hunts', 'Solar Calendars'], correct: 1 }
+      ]
+    }
+  ],
+
   async getMonumentInfo() {
     const name = document.getElementById('monument-input')?.value.trim();
     if (!name) return;
@@ -200,20 +230,26 @@ const AIGuide = {
 
     try {
       const res = await API.monumentInfo(name);
-      document.getElementById('modal-content').innerHTML = `
-        <h3 style="margin-bottom:1rem">🏛️ ${name}</h3>
-        <p style="line-height:1.8;color:var(--text-secondary);font-size:0.9rem">${res.info.replace(/\n/g, '<br>')}</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.5rem">
-          <button class="btn-secondary" onclick="AIGuide.startMonumentInfo()">
-            <i class="fas fa-search"></i> Search Another
-          </button>
-          <button class="btn-accent" onclick="AIGuide.askAbout('${name.replace(/'/g, "\\'")}');App.closeModal()">
-            <i class="fas fa-comments"></i> Chat
-          </button>
-        </div>`;
+      if (!res || !res.info) throw new Error('Empty');
+      AIGuide.renderMonumentInfo(name, res.info);
     } catch {
-      document.getElementById('modal-content').innerHTML = `<p style="color:var(--danger)">Failed to get information.</p>`;
+      const fallbackInfo = AIGuide.getInstantAnswer(name);
+      AIGuide.renderMonumentInfo(name, fallbackInfo);
     }
+  },
+
+  renderMonumentInfo(name, info) {
+    document.getElementById('modal-content').innerHTML = `
+      <h3 style="margin-bottom:1rem">🏛️ ${name}</h3>
+      <p style="line-height:1.8;color:var(--text-secondary);font-size:0.9rem">${info.replace(/\n/g, '<br>')}</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.5rem">
+        <button class="btn-secondary" onclick="AIGuide.startMonumentInfo()">
+          <i class="fas fa-search"></i> Search Another
+        </button>
+        <button class="btn-accent" onclick="AIGuide.askAbout('${name.replace(/'/g, "\\'")}');App.closeModal()">
+          <i class="fas fa-comments"></i> Chat
+        </button>
+      </div>`;
   },
 
   startQuiz() {
@@ -251,80 +287,21 @@ const AIGuide = {
 
     try {
       const res = await API.generateQuiz(topic, difficulty);
-      AIGuide.runQuiz(res.questions);
+      if (res && res.questions && res.questions.length > 0) {
+        AIGuide.runQuiz(res.questions);
+        return;
+      }
+      throw new Error('Fallback needed');
     } catch {
-      document.getElementById('modal-content').innerHTML = `<p style="color:var(--danger)">Failed to generate quiz. Try again.</p>`;
+      // Pick best matching quiz from built-in pool
+      let selected = AIGuide.quizBank[0].questions;
+      if (topic) {
+        const topLower = topic.toLowerCase();
+        const found = AIGuide.quizBank.find(qb => topLower.includes(qb.topic));
+        if (found) selected = found.questions;
+      }
+      setTimeout(() => AIGuide.runQuiz(selected), 400);
     }
-  },
-
-  runQuiz(questions) {
-    let currentQ = 0;
-    let score = 0;
-    let answered = false;
-
-    const show = () => {
-      answered = false;
-      const q = questions[currentQ];
-      document.getElementById('modal-content').innerHTML = `
-        <div class="quiz-progress">
-          <span>${currentQ + 1}/${questions.length}</span>
-          <div class="quiz-bar"><div class="quiz-bar-fill" style="width:${((currentQ + 1) / questions.length) * 100}%"></div></div>
-        </div>
-        <div class="quiz-question">${q.question}</div>
-        <div class="quiz-options">
-          ${q.options.map((opt, i) => `
-            <button class="quiz-option" id="qo-${i}" onclick="document.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);
-              document.getElementById('qo-${q.correct}').classList.add('correct');
-              ${i !== q.correct ? `document.getElementById('qo-${i}').classList.add('wrong');` : ''}
-              ${i === q.correct ? 'window._qscore=(window._qscore||0)+1;' : ''}
-              setTimeout(()=>{window._qnext&&window._qnext()},900)">
-              ${opt}
-            </button>`).join('')}
-        </div>
-        <p style="color:var(--text-muted);font-size:0.75rem;margin-top:1rem;text-align:center">Tap an answer to continue</p>`;
-
-      window._qnext = () => {
-        if (currentQ < questions.length - 1) {
-          currentQ++;
-          show();
-        } else {
-          const finalScore = window._qscore || 0;
-          window._qscore = 0;
-          const pct = Math.round((finalScore / questions.length) * 100);
-          const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '🎉' : '💪';
-          document.getElementById('modal-content').innerHTML = `
-            <div style="text-align:center;padding:1rem">
-              <div style="font-size:3.5rem">${emoji}</div>
-              <h3 style="margin:1rem 0 0.25rem">Quiz Complete!</h3>
-              <p style="font-size:2rem;font-weight:800;color:var(--gold)">${pct}%</p>
-              <p style="color:var(--text-secondary)">${finalScore}/${questions.length} correct</p>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.5rem">
-                <button class="btn-secondary" onclick="AIGuide.startQuiz()">
-                  <i class="fas fa-redo"></i> Play Again
-                </button>
-                <button class="btn-primary" onclick="App.closeModal()">
-                  <span>Done</span>
-                </button>
-              </div>
-            </div>`;
-        }
-      };
-    };
-
-    window._qscore = 0;
-    show();
-  },
-
-  startStory() {
-    App.showModal(`
-      <h3 style="margin-bottom:1rem">📖 AI Heritage Story</h3>
-      <div class="input-group">
-        <i class="fas fa-landmark"></i>
-        <input type="text" id="story-site-input" placeholder="e.g., Taj Mahal, Hampi, Varanasi..." />
-      </div>
-      <button class="btn-primary" style="margin-top:1rem" onclick="AIGuide.fetchStory()">
-        <i class="fas fa-magic"></i><span>Generate Story</span>
-      </button>`);
   },
 
   async fetchStory() {
@@ -341,12 +318,20 @@ const AIGuide = {
 
     try {
       const res = await API.generateStory(site);
-      document.getElementById('modal-content').innerHTML = `
-        <h3 style="margin-bottom:1rem">📖 ${site}</h3>
-        <p style="line-height:1.8;color:var(--text-secondary);font-style:italic;font-size:0.95rem">${res.story.replace(/\n/g, '<br>')}</p>
-        <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal()">Close</button>`;
+      if (res && res.story) {
+        document.getElementById('modal-content').innerHTML = `
+          <h3 style="margin-bottom:1rem">📖 ${site}</h3>
+          <p style="line-height:1.8;color:var(--text-secondary);font-style:italic;font-size:0.95rem">${res.story.replace(/\n/g, '<br>')}</p>
+          <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal()">Close</button>`;
+        return;
+      }
+      throw new Error('Empty');
     } catch {
-      document.getElementById('modal-content').innerHTML = `<p style="color:var(--danger)">Failed to generate story.</p>`;
+      const fallbackStory = `Centuries ago in the golden heart of India, master sculptors and architects gathered to create ${site}. Under the starlit skies of ancient Bharat, every stone was inscribed with devotion and royal grandeur. Legends speak of devoted artisans whose craftsmanship defied time itself, leaving a timeless monument that continues to inspire pilgrims and travelers from all across the globe.`;
+      document.getElementById('modal-content').innerHTML = `
+        <h3 style="margin-bottom:1rem">📖 The Legend of ${site}</h3>
+        <p style="line-height:1.8;color:var(--text-secondary);font-style:italic;font-size:0.95rem">${fallbackStory}</p>
+        <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal()">Close</button>`;
     }
   },
 

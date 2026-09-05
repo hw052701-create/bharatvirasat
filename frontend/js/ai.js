@@ -304,6 +304,68 @@ const AIGuide = {
     }
   },
 
+  runQuiz(questions) {
+    let currentQ = 0;
+    let score = 0;
+
+    const show = () => {
+      const q = questions[currentQ];
+      document.getElementById('modal-content').innerHTML = `
+        <div class="quiz-progress" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
+          <span style="font-size:0.85rem;color:var(--gold);font-weight:700">Question ${currentQ + 1} of ${questions.length}</span>
+          <span style="font-size:0.85rem;color:var(--text-muted)">Score: ${window._qscore || 0}</span>
+        </div>
+        <div style="height:6px;background:var(--border);border-radius:3px;margin-bottom:1.25rem;overflow:hidden">
+          <div style="height:100%;width:${((currentQ + 1) / questions.length) * 100}%;background:var(--grad-gold);transition:width 0.3s"></div>
+        </div>
+        <div class="quiz-question" style="font-size:1.05rem;font-weight:700;margin-bottom:1.25rem;line-height:1.5">${q.question}</div>
+        <div class="quiz-options" style="display:flex;flex-direction:column;gap:0.6rem">
+          ${q.options.map((opt, i) => `
+            <button class="quiz-opt-btn" id="qo-${i}" style="padding:0.875rem 1rem;text-align:left;border-radius:var(--radius-md);border:1px solid var(--border);background:var(--card-bg2);color:var(--text-primary);cursor:pointer;font-size:0.9rem;transition:all 0.2s"
+              onclick="document.querySelectorAll('.quiz-opt-btn').forEach(b=>b.disabled=true);
+              document.getElementById('qo-${q.correct}').style.background='rgba(76,175,80,0.25)';
+              document.getElementById('qo-${q.correct}').style.borderColor='#4caf50';
+              document.getElementById('qo-${q.correct}').style.color='#81c784';
+              ${i !== q.correct ? `document.getElementById('qo-${i}').style.background='rgba(244,67,54,0.25)';document.getElementById('qo-${i}').style.borderColor='#f44336';document.getElementById('qo-${i}').style.color='#e57373';` : ''}
+              ${i === q.correct ? 'window._qscore=(window._qscore||0)+1;' : ''}
+              setTimeout(()=>{window._qnext&&window._qnext()},850)">
+              <b style="color:var(--gold);margin-right:6px">${String.fromCharCode(65 + i)}.</b> ${opt}
+            </button>`).join('')}
+        </div>
+        <p style="color:var(--text-muted);font-size:0.75rem;margin-top:1rem;text-align:center">Tap an answer to continue</p>`;
+
+      window._qnext = () => {
+        if (currentQ < questions.length - 1) {
+          currentQ++;
+          show();
+        } else {
+          const finalScore = window._qscore || 0;
+          window._qscore = 0;
+          const pct = Math.round((finalScore / questions.length) * 100);
+          const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '🎉' : '💪';
+          document.getElementById('modal-content').innerHTML = `
+            <div style="text-align:center;padding:1rem">
+              <div style="font-size:3.5rem">${emoji}</div>
+              <h3 style="margin:1rem 0 0.25rem">Quiz Complete!</h3>
+              <p style="font-size:2.2rem;font-weight:800;color:var(--gold);margin:0.5rem 0">${pct}%</p>
+              <p style="color:var(--text-secondary);margin-bottom:1.5rem">${finalScore} of ${questions.length} questions correct</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+                <button class="btn-secondary" onclick="AIGuide.startQuiz()">
+                  <i class="fas fa-redo"></i> Play Again
+                </button>
+                <button class="btn-primary" onclick="App.closeModal()">
+                  <span>Done</span>
+                </button>
+              </div>
+            </div>`;
+        }
+      };
+    };
+
+    window._qscore = 0;
+    show();
+  },
+
   async fetchStory() {
     const site = document.getElementById('story-site-input')?.value.trim();
     if (!site) return;

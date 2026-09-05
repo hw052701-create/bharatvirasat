@@ -1,29 +1,21 @@
-// BharatVirasat Service Worker v1.0
-const CACHE_NAME = 'bharatvirasat-v1';
+// BharatVirasat Service Worker v3.0
+const CACHE_NAME = 'bharatvirasat-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/css/style.css',
-  '/js/app.js',
-  '/js/api.js',
-  '/js/auth.js',
-  '/js/explorer.js',
-  '/js/geohunt.js',
-  '/js/ai.js',
-  '/js/community.js',
   '/manifest.json'
 ];
 
 // Install: cache static assets
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(STATIC_ASSETS))
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
   );
 });
 
-// Activate: clean old caches
+// Activate: clean old caches immediately
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -32,31 +24,20 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch: network first, cache fallback
+// Fetch: Network first, cache fallback
 self.addEventListener('fetch', event => {
   const { request } = event;
 
-  // API calls: network only
-  if (request.url.includes('/api/')) {
-    event.respondWith(fetch(request).catch(() =>
-      new Response(JSON.stringify({ error: 'You are offline' }), {
-        headers: { 'Content-Type': 'application/json' }
-      })
-    ));
-    return;
-  }
-
-  // Static assets: cache first, network fallback
+  // Network First for all HTML and JS scripts
   event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).then(response => {
-        if (response.ok) {
+    fetch(request)
+      .then(response => {
+        if (response.ok && request.method === 'GET' && !request.url.includes('/api/')) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
         }
         return response;
-      });
-    }).catch(() => caches.match('/index.html'))
+      })
+      .catch(() => caches.match(request))
   );
 });

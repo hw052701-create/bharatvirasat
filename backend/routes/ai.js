@@ -7,7 +7,7 @@ const geminiKey = process.env.GEMINI_API_KEY || 'AIzaSyDTAEun8A5aaioCZz2roIxX4WA
 const genAI = new GoogleGenerativeAI(geminiKey);
 
 // System prompt for heritage guide context
-const SYSTEM_PROMPT = `You are HeriSense AI, an expert heritage and culture guide for India. 
+const SYSTEM_PROMPT = `You are Virasat AI, an expert heritage and culture guide for India. 
 You specialize in Indian history, architecture, monuments, festivals, art forms, and cultural traditions.
 You are part of BharatVirasat, a platform to help Indians discover and appreciate their heritage.
 Respond in a friendly, engaging, and educational way. Keep responses concise (2-3 paragraphs max).
@@ -50,10 +50,10 @@ function getFallbackChat(message) {
   }
 
   if (lower.includes('hello') || lower.includes('hi') || lower.includes('namaste')) {
-    return `🙏 **Namaste! I am HeriSense AI**, your personal guide to India's glorious heritage and culture.\n\nYou can ask me about UNESCO World Heritage sites, Mughal & Chola architecture, temple art, traditional festivals like Holi/Diwali, or classical dances like Kathak and Bharatnatyam. Which heritage site would you like to explore today?`;
+    return `🙏 **Namaste! I am Virasat AI**, your personal guide to India's glorious heritage and culture.\n\nYou can ask me about UNESCO World Heritage sites, Mughal & Chola architecture, temple art, traditional festivals like Holi/Diwali, or classical dances like Kathak and Bharatnatyam. Which heritage site would you like to explore today?`;
   }
 
-  return `🙏 **Namaste from HeriSense AI!** India's heritage spans over 5,000 years with 42 UNESCO World Heritage Sites, thousands of ASI protected monuments, and rich intangible cultural traditions.\n\nRegarding *"${message}"*: India preserves deep roots in architectural marvels, traditional handicrafts, classical arts, and sacred festivals. You can search sites in the **Explore** tab or take on quests in **GeoHunt** to earn explorer points! What specific region or monument would you like to know about?`;
+  return `🙏 **Namaste from Virasat AI!** India's heritage spans over 5,000 years with 42 UNESCO World Heritage Sites, thousands of ASI protected monuments, and rich intangible cultural traditions.\n\nRegarding *"${message}"*: India preserves deep roots in architectural marvels, traditional handicrafts, classical arts, and sacred festivals. You can search sites in the **Explore** tab or take on quests in **GeoHunt** to earn explorer points! What specific region or monument would you like to know about?`;
 }
 
 // ─── POST /api/ai/chat ────────────────────────────────────────────────────────
@@ -67,16 +67,16 @@ router.post('/chat', authMiddleware, async (req, res) => {
       const chat = model.startChat({
         history: [
           { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
-          { role: 'model', parts: [{ text: 'Namaste! I am HeriSense AI, your personal heritage guide.' }] }
+          { role: 'model', parts: [{ text: 'Namaste! I am Virasat AI, your personal heritage guide.' }] }
         ]
       });
       const result = await chat.sendMessage(message);
       const reply = result.response.text();
       return res.json({ success: true, reply });
     } catch (apiErr) {
-      console.warn('Gemini API call returned error, using built-in HeriSense AI:', apiErr.message);
+      console.warn('Gemini API call returned error, using built-in Virasat AI:', apiErr.message);
       const reply = getFallbackChat(message);
-      return res.json({ success: true, reply, source: 'herisense_knowledge_engine' });
+      return res.json({ success: true, reply, source: 'virasat_knowledge_engine' });
     }
   } catch (error) {
     res.status(500).json({ error: 'AI service unavailable', message: error.message });

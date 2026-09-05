@@ -45,7 +45,7 @@ const API = {
       success: true,
       reply: (typeof AIGuide !== 'undefined' && AIGuide.getInstantAnswer)
         ? AIGuide.getInstantAnswer(message)
-        : `🙏 Namaste! I am HeriSense AI, your personal guide to India's glorious heritage.`
+        : `🙏 Namaste! I am Virasat AI, your personal guide to India's glorious heritage.`
     };
   },
   async monumentInfo(name) {

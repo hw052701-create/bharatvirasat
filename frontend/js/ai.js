@@ -1,4 +1,4 @@
-// ── ai.js — HeriSense AI Guide Module ───────────────────────────────────────
+// ── ai.js — Virasat AI Guide Module ───────────────────────────────────────
 const AIGuide = {
   chatHistory: [],
 
@@ -6,8 +6,8 @@ const AIGuide = {
   render() {
     document.getElementById('app-content').innerHTML = `
       <div class="ai-header">
-        <div class="ai-avatar">🤖</div>
-        <h2>HeriSense AI</h2>
+        <div class="ai-avatar">🪷</div>
+        <h2>Virasat AI</h2>
         <p>Your personal Indian Heritage Guide</p>
       </div>
 
@@ -29,9 +29,9 @@ const AIGuide = {
       <div class="chat-container">
         <div class="chat-messages" id="chat-messages">
           <div class="chat-msg">
-            <div class="msg-avatar ai-msg-avatar">🤖</div>
+            <div class="msg-avatar ai-msg-avatar">🪷</div>
             <div class="msg-bubble ai-bubble">
-              <b>Namaste! I'm HeriSense AI 🙏</b><br><br>
+              <b>Namaste! I'm Virasat AI 🙏</b><br><br>
               I'm your personal guide to India's incredible heritage. Ask me about:<br>
               • Any monument or heritage site<br>
               • Indian festivals and traditions<br>
@@ -134,7 +134,7 @@ const AIGuide = {
       return '🙏 **Konark Sun Temple, Odisha:** A 13th-century CE architectural wonder shaped like a grand 24-wheeled chariot of Surya the Sun God, pulled by seven stone horses. The wheels function as precise astronomical sundials.';
     }
     if (q.includes('hello') || q.includes('hi') || q.includes('namaste')) {
-      return '🙏 **Namaste! I am HeriSense AI**, your personal guide to India’s 5,000+ years of vibrant heritage and culture. Ask me about monuments, dynasties, festivals (like Diwali/Holi), or classical dance forms!';
+      return '🙏 **Namaste! I am Virasat AI**, your personal guide to India’s 5,000+ years of vibrant heritage and culture. Ask me about monuments, dynasties, festivals (like Diwali/Holi), or classical dance forms!';
     }
     return `🙏 **Namaste!** India's heritage is filled with wonders. Regarding *"${message}"*: India preserves thousands of ASI monuments, 42 UNESCO World Heritage Sites, and centuries of living traditions. Ask me about any monument (Taj Mahal, Hampi, Ajanta, Red Fort) or explore the **Explore** and **GeoHunt** tabs for quests!`;
   },
@@ -370,7 +370,7 @@ const AIGuide = {
     App.showModal(`
       <h3 style="margin-bottom:0.75rem">📖 Heritage AI Storyteller</h3>
       <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.88rem">
-        Step into the past with epic historical narratives and ancient legends crafted by HeriSense AI.
+        Step into the past with epic historical narratives and ancient legends crafted by Virasat AI.
       </p>
       <div class="input-group">
         <i class="fas fa-feather-alt"></i>

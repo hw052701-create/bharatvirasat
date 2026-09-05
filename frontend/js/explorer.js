@@ -243,7 +243,7 @@ const Explorer = {
         <div class="typing-indicator" style="justify-content:center">
           <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
         </div>
-        <p style="color:var(--text-secondary);margin-top:1rem;font-size:0.85rem">Summoning ancient legends with HeriSense AI...</p>
+        <p style="color:var(--text-secondary);margin-top:1rem;font-size:0.85rem">Summoning ancient legends with Virasat AI...</p>
       </div>`);
 
     try {

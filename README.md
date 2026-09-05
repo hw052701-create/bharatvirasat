@@ -11,7 +11,7 @@
 
 - 🔍 **Explorer** — Browse 3,691+ Indian heritage sites by Architecture, Culture, Research
 - 🗺️ **Geo Hunt** — GPS-based missions at real heritage locations with points & badges
-- 🤖 **HeriSense AI** — Gemini-powered heritage chatbot, quiz generator, story writer
+- 🤖 **Virasat AI** — Gemini-powered heritage chatbot, quiz generator, story writer
 - 👥 **Community** — Share stories, photos and discoveries with fellow heritage lovers
 - 🏅 **Gamification** — Points, levels, badges, leaderboard
 - 📱 **PWA** — Installable on Android & iPhone (no App Store needed!)

@@ -147,7 +147,7 @@ const App = {
         <div class="daily-challenge" style="background:linear-gradient(135deg,rgba(102,126,234,0.2),rgba(118,75,162,0.2));border-color:rgba(102,126,234,0.4)"
           onclick="App.navigate('ai')">
           <div class="challenge-badge" style="background:linear-gradient(135deg,#667eea,#764ba2)">🤖 AI Powered</div>
-          <div class="challenge-title">HeriSense AI Guide</div>
+          <div class="challenge-title">Virasat AI Guide</div>
           <div class="challenge-desc">Ask anything about India's heritage, get AI-generated stories, and take dynamic quizzes!</div>
           <button class="challenge-btn" style="background:linear-gradient(135deg,#667eea,#764ba2)">
             <i class="fas fa-robot"></i> Chat with AI

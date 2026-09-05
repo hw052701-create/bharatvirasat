@@ -10,31 +10,26 @@ const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// CORS — allow GitHub Pages frontend
-app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL,
-    'http://localhost:3000',
-    'http://127.0.0.1:5500',
-    /\.github\.io$/  // allow any github pages domain
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// CORS — allow all origins for PWA & GitHub Pages
+app.use(cors({ origin: '*' }));
+
+// Health Check Endpoint (at root and /api/health)
+app.get('/health', (req, res) => res.json({ status: 'ok', time: new Date() }));
+app.get('/', (req, res) => res.json({ message: 'BharatVirasat Backend API is Running 🪷', status: 'ok' }));
 
 // Rate Limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
+  windowMs: 15 * 60 * 1000,
+  max: 200,
   message: { error: 'Too many requests, please try again later.' }
 });
 app.use('/api/', limiter);
 
 // ─── MongoDB Connection ─────────────────────────────────────────────────────────
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ MongoDB Atlas Connected'))
-  .catch(err => console.error('❌ MongoDB Error:', err));
+const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://bharatvirasat:BharatVirasat2026@cluster0.i9yzfym.mongodb.net/bharatvirasat?retryWrites=true&w=majority&appName=Cluster0';
+mongoose.connect(mongoUri)
+  .then(() => console.log('✅ MongoDB Atlas Connected successfully'))
+  .catch(err => console.error('❌ MongoDB Connection Error:', err.message));
 
 // ─── Routes ────────────────────────────────────────────────────────────────────
 app.use('/api/auth',      require('./routes/auth'));

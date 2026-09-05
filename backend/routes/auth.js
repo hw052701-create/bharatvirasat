@@ -4,9 +4,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const authMiddleware = require('../middleware/auth');
 
+const JWT_SECRET = process.env.JWT_SECRET || 'bharatvirasat_super_secret_jwt_key_2026';
+
 // Generate JWT Token
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+  return jwt.sign({ id }, JWT_SECRET, { expiresIn: '30d' });
 };
 
 // ─── POST /api/auth/register ────────────────────────────────────────────────

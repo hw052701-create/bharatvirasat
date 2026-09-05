@@ -3,7 +3,8 @@ const router = express.Router();
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const authMiddleware = require('../middleware/auth');
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const geminiKey = process.env.GEMINI_API_KEY || 'AIzaSyDTAEun8A5aaioCZz2roIxX4WAkU3s5gn4';
+const genAI = new GoogleGenerativeAI(geminiKey);
 
 // System prompt for heritage guide context
 const SYSTEM_PROMPT = `You are HeriSense AI, an expert heritage and culture guide for India. 

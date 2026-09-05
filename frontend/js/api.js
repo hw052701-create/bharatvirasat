@@ -1,7 +1,7 @@
 // ── api.js — All backend API calls ──────────────────────────────────────────
 // 🌐 Frontend: https://hw052701-create.github.io/bharatvirasat
-// 🚂 Backend:  UPDATE THIS URL after deploying to Railway
-const API_BASE = 'https://bharatvirasat.up.railway.app/api'; // ← Replace with your actual Railway URL after deploy
+// 🚂 Backend: Live Railway URL
+const API_BASE = 'https://bharatvirasat-production.up.railway.app/api';
 
 const API = {
   // ─── Auth ────────────────────────────────────────────────────────────────

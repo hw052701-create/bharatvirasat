@@ -1,10 +1,10 @@
 // BharatVirasat Service Worker v5.0
-const CACHE_NAME = 'bharatvirasat-v5';
+const CACHE_NAME = 'bharatvirasat-v6';
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/manifest.json'
+  './',
+  './index.html',
+  './css/style.css',
+  './manifest.json'
 ];
 
 // Install: cache static assets

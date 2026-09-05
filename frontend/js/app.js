@@ -6,7 +6,7 @@ const App = {
   async init() {
     // Register Service Worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+      navigator.serviceWorker.register('./service-worker.js').catch(() => {});
     }
 
     // Show splash, then check auth

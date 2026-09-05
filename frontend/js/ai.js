@@ -366,8 +366,64 @@ const AIGuide = {
     show();
   },
 
+  startStory(defaultSite = '') {
+    App.showModal(`
+      <h3 style="margin-bottom:0.75rem">📖 Heritage AI Storyteller</h3>
+      <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.88rem">
+        Step into the past with epic historical narratives and ancient legends crafted by HeriSense AI.
+      </p>
+      <div class="input-group">
+        <i class="fas fa-feather-alt"></i>
+        <input type="text" id="story-site-input" value="${defaultSite}" placeholder="Enter monument or site (e.g. Ajanta Caves, Taj Mahal, Hampi)" />
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin:0.85rem 0">
+        ${['Ajanta Caves', 'Konark Sun Temple', 'Hampi', 'Rani ki Vav', 'Ellora Caves', 'Taj Mahal', 'Sanchi Stupa'].map(s => `
+          <span style="font-size:0.75rem;padding:0.3rem 0.65rem;border-radius:12px;background:var(--card-bg2);border:1px solid var(--border);cursor:pointer;color:var(--gold)"
+            onclick="document.getElementById('story-site-input').value='${s}'">
+            ${s}
+          </span>`).join('')}
+      </div>
+      <button class="btn-primary" style="margin-top:0.5rem" onclick="AIGuide.fetchStory()">
+        <i class="fas fa-magic"></i><span>Generate Legend & Story</span>
+      </button>`);
+    setTimeout(() => {
+      const input = document.getElementById('story-site-input');
+      if (input && !defaultSite) input.focus();
+    }, 300);
+  },
+
+  getStoryFallback(site) {
+    const s = (site || '').toLowerCase();
+    if (s.includes('ajanta')) {
+      return `Two thousand years ago, deep within the horseshoe canyon of the Waghora River in Maharashtra, Buddhist monks and guild artisans chiseled thirty grand sanctuaries into raw basalt cliffs.\n\nWorking by the gentle glow of brass lamps and sunlight reflected through silver mirrors, they painted the life of the Buddha and vibrant Jataka tales with mineral pigments made of lapis lazuli, red ochre, and crushed leaves.\n\nWhen dynastic fortunes shifted, the jungle reclaimed the gorge for over a millennium—until 1819, when a British tiger hunter named John Smith spotted the arched entrance of Cave 10 hidden beneath tangled vines, awakening ancient India's greatest painted treasure to the world.`;
+    }
+    if (s.includes('ellora')) {
+      return `In the 8th century CE, King Krishna I of the Rashtrakuta Dynasty envisioned a temple so grand that it would rival Mount Kailash itself. Master architect Kokasa made a daring vow: rather than stacking stone upon stone, his artisans would carve the entire temple top-down from a single volcanic mountain.\n\nOver two centuries, generations of sculptors chipped away 200,000 tonnes of solid rock with mere chisels and hammers. When finished, Cave 16—the Kailasa Temple—stood as a monolithic marvel with life-sized carved elephants and multi-story galleries that defies the limits of human imagination.`;
+    }
+    if (s.includes('konark')) {
+      return `In 1250 CE along the windswept shores of Odisha, King Narasimhadeva I summoned 1,200 of the finest sculptors in the realm to build a cosmic chariot for Surya, the Sun God. Designed with 24 colossal carved wheels that tell exact time by sunlight shadows, the temple was nearly complete except for the crowning Kalasa dome, which puzzled the master builders for 12 long years.\n\nLegend tells of Dharmapada, the 12-year-old son of chief architect Bisu Maharana, who climbed the towering peak and positioned the missing stone with mathematical precision, sacrificing his life into the roaring ocean to preserve the honor of his father and fellow artisans.`;
+    }
+    if (s.includes('taj')) {
+      return `In 1631, on the tranquil banks of the Yamuna River in Agra, Mughal Emperor Shah Jahan vowed to build a resting place of sublime beauty for his beloved empress, Mumtaz Mahal.\n\nFor 22 years, over 20,000 craftsmen, lapidaries, and calligraphers from across Central Asia and India joined hands. Translucent Makrana marble was inlaid with 28 varieties of semi-precious stones—jasper from Punjab, jade from China, turquoise from Tibet, and lapis lazuli from Afghanistan—creating an ethereal monument that shifts color from soft rose at dawn to gleaming gold beneath the full moonlight.`;
+    }
+    if (s.includes('hampi')) {
+      return `In the 14th century, along the rugged boulder-strewn banks of the Tungabhadra River, brothers Harihara and Bukka founded Vijayanagara—the City of Victory. At its zenith, Hampi was one of the wealthiest metropolises on earth, where European and Persian travelers wrote of open-air street markets trading diamonds, rubies, and silk by the measure.\n\nToday, its sacred ruins—the musical pillars of Vittala Temple, the monolithic Stone Chariot, and the towering Virupaksha Gopuram—still whisper legends of emperors who balanced cosmic arts with warrior valor.`;
+    }
+    if (s.includes('vav') || s.includes('rani')) {
+      return `In 1063 CE in Patan, Gujarat, Queen Udayamati of the Chaulukya dynasty commissioned a subterranean masterpiece in loving memory of her late husband, King Bhima I. Unlike traditional temples reaching toward the sky, Rani ki Vav is an inverted temple descending seven levels into the mother earth.\n\nAdorned with over 500 principal sculptures and a thousand minor carvings of Lord Vishnu in his Dashavatara forms, it elevated water conservation into an exquisite sanctum of devotion, resilience, and architectural perfection.`;
+    }
+    if (s.includes('red fort') || s.includes('lal qila')) {
+      return `In 1638, Shah Jahan resolved to shift his imperial capital from Agra to Delhi, designing the octagonal red sandstone fortress of Shahjahanabad. Within its fortified ramparts stood the Diwan-i-Khas, where the fabled Peacock Throne once rested beneath silver ceilings.\n\nOn its marble arch, poet Amir Khusrau's famous Persian verses are inscribed in gold: "Agar firdaus bar roo-e zameen ast, hameen ast-o hameen ast-o hameen ast" (If there is a paradise on earth, it is this, it is this, it is this).`;
+    }
+    if (s.includes('sanchi')) {
+      return `Following the devastating battle of Kalinga, Emperor Ashoka renounced conquest through war and embraced the path of Dhamma and peace. In the 3rd century BCE, he selected the tranquil hilltop of Sanchi in Madhya Pradesh to enshrine sacred relics of Gautama Buddha under a massive stone hemisphere.\n\nCenturies later, the Satavahana artisans added four magnificent Torana gateways, each carved with intricate depictions of elephants, winged lions, and Jataka legends, creating a lasting beacon of universal harmony.`;
+    }
+    return `Centuries ago in the golden heart of India, master architects, scholars, and devoted artisans gathered to create ${site || 'this timeless monument'}.\n\nUnder the starlit skies of ancient Bharat, every stone was inscribed with royal grandeur, cosmic philosophy, and unmatched devotion. Legends tell of master craftsmen whose dedication defied time itself, leaving behind an enduring cultural marvel that continues to inspire pilgrims and travelers from all corners of the world.`;
+  },
+
   async fetchStory() {
-    const site = document.getElementById('story-site-input')?.value.trim();
+    const siteInput = document.getElementById('story-site-input');
+    const site = siteInput ? siteInput.value.trim() : 'Ajanta Caves';
     if (!site) return;
 
     document.getElementById('modal-content').innerHTML = `
@@ -375,25 +431,36 @@ const AIGuide = {
         <div class="typing-indicator" style="justify-content:center">
           <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
         </div>
-        <p style="color:var(--text-secondary);margin-top:1rem">Writing story about ${site}...</p>
+        <p style="color:var(--text-secondary);margin-top:1rem;font-size:0.9rem">Summoning ancient legends for <b>${site}</b>...</p>
       </div>`;
 
     try {
       const res = await API.generateStory(site);
-      if (res && res.story) {
-        document.getElementById('modal-content').innerHTML = `
-          <h3 style="margin-bottom:1rem">📖 ${site}</h3>
-          <p style="line-height:1.8;color:var(--text-secondary);font-style:italic;font-size:0.95rem">${res.story.replace(/\n/g, '<br>')}</p>
-          <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal()">Close</button>`;
-        return;
-      }
-      throw new Error('Empty');
-    } catch {
-      const fallbackStory = `Centuries ago in the golden heart of India, master sculptors and architects gathered to create ${site}. Under the starlit skies of ancient Bharat, every stone was inscribed with devotion and royal grandeur. Legends speak of devoted artisans whose craftsmanship defied time itself, leaving a timeless monument that continues to inspire pilgrims and travelers from all across the globe.`;
+      const storyText = (res && res.story) ? res.story : AIGuide.getStoryFallback(site);
       document.getElementById('modal-content').innerHTML = `
         <h3 style="margin-bottom:1rem">📖 The Legend of ${site}</h3>
-        <p style="line-height:1.8;color:var(--text-secondary);font-style:italic;font-size:0.95rem">${fallbackStory}</p>
-        <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal()">Close</button>`;
+        <p style="line-height:1.85;color:var(--text-secondary);font-style:italic;font-size:0.92rem">${storyText.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</p>
+        <div style="display:flex;gap:0.75rem;margin-top:1.5rem">
+          <button class="btn-secondary" style="flex:1" onclick="AIGuide.startStory('${site.replace(/'/g, "\\'")}')">
+            <i class="fas fa-redo"></i> Another Story
+          </button>
+          <button class="btn-primary" style="flex:1" onclick="App.closeModal()">
+            <span>Close</span>
+          </button>
+        </div>`;
+    } catch {
+      const fallbackStory = AIGuide.getStoryFallback(site);
+      document.getElementById('modal-content').innerHTML = `
+        <h3 style="margin-bottom:1rem">📖 The Legend of ${site}</h3>
+        <p style="line-height:1.85;color:var(--text-secondary);font-style:italic;font-size:0.92rem">${fallbackStory.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</p>
+        <div style="display:flex;gap:0.75rem;margin-top:1.5rem">
+          <button class="btn-secondary" style="flex:1" onclick="AIGuide.startStory('${site.replace(/'/g, "\\'")}')">
+            <i class="fas fa-redo"></i> Try Another
+          </button>
+          <button class="btn-primary" style="flex:1" onclick="App.closeModal()">
+            <span>Close</span>
+          </button>
+        </div>`;
     }
   },
 

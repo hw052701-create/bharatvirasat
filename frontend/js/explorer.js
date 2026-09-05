@@ -238,25 +238,38 @@ const Explorer = {
   // ─── Generate AI Story ────────────────────────────────────────────────────
   async generateStory(siteName) {
     App.showModal(`
-      <h3 style="margin-bottom:1rem">📖 Story: ${siteName}</h3>
+      <h3 style="margin-bottom:1rem">📖 The Legend of ${siteName}</h3>
       <div style="text-align:center;padding:2rem">
         <div class="typing-indicator" style="justify-content:center">
           <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
         </div>
-        <p style="color:var(--text-secondary);margin-top:1rem;font-size:0.85rem">Generating story with AI...</p>
+        <p style="color:var(--text-secondary);margin-top:1rem;font-size:0.85rem">Summoning ancient legends with HeriSense AI...</p>
       </div>`);
 
     try {
       const res = await API.generateStory(siteName);
+      const storyText = (res && res.story)
+        ? res.story
+        : (typeof AIGuide !== 'undefined' ? AIGuide.getStoryFallback(siteName) : `Centuries ago in the golden heart of India, master sculptors and architects gathered to create ${siteName}.`);
       document.getElementById('modal-content').innerHTML = `
-        <h3 style="margin-bottom:1rem">📖 ${siteName}</h3>
-        <p style="line-height:1.8;color:var(--text-secondary);font-size:0.95rem;font-style:italic">${res.story}</p>
+        <h3 style="margin-bottom:1rem">📖 The Legend of ${siteName}</h3>
+        <p style="line-height:1.85;color:var(--text-secondary);font-size:0.92rem;font-style:italic">${storyText.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</p>
+        <div style="display:flex;gap:0.75rem;margin-top:1.5rem">
+          <button class="btn-secondary" style="flex:1" onclick="Explorer.shareStory('${siteName.replace(/'/g, "\\'")}')">
+            <i class="fas fa-share-alt"></i> Share Legend
+          </button>
+          <button class="btn-primary" style="flex:1" onclick="App.closeModal()">
+            <span>Close</span>
+          </button>
+        </div>`;
+    } catch {
+      const fallback = typeof AIGuide !== 'undefined' ? AIGuide.getStoryFallback(siteName) : `Centuries ago, master artisans gathered to construct ${siteName}.`;
+      document.getElementById('modal-content').innerHTML = `
+        <h3 style="margin-bottom:1rem">📖 The Legend of ${siteName}</h3>
+        <p style="line-height:1.85;color:var(--text-secondary);font-size:0.92rem;font-style:italic">${fallback.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</p>
         <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal()">
           <span>Close</span>
         </button>`;
-    } catch {
-      document.getElementById('modal-content').innerHTML = `
-        <p style="color:var(--danger)">Failed to generate story. Please try again.</p>`;
     }
   },
 

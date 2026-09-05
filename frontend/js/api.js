@@ -35,16 +35,66 @@ const API = {
 
   // ─── AI ──────────────────────────────────────────────────────────────────
   async aiChat(message, history = []) {
-    return await API.post('/ai/chat', { message, history });
+    try {
+      const res = await API.post('/ai/chat', { message, history });
+      if (res && res.reply) return res;
+    } catch (e) {
+      console.warn('API aiChat server fallback:', e.message);
+    }
+    return {
+      success: true,
+      reply: (typeof AIGuide !== 'undefined' && AIGuide.getInstantAnswer)
+        ? AIGuide.getInstantAnswer(message)
+        : `🙏 Namaste! I am HeriSense AI, your personal guide to India's glorious heritage.`
+    };
   },
   async monumentInfo(name) {
-    return await API.post('/ai/monument-info', { name }, false);
+    try {
+      const res = await API.post('/ai/monument-info', { name }, false);
+      if (res && res.info) return res;
+    } catch (e) {
+      console.warn('API monumentInfo server fallback:', e.message);
+    }
+    return {
+      success: true,
+      info: (typeof AIGuide !== 'undefined' && AIGuide.getInstantAnswer)
+        ? AIGuide.getInstantAnswer(name)
+        : `${name} is an iconic Indian heritage site with rich historical, cultural, and architectural significance.`
+    };
   },
   async generateQuiz(topic, difficulty = 'medium') {
-    return await API.post('/ai/quiz', { topic, difficulty });
+    try {
+      const res = await API.post('/ai/quiz', { topic, difficulty });
+      if (res && res.questions && res.questions.length > 0) return res;
+    } catch (e) {
+      console.warn('API generateQuiz server fallback:', e.message);
+    }
+    return {
+      success: true,
+      questions: (typeof AIGuide !== 'undefined' && AIGuide.quizBank)
+        ? (AIGuide.quizBank.find(q => topic && topic.toLowerCase().includes(q.topic))?.questions || AIGuide.quizBank[0].questions)
+        : [
+            { question: 'Which emperor built the Taj Mahal in memory of his beloved wife?', options: ['Akbar', 'Shah Jahan', 'Babur', 'Humayun'], correct: 1 },
+            { question: 'Hampi was the ancient capital of which legendary South Indian empire?', options: ['Chola', 'Maurya', 'Vijayanagara', 'Maratha'], correct: 2 },
+            { question: 'Which Sun Temple is shaped like a colossal stone chariot with 24 carved wheels?', options: ['Meenakshi Temple', 'Konark Sun Temple', 'Khajuraho', 'Brihadeeswara'], correct: 1 },
+            { question: 'Where are the 2,000-year-old rock-cut Buddhist murals of Ajanta located?', options: ['Madhya Pradesh', 'Maharashtra', 'Karnataka', 'Rajasthan'], correct: 1 },
+            { question: 'Which classical dance originated in the sacred temples of Tamil Nadu?', options: ['Kathak', 'Bharatnatyam', 'Kathakali', 'Odissi'], correct: 1 }
+          ]
+    };
   },
   async generateStory(site) {
-    return await API.post('/ai/story', { site });
+    try {
+      const res = await API.post('/ai/story', { site });
+      if (res && res.story) return res;
+    } catch (e) {
+      console.warn('API generateStory server fallback:', e.message);
+    }
+    return {
+      success: true,
+      story: (typeof AIGuide !== 'undefined' && AIGuide.getStoryFallback)
+        ? AIGuide.getStoryFallback(site)
+        : `Centuries ago in the golden heart of India, master architects and thousands of devoted artisans gathered to create ${site || 'this timeless monument'}. Every stone was carved with devotion, echoing legends of royal splendor, divine inspiration, and architectural genius that continues to leave travelers spellbound to this day.`
+    };
   },
 
   // ─── Geo Hunt ────────────────────────────────────────────────────────────

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#D4AF37" />
+  <meta name="description" content="BharatVirasat - Discover India's Heritage through AI, Geo Hunt, and Community. Explore 3600+ ASI monuments, folk arts, and cultural traditions." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BharatVirasat" />
+  <meta property="og:title" content="BharatVirasat - Heritage Discovery Platform" />
+  <meta property="og:description" content="Discover India's Heritage through AI, Geo Hunt, and Community" />
+  <meta property="og:type" content="website" />
+  <title>BharatVirasat - भारत विरासत</title>
+
+  <!-- PWA Link Tags -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Leaflet Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Splash Screen ───────────────────────────────────────────────── -->
+  <div id="splash-screen">
+    <div class="splash-content">
+      <div class="splash-logo">
+        <div class="lotus-icon">🪷</div>
+        <h1>BharatVirasat</h1>
+        <p class="splash-tagline">भारत विरासत</p>
+      </div>
+      <div class="splash-loader">
+        <div class="loader-bar"><div class="loader-fill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Auth Screen ─────────────────────────────────────────────────── -->
+  <div id="auth-screen" class="screen hidden">
+    <div class="auth-bg">
+      <div class="auth-overlay"></div>
+      <div class="auth-container">
+        <div class="auth-logo">
+          <span class="logo-icon">🪷</span>
+          <h2>BharatVirasat</h2>
+          <p>भारत विरासत</p>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login-form" class="auth-form">
+          <h3>Welcome Back</h3>
+          <p class="form-subtitle">Continue your heritage journey</p>
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="login-email" placeholder="Email address" autocomplete="email" />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" />
+          </div>
+          <button class="btn-primary" id="login-btn" onclick="Auth.login()">
+            <span>Sign In</span><i class="fas fa-arrow-right"></i>
+          </button>
+          <p class="auth-switch">Don't have an account? <a href="#" onclick="Auth.showRegister()">Create Account</a></p>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-form" class="auth-form hidden">
+          <h3>Join BharatVirasat</h3>
+          <p class="form-subtitle">Start your heritage discovery journey</p>
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" id="reg-name" placeholder="Full Name" autocomplete="name" />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="reg-email" placeholder="Email address" autocomplete="email" />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-map-marker-alt"></i>
+            <select id="reg-state">
+              <option value="">Select your State</option>
+              <option>Andhra Pradesh</option><option>Arunachal Pradesh</option>
+              <option>Assam</option><option>Bihar</option><option>Chhattisgarh</option>
+              <option>Goa</option><option>Gujarat</option><option>Haryana</option>
+              <option>Himachal Pradesh</option><option>Jharkhand</option>
+              <option>Karnataka</option><option>Kerala</option>
+              <option>Madhya Pradesh</option><option>Maharashtra</option>
+              <option>Manipur</option><option>Meghalaya</option><option>Mizoram</option>
+              <option>Nagaland</option><option>Odisha</option><option>Punjab</option>
+              <option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option>
+              <option>Telangana</option><option>Tripura</option>
+              <option>Uttar Pradesh</option><option>Uttarakhand</option>
+              <option>West Bengal</option><option>Delhi</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="reg-password" placeholder="Password (min 6 chars)" autocomplete="new-password" />
+          </div>
+          <button class="btn-primary" id="register-btn" onclick="Auth.register()">
+            <span>Create Account</span><i class="fas fa-arrow-right"></i>
+          </button>
+          <p class="auth-switch">Already have an account? <a href="#" onclick="Auth.showLogin()">Sign In</a></p>
+        </div>
+
+        <div id="auth-error" class="auth-error hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main App ────────────────────────────────────────────────────── -->
+  <div id="main-app" class="hidden">
+
+    <!-- Top Header -->
+    <header class="app-header" id="app-header">
+      <div class="header-left">
+        <span class="header-logo">🪷</span>
+        <span class="header-title">BharatVirasat</span>
+      </div>
+      <div class="header-right">
+        <button class="header-btn" id="search-btn" onclick="App.toggleSearch()">
+          <i class="fas fa-search"></i>
+        </button>
+        <div class="user-points" id="header-points">
+          <i class="fas fa-star"></i>
+          <span id="user-points-display">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-bar hidden" id="search-bar">
+      <input type="text" id="global-search" placeholder="Search monuments, culture, art..." oninput="App.search(this.value)" />
+      <button onclick="App.closeSearch()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Page Content -->
+    <main class="app-content" id="app-content">
+      <!-- Dynamic content rendered here -->
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-btn active" id="nav-home" onclick="App.navigate('home')">
+        <i class="fas fa-home"></i><span>Home</span>
+      </button>
+      <button class="nav-btn" id="nav-explorer" onclick="App.navigate('explorer')">
+        <i class="fas fa-compass"></i><span>Explore</span>
+      </button>
+      <button class="nav-btn nav-center" id="nav-geohunt" onclick="App.navigate('geohunt')">
+        <div class="nav-center-icon"><i class="fas fa-map-pin"></i></div>
+        <span>GeoHunt</span>
+      </button>
+      <button class="nav-btn" id="nav-ai" onclick="App.navigate('ai')">
+        <i class="fas fa-robot"></i><span>AI Guide</span>
+      </button>
+      <button class="nav-btn" id="nav-profile" onclick="App.navigate('profile')">
+        <i class="fas fa-user"></i><span>Profile</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ── Toast Notification ──────────────────────────────────────────── -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- ── Modal ──────────────────────────────────────────────────────── -->
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="App.closeModal()">
+    <div class="modal" id="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="App.closeModal()"><i class="fas fa-times"></i></button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/explorer.js"></script>
+  <script src="js/geohunt.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/community.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

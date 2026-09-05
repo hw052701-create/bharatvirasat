@@ -69,3 +69,16 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 BharatVirasat Server running on port ${PORT}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
 });
+
+if (String(PORT) !== '5000') {
+  try {
+    const s5000 = app.listen(5000, '0.0.0.0', () => console.log('Also listening on 5000'));
+    s5000.on('error', () => {});
+  } catch(e) {}
+}
+if (String(PORT) !== '8080') {
+  try {
+    const s8080 = app.listen(8080, '0.0.0.0', () => console.log('Also listening on 8080'));
+    s8080.on('error', () => {});
+  } catch(e) {}
+}

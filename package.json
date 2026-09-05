@@ -1,0 +1,16 @@
+{
+  "name": "bharatvirasat",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node backend/server.js",
+    "build": "cd backend && npm install",
+    "prestart": "cd backend && npm install"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

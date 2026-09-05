@@ -98,15 +98,45 @@ const AIGuide = {
     try {
       const res = await API.aiChat(message, AIGuide.chatHistory.slice(-10));
       AIGuide.hideTyping();
-      AIGuide.chatHistory.push({ role: 'model', text: res.reply });
-      AIGuide.appendMessage({ role: 'model', text: res.reply });
+      if (res && res.reply) {
+        AIGuide.chatHistory.push({ role: 'model', text: res.reply });
+        AIGuide.appendMessage({ role: 'model', text: res.reply });
+      } else {
+        throw new Error('No reply from server');
+      }
     } catch (err) {
       AIGuide.hideTyping();
-      AIGuide.appendMessage({
-        role: 'model',
-        text: 'Sorry, I encountered an error. Please check your connection and try again. 🙏'
-      });
+      const fallbackReply = AIGuide.getInstantAnswer(message);
+      AIGuide.chatHistory.push({ role: 'model', text: fallbackReply });
+      AIGuide.appendMessage({ role: 'model', text: fallbackReply });
     }
+  },
+
+  // ─── Instant Built-in Knowledge Engine ─────────────────────────────────────
+  getInstantAnswer(message) {
+    const q = message.toLowerCase();
+    if (q.includes('taj') || q.includes('agra')) {
+      return '🙏 **Taj Mahal, Agra:** Built between 1631-1653 by Mughal Emperor Shah Jahan in memory of his beloved wife Mumtaz Mahal. Made of pure white Makrana marble on the banks of the Yamuna River, it is universally recognized as a masterpiece of UNESCO World Heritage.';
+    }
+    if (q.includes('ajanta') || q.includes('caves')) {
+      return '🙏 **Ajanta Caves, Maharashtra:** 30 magnificent rock-cut Buddhist cave monuments dating from 2nd century BCE to 480 CE. They feature world-famous fresco murals, depictions of the Jataka tales, and serene statues of the Buddha.';
+    }
+    if (q.includes('ellora') || q.includes('kailasa')) {
+      return '🙏 **Ellora Caves & Kailasa Temple:** A spectacular UNESCO complex of 100 rock-cut caves carved into the Sahyadri hills, representing Buddhist, Hindu, and Jain harmony. Cave 16 (Kailasa Temple) was carved top-to-bottom from a single colossal basalt rock!';
+    }
+    if (q.includes('hampi') || q.includes('karnataka')) {
+      return '🙏 **Hampi, Karnataka:** The ancient capital of the 14th-century Vijayanagara Empire. Famous for its surreal boulder-strewn landscapes, the iconic Stone Chariot, and the towering Virupaksha Temple by the Tungabhadra River.';
+    }
+    if (q.includes('red fort') || q.includes('lal qila') || q.includes('delhi')) {
+      return '🙏 **Red Fort (Lal Qila), Delhi:** Built by Emperor Shah Jahan in 1638 when moving the Mughal capital from Agra to Shahjahanabad (Old Delhi). It represents the height of Mughal architectural splendor and is the historic venue for Independence Day celebrations.';
+    }
+    if (q.includes('konark') || q.includes('sun temple') || q.includes('odisha')) {
+      return '🙏 **Konark Sun Temple, Odisha:** A 13th-century CE architectural wonder shaped like a grand 24-wheeled chariot of Surya the Sun God, pulled by seven stone horses. The wheels function as precise astronomical sundials.';
+    }
+    if (q.includes('hello') || q.includes('hi') || q.includes('namaste')) {
+      return '🙏 **Namaste! I am HeriSense AI**, your personal guide to India’s 5,000+ years of vibrant heritage and culture. Ask me about monuments, dynasties, festivals (like Diwali/Holi), or classical dance forms!';
+    }
+    return `🙏 **Namaste!** India's heritage is filled with wonders. Regarding *"${message}"*: India preserves thousands of ASI monuments, 42 UNESCO World Heritage Sites, and centuries of living traditions. Ask me about any monument (Taj Mahal, Hampi, Ajanta, Red Fort) or explore the **Explore** and **GeoHunt** tabs for quests!`;
   },
 
   // ─── Append Message to Chat ───────────────────────────────────────────────

@@ -67,13 +67,13 @@ const Explorer = {
     const typeIcons = {
       architecture: '🏛️', culture: '🎭', research: '📚', geohunt: '🗺️'
     };
-    const fallbackImg = `https://source.unsplash.com/400x300/?india,heritage,${encodeURIComponent(site.name)}`;
-    const img = (site.images && site.images.length > 0) ? site.images[0] : fallbackImg;
+    const defaultCover = 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&auto=format&fit=crop&q=80';
+    const img = (site.images && site.images.length > 0 && site.images[0]) ? site.images[0] : defaultCover;
 
     return `
       <div class="card heritage-card" onclick="Explorer.viewSite('${site._id}')">
         <img src="${img}" alt="${site.name}" loading="lazy"
-          onerror="this.src='https://source.unsplash.com/400x300/?india,monument'" />
+          onerror="this.src='https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop&q=80'" />
         <div class="card-body">
           <div class="card-type">
             <span>${typeIcons[site.type] || '🏛️'}</span> ${site.type}
@@ -110,8 +110,8 @@ const Explorer = {
 
   // ─── Render Detail Page ───────────────────────────────────────────────────
   renderDetail(site) {
-    const fallbackImg = `https://source.unsplash.com/800x600/?india,heritage,${encodeURIComponent(site.name)}`;
-    const img = (site.images && site.images.length > 0) ? site.images[0] : fallbackImg;
+    const defaultCover = 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&auto=format&fit=crop&q=80';
+    const img = (site.images && site.images.length > 0 && site.images[0]) ? site.images[0] : defaultCover;
 
     const savedSites = JSON.parse(localStorage.getItem('bv_saved') || '[]');
     const isSaved = savedSites.includes(site._id);

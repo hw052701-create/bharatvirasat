@@ -1,9 +1,13 @@
 // ── app.js — Main App Controller ─────────────────────────────────────────────
 const App = {
   currentPage: 'home',
+  currentTheme: localStorage.getItem('bv_theme') || 'dark',
 
   // ─── Initialize App ───────────────────────────────────────────────────────
   async init() {
+    // Initialize Theme immediately
+    App.initTheme();
+
     // Register Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./service-worker.js').catch(() => {});
@@ -19,6 +23,37 @@ const App = {
         document.getElementById('auth-screen').classList.remove('hidden');
       }
     }, 2500);
+  },
+
+  // ─── Theme Management ──────────────────────────────────────────────────────
+  initTheme() {
+    const saved = localStorage.getItem('bv_theme') || 'dark';
+    App.applyTheme(saved);
+  },
+
+  applyTheme(theme) {
+    App.currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('bv_theme', theme);
+
+    const themeIcon = document.getElementById('theme-icon');
+    if (themeIcon) {
+      themeIcon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute('content', theme === 'light' ? '#f7f4ec' : '#D4AF37');
+    }
+  },
+
+  toggleTheme() {
+    const newTheme = App.currentTheme === 'dark' ? 'light' : 'dark';
+    App.applyTheme(newTheme);
+    if (App.currentPage === 'profile') {
+      App.renderProfile();
+    }
+    App.showToast(`${newTheme === 'light' ? '☀️ Ivory Sandstone Light' : '🌙 Midnight Royal Dark'} Theme Enabled`, 'info');
   },
 
   // ─── Hide Splash ──────────────────────────────────────────────────────────
@@ -283,6 +318,11 @@ const App = {
 
       <!-- Menu -->
       <div class="profile-menu">
+        <div class="menu-item" onclick="App.toggleTheme()">
+          <i class="fas ${App.currentTheme === 'light' ? 'fa-sun' : 'fa-moon'}"></i>
+          <span>Appearance: <b id="profile-theme-text" style="color:var(--gold);margin-left:4px">${App.currentTheme === 'light' ? 'Ivory Light' : 'Midnight Dark'}</b></span>
+          <i class="fas fa-toggle-${App.currentTheme === 'light' ? 'on' : 'off'} chevron" style="font-size:1.15rem;color:var(--gold)"></i>
+        </div>
         <div class="menu-item" onclick="App.navigate('explorer')">
           <i class="fas fa-bookmark"></i>
           <span>Saved Sites</span>

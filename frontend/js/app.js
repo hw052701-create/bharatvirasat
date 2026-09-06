@@ -122,14 +122,18 @@ const App = {
       </div>
 
       <!-- Daily Challenge -->
-      <div class="daily-challenge" onclick="AIGuide.startQuiz()">
-        <div class="challenge-badge">🏆 Daily Challenge</div>
-        <div class="challenge-title">Heritage Quiz of the Day</div>
-        <div class="challenge-desc">Test your knowledge about ${todaysFestival} and earn bonus points!</div>
-        <button class="challenge-btn">
-          <i class="fas fa-brain"></i> Start Quiz
-        </button>
-      </div>
+      ${(() => {
+        const isDailyDone = localStorage.getItem('bv_daily_quiz_claimed') === new Date().toISOString().slice(0, 10);
+        return `
+        <div class="daily-challenge" onclick="AIGuide.startQuiz()">
+          <div class="challenge-badge">${isDailyDone ? '✅ Daily Challenge Completed' : '🏆 Daily Challenge (+50 XP)'}</div>
+          <div class="challenge-title">Heritage Quiz of the Day</div>
+          <div class="challenge-desc">Test your knowledge about ${todaysFestival} and earn bonus explorer points!</div>
+          <button class="challenge-btn">
+            <i class="fas ${isDailyDone ? 'fa-redo' : 'fa-brain'}"></i> ${isDailyDone ? 'Practice Quiz' : 'Start Daily Quiz'}
+          </button>
+        </div>`;
+      })()}
 
       <!-- Featured Sites -->
       <div class="home-section">

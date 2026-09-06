@@ -107,20 +107,31 @@ router.post('/quiz-submit', authMiddleware, async (req, res) => {
     const passed = score >= 60;
 
     if (passed) {
-      // Award partial points based on score
-      const pointsEarned = Math.round(mission.rewardPoints * score / 100);
       const user = await User.findById(req.user._id);
-      user.addPoints(pointsEarned);
-
       const alreadyCompleted = mission.completedBy.some(c => c.user.toString() === req.user._id.toString());
-      if (!alreadyCompleted) {
-        mission.completedBy.push({ user: req.user._id });
-        user.completedMissions.push(mission._id);
-        await mission.save();
-      }
-      await user.save();
+      let pointsEarned = 0;
 
-      return res.json({ success: true, score, passed, correct, results, pointsEarned, newTotal: user.points });
+      if (!alreadyCompleted) {
+        // Award points based on score percentage
+        pointsEarned = Math.round(mission.rewardPoints * score / 100);
+        user.addPoints(pointsEarned);
+        user.completedMissions.push(mission._id);
+        mission.completedBy.push({ user: req.user._id });
+        await mission.save();
+        await user.save();
+      }
+
+      return res.json({
+        success: true,
+        score,
+        passed,
+        correct,
+        results,
+        pointsEarned,
+        alreadyCompleted,
+        newTotal: user.points,
+        message: alreadyCompleted ? 'Quiz completed previously (points already claimed)' : `Earned +${pointsEarned} points!`
+      });
     }
 
     res.json({ success: true, score, passed, correct, results, pointsEarned: 0 });

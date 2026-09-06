@@ -177,11 +177,13 @@ const GeoHunt = {
       // Update points display
       const user = Auth.currentUser;
       if (user) {
-        user.points = res.newTotal;
-        document.getElementById('user-points-display').textContent = res.newTotal;
+        user.points = res.newTotal || ((user.points || 0) + res.pointsEarned);
+        localStorage.setItem('bv_user', JSON.stringify(user));
+        const ptsDisplay = document.getElementById('user-points-display');
+        if (ptsDisplay) ptsDisplay.textContent = user.points;
       }
 
-      // Remove from list
+      // Mark as completed
       GeoHunt.missions = GeoHunt.missions.map(m =>
         m._id === missionId ? { ...m, completed: true } : m
       );
@@ -189,11 +191,11 @@ const GeoHunt = {
       App.showModal(`
         <div style="text-align:center;padding:1.5rem">
           <div style="font-size:4rem">🎉</div>
-          <h3 style="margin:1rem 0 0.5rem">${res.message}</h3>
+          <h3 style="margin:1rem 0 0.5rem">${res.message || 'Mission Complete!'}</h3>
           <p style="font-size:1.5rem;font-weight:800;color:var(--gold)">+${res.pointsEarned} Points!</p>
           ${res.badge?.name ? `<p style="color:var(--text-secondary);margin-top:0.5rem">🏅 Earned badge: "${res.badge.name}"</p>` : ''}
-          <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem">Level ${res.newLevel} • ${res.newTotal} total points</p>
-          <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal()">
+          <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem">Level ${res.newLevel || 1} • ${user?.points || res.newTotal} total points</p>
+          <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal();GeoHunt.switchTab(GeoHunt.activeTab)">
             <span>Awesome!</span><i class="fas fa-star"></i>
           </button>
         </div>`);
@@ -230,11 +232,11 @@ const GeoHunt = {
     };
 
     GeoHunt._quizState = { mission, currentQ: 0, answers: [], showQuestion };
-    GeoHunt._quizState.showQuestion = showQuestion;
     showQuestion();
   },
 
   selectAnswer(answerIdx, questionIdx, prevAnswers) {
+    if (!GeoHunt._quizState) return;
     const { mission } = GeoHunt._quizState;
     const answers = [...prevAnswers, answerIdx];
     const q = mission.quiz[questionIdx];
@@ -257,20 +259,64 @@ const GeoHunt = {
         // All answered - submit
         try {
           const res = await API.submitQuiz(mission._id, answers);
+          const passed = res.passed || (res.score >= 60);
           const emoji = res.score >= 80 ? '🏆' : res.score >= 60 ? '🎉' : '😅';
+
+          if (passed) {
+            mission.completed = true;
+            GeoHunt.missions = GeoHunt.missions.map(m => m._id === mission._id ? { ...m, completed: true } : m);
+
+            if (res.pointsEarned > 0 && Auth.currentUser) {
+              Auth.currentUser.points = res.newTotal || ((Auth.currentUser.points || 0) + res.pointsEarned);
+              localStorage.setItem('bv_user', JSON.stringify(Auth.currentUser));
+              const ptsDisplay = document.getElementById('user-points-display');
+              if (ptsDisplay) ptsDisplay.textContent = Auth.currentUser.points;
+            }
+          }
+
           App.showModal(`
             <div style="text-align:center;padding:1rem">
               <div style="font-size:3.5rem">${emoji}</div>
-              <h3 style="margin:0.75rem 0 0.25rem">${res.passed ? 'Quiz Passed!' : 'Try Again'}</h3>
+              <h3 style="margin:0.75rem 0 0.25rem">${passed ? 'Quiz Passed!' : 'Try Again'}</h3>
               <p style="font-size:2rem;font-weight:800;color:var(--gold)">${res.score}%</p>
-              <p style="color:var(--text-secondary)">${res.correct}/${mission.quiz.length} correct</p>
-              ${res.pointsEarned > 0 ? `<p style="color:var(--gold);font-weight:700;margin-top:0.5rem">+${res.pointsEarned} Points Earned!</p>` : ''}
-              <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal()">
+              <p style="color:var(--text-secondary)">${res.correct || 0}/${mission.quiz.length} correct</p>
+              ${res.pointsEarned > 0 
+                ? `<p style="color:var(--gold);font-weight:700;margin-top:0.5rem">+${res.pointsEarned} Points Earned!</p>`
+                : (passed && res.alreadyCompleted ? `<p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.5rem">Points previously claimed for this mission.</p>` : '')}
+              <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal();${GeoHunt.activeTab === 'missions' ? 'GeoHunt.switchTab(\'missions\')' : ''}">
                 <span>Continue</span>
               </button>
             </div>`);
         } catch {
-          App.showToast('Failed to submit quiz', 'error');
+          // Offline fallback
+          let correctCount = 0;
+          answers.forEach((ans, idx) => {
+            if (mission.quiz[idx] && ans === mission.quiz[idx].answer) correctCount++;
+          });
+          const score = Math.round((correctCount / mission.quiz.length) * 100);
+          const passed = score >= 60;
+
+          if (passed && !mission.completed) {
+            mission.completed = true;
+            GeoHunt.missions = GeoHunt.missions.map(m => m._id === mission._id ? { ...m, completed: true } : m);
+            if (Auth.currentUser) {
+              Auth.currentUser.points = (Auth.currentUser.points || 0) + (mission.rewardPoints || 50);
+              localStorage.setItem('bv_user', JSON.stringify(Auth.currentUser));
+              const ptsDisplay = document.getElementById('user-points-display');
+              if (ptsDisplay) ptsDisplay.textContent = Auth.currentUser.points;
+            }
+          }
+
+          App.showModal(`
+            <div style="text-align:center;padding:1rem">
+              <div style="font-size:3.5rem">${passed ? '🏆' : '😅'}</div>
+              <h3 style="margin:0.75rem 0 0.25rem">${passed ? 'Quiz Passed!' : 'Try Again'}</h3>
+              <p style="font-size:2rem;font-weight:800;color:var(--gold)">${score}%</p>
+              <p style="color:var(--text-secondary)">${correctCount}/${mission.quiz.length} correct</p>
+              <button class="btn-primary" style="margin-top:1.5rem" onclick="App.closeModal();${GeoHunt.activeTab === 'missions' ? 'GeoHunt.switchTab(\'missions\')' : ''}">
+                <span>Continue</span>
+              </button>
+            </div>`);
         }
       }
     }, 800);
@@ -278,43 +324,69 @@ const GeoHunt = {
 
   // ─── Render Map Tab ───────────────────────────────────────────────────────
   renderMap(container) {
-    container.innerHTML = '<div id="map-container" style="height:calc(100vh - 220px)"></div>';
+    if (GeoHunt.map) {
+      try { GeoHunt.map.remove(); } catch(e) {}
+      GeoHunt.map = null;
+      GeoHunt.userMarker = null;
+    }
+
+    container.innerHTML = '<div id="map-container" style="height:calc(100vh - 220px);border-radius:var(--radius-lg);overflow:hidden;margin:0.75rem 0.5rem;box-shadow:0 8px 30px rgba(0,0,0,0.3)"></div>';
 
     setTimeout(() => {
       const mapEl = document.getElementById('map-container');
-      if (!mapEl || GeoHunt.map) return;
+      if (!mapEl) return;
 
       const lat = GeoHunt.userLat || 20.5937;
       const lng = GeoHunt.userLng || 78.9629;
+      const zoom = (GeoHunt.userLat && GeoHunt.userLng) ? 9 : 5;
 
-      GeoHunt.map = L.map('map-container', { zoomControl: true }).setView([lat, lng], 5);
+      GeoHunt.map = L.map('map-container', { zoomControl: true }).setView([lat, lng], zoom);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 18
       }).addTo(GeoHunt.map);
 
       // User location marker
-      const userIcon = L.divIcon({
-        html: '<div style="width:16px;height:16px;background:#D4AF37;border-radius:50%;border:3px solid white;box-shadow:0 0 10px rgba(212,175,55,0.6)"></div>',
-        iconSize: [16, 16], className: ''
-      });
-      GeoHunt.userMarker = L.marker([lat, lng], { icon: userIcon }).addTo(GeoHunt.map)
-        .bindPopup('📍 You are here');
+      if (GeoHunt.userLat && GeoHunt.userLng) {
+        const userIcon = L.divIcon({
+          html: '<div style="width:18px;height:18px;background:#D4AF37;border-radius:50%;border:3px solid white;box-shadow:0 0 12px rgba(212,175,55,0.8)"></div>',
+          iconSize: [18, 18], className: ''
+        });
+        GeoHunt.userMarker = L.marker([lat, lng], { icon: userIcon }).addTo(GeoHunt.map)
+          .bindPopup('<b>📍 Your Current Location</b>');
+      }
 
       // Heritage site markers
-      GeoHunt.missions.forEach(m => {
-        if (!m.location) return;
-        const missionIcon = L.divIcon({
-          html: `<div style="background:var(--saffron);width:32px;height:32px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid white">
-            <span style="transform:rotate(45deg);font-size:14px">${m.completed ? '✅' : '🗺️'}</span>
-          </div>`,
-          iconSize: [32, 32], className: ''
+      if (GeoHunt.missions && GeoHunt.missions.length > 0) {
+        GeoHunt.missions.forEach(m => {
+          if (!m.location || !m.location.lat || !m.location.lng) return;
+          const isDone = m.completed;
+          const missionIcon = L.divIcon({
+            html: `<div style="background:${isDone ? '#4caf50' : 'var(--saffron)'};width:32px;height:32px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 3px 10px rgba(0,0,0,0.4)">
+              <span style="transform:rotate(45deg);font-size:14px">${isDone ? '✅' : '🗺️'}</span>
+            </div>`,
+            iconSize: [32, 32], className: ''
+          });
+          const marker = L.marker([m.location.lat, m.location.lng], { icon: missionIcon }).addTo(GeoHunt.map);
+          marker.bindPopup(`
+            <div style="font-family:var(--font-sans);min-width:140px">
+              <b style="color:#111;font-size:0.92rem">${m.title}</b>
+              <div style="color:#b8860b;font-weight:700;font-size:0.8rem;margin:4px 0">${m.rewardPoints} XP • ${m.difficulty || 'easy'}</div>
+              <button style="width:100%;margin-top:6px;padding:6px 10px;background:#ff6b35;color:white;border:none;border-radius:6px;font-size:0.8rem;cursor:pointer;font-weight:600"
+                onclick="GeoHunt.openMission('${m._id}')">
+                ${isDone ? 'View Mission ✅' : 'Open Mission 🚀'}
+              </button>
+            </div>
+          `);
         });
-        L.marker([m.location.lat, m.location.lng], { icon: missionIcon })
-          .addTo(GeoHunt.map)
-          .bindPopup(`<b>${m.title}</b><br>${m.rewardPoints} pts`);
-      });
-    }, 200);
+      }
+
+      // Force Leaflet to recalculate container dimensions immediately and after 200ms
+      setTimeout(() => {
+        if (GeoHunt.map) GeoHunt.map.invalidateSize();
+      }, 200);
+    }, 100);
   },
 
   // ─── Render Leaderboard ───────────────────────────────────────────────────

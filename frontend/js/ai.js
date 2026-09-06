@@ -166,7 +166,12 @@ const AIGuide = {
       .replace(/\b(ling|longg|lon)\b/g, 'long')
       .replace(/\b(beedn|beend|ben|benn)\b/g, 'been')
       .replace(/\b(bild|biuld|build|biult|buil|bult|buld|bld)\b/g, 'built')
-      .replace(/\b(artecthiure|artecthuire|architecher|architectur|arcitecture|arkitecture|artecture|architechture|artitecture|architect)\b/g, 'architecture')
+      .replace(/\b(artecthiure|artecthuire|architecher|architectur|arcitecture|arkitecture|artecture|architechture|artitecture|architect|artethuireand|artecthure|architecter)\b/g, 'architecture')
+      .replace(/\b(scluptures|sclupture|sclptur|sclptures|sculptre|sculpter|sculpure|scuptures|sclupt|sculp)\b/g, 'sculpture')
+      .replace(/\b(inscrption|inscriptin|inscripton|inscript|inscripshuns|inscriptione)\b/g, 'inscription')
+      .replace(/\b(poerp|peore|porper|propr|proper)\b/g, 'proper')
+      .replace(/\b(theiufnormation|theinformation|infomation|infrmation|informtion|infor)\b/g, 'information')
+      .replace(/\b(detial|detaile|detales|dital|ditail)\b/g, 'detail')
       .replace(/\b(wen|whens|whn|whne)\b/g, 'when')
       .replace(/\b(hoo|whos|whoo|whoes)\b/g, 'who')
       .replace(/\b(wat|wats|whut|wot)\b/g, 'what')
@@ -176,8 +181,6 @@ const AIGuide = {
       .replace(/\b(it history|its histroy|about it history|about its history)\b/g, 'history')
       .replace(/\b(tempel|tempal|templee|tmple)\b/g, 'temple')
       .replace(/\b(monumnet|monumet|monumentt)\b/g, 'monument')
-      .replace(/\b(inscrption|inscriptin|inscripton|inscriptions|inscript)\b/g, 'inscription')
-      .replace(/\b(sculpter|sculptre|sculpure|sculptures|sculptur)\b/g, 'sculpture')
       .replace(/\b(festval|festivel|festivl|festivals)\b/g, 'festival')
       .replace(/\b(dynesty|dynasti|dynastie|dynasties)\b/g, 'dynasty')
       .replace(/\b(ruler|rular|ruelr|rulers)\b/g, 'ruler')
@@ -203,7 +206,7 @@ const AIGuide = {
         why: `🎯 **Why Khajuraho was built**:\n\nThe Chandela kings built these temples as monumental spiritual offerings celebrating the cosmic harmony of life. Unlike conventional secluded shrines, Khajuraho integrated worldly celebration, royal rituals, classical arts, music, and spiritual liberation into a unified architectural universe.`,
         ageText: `⏳ **Age of Khajuraho Temples**:\n\nConstruction began in **950 CE** (completed ~1050 CE). From 950 CE to the present year (2026), the temples are approximately **1,076 years old** — spanning over **10 centuries** of standing history!`,
         architecture: `🏛️ **Architecture & Layout of Khajuraho**:\n\nBuilt in the classical **Nagara (North Indian)** architectural style on an elevated stone terrace (*Jagati*). Each temple follows a harmonious linear progression: the *Ardhamandapa* (entrance porch), *Mandapa* (pillared hall), *Mahamandapa* (great hall with ambulatory pathway), and the *Garbhagriha* (inner sanctum) under the soaring *Shikhara*.\n\nThe shikhara features a rhythmic cluster of miniature spires (*Urushringas*) that ascend organically like the peaks of the Himalayas, symbolizing the cosmic mountain **Mount Meru**.`,
-        sculptures: `🎨 **Sculptures & Art of Khajuraho**:\n\nContrary to popular misconceptions, only about **10% of Khajuraho's carvings depict erotic themes (*Mithuna*)**. The remaining 90% vividly depict everyday medieval life — celestial dancers (*Apsaras* applying kajal or plucking thorns), royal musicians, marching armies, celestial deities, and animals.\n\nEvery carving reflects extraordinary anatomical grace and fluid movement chiseled from golden-buff sandstone.`,
+        sculptures: `🎨 **Sculptures & Art of Khajuraho**:\n\nContrary to popular misconceptions, only about **10% of Khajuraho's carvings depict erotic themes (*Mithuna*)**. The remaining 90% vividly depict everyday medieval life — celestial dancers (*Apsaras* applying kajal, writing letters, or plucking thorns from their feet), royal musicians, marching armies, celestial deities, and animals.\n\nEvery carving reflects extraordinary anatomical grace and fluid movement chiseled with surgical precision from golden-buff sandstone.`,
         inscriptions: `📜 **Inscriptions at Khajuraho**:\n\nWritten in classical **Sanskrit** using the medieval northern **Kutila (early Nagari)** script. The stone plinth inscriptions on the **Lakshmana Temple** (dated 954 CE) and **Visvanatha Temple** (dated 1002 CE) record Chandela royal genealogy, military triumphs, and dedicate the temples to Vishnu and Shiva.`,
         materials: `🧱 **Materials & Construction**:\n\nCrafted from fine-grained golden **sandstone** quarried from the riverbeds of Panna, set upon massive granite foundations without mortar using mortise-and-tenon interlocking joints.`,
         travel: `✈️ **Travel Guide for Khajuraho**:\n\n• **Location:** Chhatarpur district, Madhya Pradesh.\n• **How to Reach:** Khajuraho Airport (HJR) connects directly to Delhi and Varanasi; Khajuraho Railway Station connects across India.\n• **Best Time:** October to March (mild, pleasant weather). Don't miss the famous **Khajuraho Dance Festival** held every February!\n• **Timings:** Open daily from sunrise to sunset. Guided evening Sound & Light Shows are held in English and Hindi.`
@@ -222,7 +225,7 @@ const AIGuide = {
         why: `🎯 **Why the Red Fort was built**:\n\nShah Jahan needed a larger, grander, and more strategically fortified administrative capital. Agra had become overcrowded and difficult to expand, while Delhi offered direct access to northern trade routes and the sacred Yamuna river for water supply and natural defense.`,
         ageText: `⏳ **Age of the Red Fort**:\n\nConstruction began in **1638 CE** and was completed in **1648 CE**. As of 2026, the Red Fort is approximately **388 years old** (nearly 4 centuries).`,
         architecture: `🏛️ **Architecture & Layout of the Red Fort**:\n\nAn octagonal citadel enclosed by 2 kilometers of red sandstone battlements. Key royal complexes include the *Chhatta Chowk* (vaulted bazaar), *Diwan-i-Aam* (Hall of Public Audience with marble throne canopy), *Diwan-i-Khas* (Hall of Private Audience), *Rang Mahal*, and the stream of paradise canal (*Nahr-i-Bihisht*).`,
-        sculptures: `🎨 **Art & Palatial Inlay of Red Fort**:\n\nThe white marble chambers feature exquisite *pietra dura* floral scrollwork, gilded ceilings, and marble screens (*Jalis*) carved with geometric precision.`,
+        sculptures: `🎨 **Sculptures, Palatial Inlay & Artwork of Red Fort**:\n\nWhile Islamic Mughal traditions avoid figurative deity idols, the Red Fort features some of the finest decorative art in world architecture:\n\n• **Pietra Dura (*Parchin Kari*) Inlay:** The royal chambers in the *Diwan-i-Khas* and *Khas Mahal* are lined with pure white Makrana marble inlaid with thousands of semi-precious stones (onyx, jasper, carnelian, lapis lazuli) forming intricate floral scrollwork.\n• **The Orpheus Panel:** Behind the Emperor's marble Baldachin throne in the *Diwan-i-Aam* sits a celebrated Florentine pietra dura panel depicting the Greek mythological musician **Orpheus calming beasts with his lute**.\n• **Carved Marble Screens (*Jalis*):** The *Khas Mahal* and *Hammam* feature geometrically perforated screens carved with razor-sharp symmetry that diffuse harsh sunlight into soft ambient illumination.\n• **Lotus Fountains & Canals:** The *Nahr-i-Bihisht* (Stream of Paradise) channels water through scalloped marble lotus fountains (*Katora*) carved in low relief, cooling the royal chambers naturally.\n• **Ceiling Splendour:** The *Rang Mahal* (Palace of Colors) was famed for its gilded woodwork, mirror mosaic (*Aina-Kari*), and painted floral ceilings.`,
         inscriptions: `📜 **Inscriptions at Red Fort**:\n\nThe famous Persian couplet in gold calligraphy by Amir Khusrau overlooks the Diwan-i-Khas archway: *"Agar firdaus bar roo-e zameen ast, hameen ast-o hameen ast-o hameen ast"* — **If there is a paradise on earth, it is this, it is this, it is this.**`,
         materials: `🧱 **Materials of the Red Fort**:\n\nMassive exterior ramparts constructed from Rajasthan **red sandstone**, with internal royal chambers paved in pure white **Makrana marble** inlaid with semi-precious stones.`,
         travel: `✈️ **Travel Details for Red Fort**:\n\n• **Location:** Netaji Subhash Marg, Chandni Chowk, Old Delhi.\n• **Nearest Metro:** Lal Qila Metro Station (Violet Line) or Chandni Chowk (Yellow Line).\n• **Timings:** 9:30 AM – 4:30 PM (Closed on Mondays).\n• **Explorer Tip:** Combine your visit with Chandni Chowk street food and the historic Jama Masjid next door.`
@@ -353,19 +356,40 @@ const AIGuide = {
     const covered = AIGuide.sessionTopics[target.key];
 
     // ── 2. Detect Intents in Query ──
+    const wantsAll = q.includes('full') || q.includes('all') || q.includes('everything') || q.includes('complete') || (q.includes('proper') && q.includes('information')) || q.includes('deep dive') || q.includes('all the information');
     const wantsAge = q.includes('how old') || q.includes('how long') || q.includes('age') || q.includes('years old') || q.includes('how ancient') || q.includes('since when') || q.includes('since today') || q.includes('how many year') || (q.includes('long') && q.includes('been'));
     const wantsHistory = q.includes('history') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || q.includes('chronicle');
     const wantsBuilder = q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || (q.includes('who') && q.includes('built')) || (q.includes('when') && q.includes('built'));
     const wantsWhy = q.includes('why was') || q.includes('why built') || q.includes('purpose') || q.includes('reason') || q.includes('why did') || q.includes('significance') || q.includes('kyun');
     const wantsArchitecture = q.includes('architecture') || q.includes('design') || q.includes('engineering') || q.includes('structure') || q.includes('layout') || q.includes('shikhara') || q.includes('vimana');
-    const wantsSculptures = q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mithuna') || q.includes('mural') || q.includes('painting') || (q.includes('art') && !q.includes('architecture'));
+    const wantsSculptures = q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mithuna') || q.includes('mural') || q.includes('painting') || (q.includes('art') && !q.includes('architecture')) || (q.includes('detail') && covered.has('sculptures'));
     const wantsInscriptions = q.includes('inscription') || q.includes('script') || q.includes('epigraph') || q.includes('writing') || q.includes('written') || q.includes('engrav');
     const wantsMaterials = q.includes('material') || q.includes('stone') || q.includes('marble') || q.includes('granite') || q.includes('sandstone') || q.includes('made of');
     const wantsTravel = q.includes('travel') || q.includes('visit') || q.includes('ticket') || q.includes('timing') || q.includes('how to reach') || q.includes('how to go') || q.includes('where is');
 
     const isAffirmation = /^(yes|yeah|yep|sure|ok|okay|yes please|please|tell me|continue|go ahead|more|tell more|next)$/i.test(q) || q === 'yes please' || q === 'yes' || q === 'sure' || q === 'tell me more';
 
-    // ── 3. Multi-Topic Composition ──
+    // ── 3. Comprehensive Master Dossier if user asks for "full / all / everything / deep dive" ──
+    if (wantsAll && !isAffirmation) {
+      const fullDossier = [
+        target.overview,
+        target.history,
+        target.architecture,
+        target.sculptures,
+        target.inscriptions,
+        target.travel
+      ].filter(Boolean);
+
+      covered.add('history');
+      covered.add('architecture');
+      covered.add('sculptures');
+      covered.add('inscriptions');
+      covered.add('travel');
+
+      return `🏰 **Complete Master Heritage Guide: ${target.name}**\n\n` + fullDossier.join('\n\n') + `\n\nIs there any specific legend, hidden room, or architectural mystery about **${target.name}** you'd like to explore further, ${userName}?`;
+    }
+
+    // ── 4. Multi-Topic Composition ──
     const sections = [];
 
     if (wantsAge && target.ageText) {
@@ -429,20 +453,20 @@ const AIGuide = {
       return reply;
     }
 
-    // ── 4. Affirmative Follow-up Continuation ("yes please", "sure", "tell me") ──
+    // ── 5. Affirmative Follow-up Continuation ("yes please", "sure", "tell me") ──
     if (isAffirmation) {
       // Find the next best topic to share
       if (!covered.has('architecture') && target.architecture) {
         covered.add('architecture');
         return `${target.architecture}\n\nShall I share visiting tips and travel details for ${target.name}?`;
       }
-      if (!covered.has('history') && target.history) {
-        covered.add('history');
-        return `${target.history}\n\nWould you like to explore its architecture or sculptures next?`;
-      }
       if (!covered.has('sculptures') && target.sculptures) {
         covered.add('sculptures');
         return `${target.sculptures}\n\nWould you like to know about its inscriptions or travel guide?`;
+      }
+      if (!covered.has('history') && target.history) {
+        covered.add('history');
+        return `${target.history}\n\nWould you like to explore its architecture or sculptures next?`;
       }
       if (!covered.has('inscriptions') && target.inscriptions) {
         covered.add('inscriptions');
@@ -450,11 +474,11 @@ const AIGuide = {
       }
       if (!covered.has('travel') && target.travel) {
         covered.add('travel');
-        return `${target.travel}\n\nWhat other heritage site would you like to explore, ${userName}?`;
+        return `${target.travel}\n\nWhat other heritage site would you like to explore next, ${userName}?`;
       }
     }
 
-    // ── 5. Direct Entity Mention Overview ──
+    // ── 6. Direct Entity Mention Overview ──
     if (activeEntity && target.overview) {
       covered.add('overview');
       return `${target.overview}\n\nWould you like to explore its **history**, **architecture**, **sculptures**, or **travel guide**?`;

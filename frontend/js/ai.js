@@ -415,30 +415,7 @@ const AIGuide = {
       return `⏳ India's cultural heritage spans over **5,000 years** of continuous civilization — from the ancient **Indus Valley cities of Harappa and Mohenjo-daro** (3300 BCE) to medieval temple marvels and royal palaces.\n\nWhich specific monument would you like to know the age of? I can share exact dates, builders, and historical context!`;
     }
 
-    // ── 2. Who Built It / When Was It Built / History / Dynasties / Founders ──
-    if (q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || q.includes('when was') || q.includes('when is it') || q.includes('history of') || q.includes('founder') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || (q.includes('built') && (q.includes('it') || q.includes('this') || q.includes('when') || q.includes('who')))) {
-      if (activeEntity) {
-        if (activeEntity.key === 'red_fort') {
-          return `👑 The **Red Fort (Lal Qila)** was commissioned between **1638 and 1648 CE** by Mughal Emperor **Shah Jahan** when he relocated the imperial capital from Agra to the newly planned city of **Shahjahanabad** (Old Delhi).\n\nChief court architects **Ustad Ahmad** and **Ustad Hamid** oversaw the 10-year construction using Rajasthan red sandstone. Within its fortified walls, the Emperor held court in the marble *Diwan-i-Khas*, seated upon the fabled **Peacock Throne**.\n\nWould you like to know about its architecture, famous Persian inscriptions, or how to visit?`;
-        }
-        if (activeEntity.key === 'taj') {
-          return `👑 The **Taj Mahal** was commissioned in **1631 CE** by Mughal Emperor **Shah Jahan** as a mausoleum of eternal devotion for his beloved empress **Mumtaz Mahal**.\n\nIt took approximately **22 years** (completed in 1653 CE) and more than **20,000 master artisans** under chief architect **Ustad Ahmad Lahori** to create this white Makrana marble masterpiece.\n\nShall I tell you about its optical calligraphy inscriptions, architecture, or visiting tips?`;
-        }
-        if (activeEntity.key === 'khajuraho') {
-          return `👑 The **Khajuraho Temples** were built by the **Chandela Rajput Dynasty** between **950 and 1050 CE** at their sacred religious capital in Bundelkhand.\n\nKey royal patrons included **King Yashovarman** (who built Lakshmana Temple), **King Dhanga** (Visvanatha Temple), and **King Vidyadhara** (the monumental Kandariya Mahadeva Temple). Of the original 85 temples, **25 survive today**.\n\nWould you like to explore their sculptures or architecture?`;
-        }
-        if (activeEntity.key === 'qutub') {
-          return `👑 The **Qutub Minar** was founded in **1193 CE** by **Qutb-ud-din Aibak**, founder of the Delhi Sultanate, and expanded by his successor **Shams-ud-din Iltutmish** who completed the top storeys.\n\nLater repairs and additions were made by Sultan Firoz Shah Tughlaq and Sikandar Lodi. The complex also houses the **1,600-year-old Iron Pillar** erected during the reign of Chandragupta II Vikramaditya.\n\nWould you like to know about its inscriptions or architectural design?`;
-        }
-        if (activeEntity.key === 'brihadeeswara') {
-          return `👑 The **Brihadeeswara Temple** was built in **1010 CE** by the great Emperor **Raja Raja Chola I** to mark 25 victorious years of imperial Chola rule across South India and the seas.\n\nEngineers hauled an **80-tonne granite dome** to the top of the 66-meter tower using an inclined earth ramp stretching nearly 6 kilometers, constructing the entire temple without mortar.\n\nShall I tell you about its Tamil inscriptions or Chola bronze art?`;
-        }
-        return `👑 **${activeEntity.name}** was built around **${activeEntity.built}** by **${activeEntity.builders}** in **${activeEntity.city}**.\n\nIt has stood for approximately **${activeEntity.age} years** as an enduring testament to India's extraordinary architectural and cultural genius.\n\nWould you like to know more about its architecture, inscriptions, or history?`;
-      }
-      return `👑 India's historic monuments were built by legendary dynasties — from the **Mauryas** (Emperor Ashoka) and **Guptas**, to the **Cholas**, **Chandelas**, **Rashtrakutas**, **Vijayanagara Emperors**, and the **Mughals**.\n\nWhich specific monument or ruler would you like to explore?`;
-    }
-
-    // ── 3. Why Was It Built / Purpose / Significance ──
+    // ── 2. Why Was It Built / Purpose / Significance ──
     if (q.includes('why was') || q.includes('why built') || q.includes('purpose') || q.includes('reason') || q.includes('why did') || q.includes('significance') || q.includes('kyun')) {
       if (activeEntity) {
         if (activeEntity.key === 'red_fort') {
@@ -461,6 +438,29 @@ const AIGuide = {
         }
         return `🎯 **Why ${activeEntity.name} was built**: ${activeEntity.name} was conceived around **${activeEntity.built}** by **${activeEntity.builders}** as a grand spiritual, royal, and architectural statement, embodying the cultural ideals and engineering triumphs of its era in ${activeEntity.city}.`;
       }
+    }
+
+    // ── 3. Who Built It / When Was It Built / History / Dynasties / Founders ──
+    if (q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || q.includes('when was') || q.includes('when is it') || q.includes('history of') || q.includes('founder') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || (q.includes('built') && (q.includes('it') || q.includes('this') || q.includes('when') || q.includes('who')))) {
+      if (activeEntity) {
+        if (activeEntity.key === 'red_fort') {
+          return `👑 The **Red Fort (Lal Qila)** was commissioned between **1638 and 1648 CE** by Mughal Emperor **Shah Jahan** when he relocated the imperial capital from Agra to the newly planned city of **Shahjahanabad** (Old Delhi).\n\nChief court architects **Ustad Ahmad** and **Ustad Hamid** oversaw the 10-year construction using Rajasthan red sandstone. Within its fortified walls, the Emperor held court in the marble *Diwan-i-Khas*, seated upon the fabled **Peacock Throne**.\n\nWould you like to know about its architecture, famous Persian inscriptions, or how to visit?`;
+        }
+        if (activeEntity.key === 'taj') {
+          return `👑 The **Taj Mahal** was commissioned in **1631 CE** by Mughal Emperor **Shah Jahan** as a mausoleum of eternal devotion for his beloved empress **Mumtaz Mahal**.\n\nIt took approximately **22 years** (completed in 1653 CE) and more than **20,000 master artisans** under chief architect **Ustad Ahmad Lahori** to create this white Makrana marble masterpiece.\n\nShall I tell you about its optical calligraphy inscriptions, architecture, or visiting tips?`;
+        }
+        if (activeEntity.key === 'khajuraho') {
+          return `👑 The **Khajuraho Temples** were built by the **Chandela Rajput Dynasty** between **950 and 1050 CE** at their sacred religious capital in Bundelkhand.\n\nKey royal patrons included **King Yashovarman** (who built Lakshmana Temple), **King Dhanga** (Visvanatha Temple), and **King Vidyadhara** (the monumental Kandariya Mahadeva Temple). Of the original 85 temples, **25 survive today**.\n\nWould you like to explore their sculptures or architecture?`;
+        }
+        if (activeEntity.key === 'qutub') {
+          return `👑 The **Qutub Minar** was founded in **1193 CE** by **Qutb-ud-din Aibak**, founder of the Delhi Sultanate, and expanded by his successor **Shams-ud-din Iltutmish** who completed the top storeys.\n\nLater repairs and additions were made by Sultan Firoz Shah Tughlaq and Sikandar Lodi. The complex also houses the **1,600-year-old Iron Pillar** erected during the reign of Chandragupta II Vikramaditya.\n\nWould you like to know about its inscriptions or architectural design?`;
+        }
+        if (activeEntity.key === 'brihadeeswara') {
+          return `👑 The **Brihadeeswara Temple** was built in **1010 CE** by the great Emperor **Raja Raja Chola I** to mark 25 victorious years of imperial Chola rule across South India and the seas.\n\nEngineers hauled an **80-tonne granite dome** to the top of the 66-meter tower using an inclined earth ramp stretching nearly 6 kilometers, constructing the entire temple without mortar.\n\nShall I tell you about its Tamil inscriptions or Chola bronze art?`;
+        }
+        return `👑 **${activeEntity.name}** was built around **${activeEntity.built}** by **${activeEntity.builders}** in **${activeEntity.city}**.\n\nIt has stood for approximately **${activeEntity.age} years** as an enduring testament to India's extraordinary architectural and cultural genius.\n\nWould you like to know more about its architecture, inscriptions, or history?`;
+      }
+      return `👑 India's historic monuments were built by legendary dynasties — from the **Mauryas** (Emperor Ashoka) and **Guptas**, to the **Cholas**, **Chandelas**, **Rashtrakutas**, **Vijayanagara Emperors**, and the **Mughals**.\n\nWhich specific monument or ruler would you like to explore?`;
     }
 
     // ── 4. Materials / Stones / Construction ──

@@ -4,11 +4,16 @@ const AIGuide = {
 
   // ─── Render AI Page ───────────────────────────────────────────────────────
   render() {
+    const user = (typeof Auth !== 'undefined' && Auth.currentUser) ? Auth.currentUser : null;
+    const firstName = user?.name?.split(' ')[0] || 'Explorer';
+    const hour = new Date().getHours();
+    const timeGreeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
+
     document.getElementById('app-content').innerHTML = `
       <div class="ai-header">
         <div class="ai-avatar">🪷</div>
         <h2>Virasat AI</h2>
-        <p>Your personal Indian Heritage Guide</p>
+        <p>Your Personal Indian Heritage Guide</p>
       </div>
 
       <div class="ai-features">
@@ -31,13 +36,19 @@ const AIGuide = {
           <div class="chat-msg">
             <div class="msg-avatar ai-msg-avatar">🪷</div>
             <div class="msg-bubble ai-bubble">
-              <b>Namaste! I'm Virasat AI 🙏</b><br><br>
-              I'm your personal guide to India's incredible heritage. Ask me about:<br>
-              • Any monument or heritage site<br>
-              • Indian festivals and traditions<br>
-              • History, dynasties, and rulers<br>
-              • Folk art, dance, or music<br><br>
-              What would you like to discover today?
+              <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px;font-weight:500;letter-spacing:0.3px">
+                <i class="fas fa-shield-alt" style="margin-right:3px;font-size:0.7rem"></i> PERSONAL SESSION • ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </div>
+              <b>${timeGreeting}, ${firstName}! 🙏</b><br><br>
+              Welcome to your personal heritage session. I'm <b>Virasat AI</b> — your expert guide to India's incredible 5,000-year-old civilization.<br><br>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;align-items:flex-start;gap:7px"><span style="color:var(--gold)">🏛️</span><span>Ask about any <b>monument</b> or heritage site</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px"><span style="color:var(--gold)">👑</span><span>Explore <b>dynasties</b>, rulers & history</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px"><span style="color:var(--gold)">🎭</span><span>Discover <b>festivals</b>, dance & art forms</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px"><span style="color:var(--gold)">📜</span><span>Deep-dive into <b>inscriptions</b>, architecture & travel</span></div>
+              </div>
+              <br>
+              <span style="color:var(--text-muted);font-size:0.82rem">What would you like to discover today, ${firstName}?</span>
             </div>
           </div>
 
@@ -45,7 +56,7 @@ const AIGuide = {
         </div>
 
         <div class="chat-input-bar">
-          <textarea class="chat-input" id="chat-input" placeholder="Ask me about any heritage site..."
+          <textarea class="chat-input" id="chat-input" placeholder="Ask me about any heritage site, ${firstName}..."
             rows="1" onkeydown="AIGuide.handleKey(event)"
             oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
           <button class="chat-send-btn" onclick="AIGuide.sendMessage()">
@@ -82,13 +93,22 @@ const AIGuide = {
   // ─── Render Message ───────────────────────────────────────────────────────
   renderMessage(msg) {
     const isUser = msg.role === 'user';
+    const user = (typeof Auth !== 'undefined' && Auth.currentUser) ? Auth.currentUser : null;
+    const senderName = isUser ? (user?.name?.split(' ')[0] || 'You') : 'Virasat AI';
+    const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
     return `
       <div class="chat-msg ${isUser ? 'user' : ''}">
         <div class="msg-avatar ${isUser ? 'user-msg-avatar' : 'ai-msg-avatar'}">
           ${isUser ? Auth.getInitials(Auth.currentUser?.name) : '🪷'}
         </div>
-        <div class="msg-bubble ${isUser ? 'user-bubble' : 'ai-bubble'}">
-          ${AIGuide.formatMarkdown(msg.text)}
+        <div class="msg-content-wrap">
+          <div class="msg-sender-row" style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
+            <span style="font-size:0.75rem;font-weight:700;color:${isUser ? 'var(--text-secondary)' : 'var(--gold)'}">${senderName}</span>
+            <span style="font-size:0.65rem;color:var(--text-muted)">${time}</span>
+          </div>
+          <div class="msg-bubble ${isUser ? 'user-bubble' : 'ai-bubble'}">
+            ${AIGuide.formatMarkdown(msg.text)}
+          </div>
         </div>
       </div>`;
   },
@@ -127,263 +147,515 @@ const AIGuide = {
       }
     } catch (err) {
       AIGuide.hideTyping();
-      const fallbackReply = AIGuide.getInstantAnswer(message);
+      const fallbackReply = AIGuide.getInstantAnswer(message, AIGuide.chatHistory);
       AIGuide.chatHistory.push({ role: 'model', text: fallbackReply });
       AIGuide.appendMessage({ role: 'model', text: fallbackReply });
     }
   },
 
   // ─── Comprehensive Multi-Domain Heritage Knowledge Engine ─────────────────
-  // ─── Comprehensive Multi-Domain Heritage Knowledge Engine ─────────────────
+  lastEntity: null,
+
   getInstantAnswer(message, history = []) {
     let q = message.toLowerCase().trim();
-    // Normalize typos and question prefixes
-    q = q.replace(/^tel\b/, 'tell').replace(/^wat\b/, 'what').replace(/^abt\b/, 'about').replace(/^whos\b/, 'who is').replace(/^whens\b/, 'when is');
 
-    // Extract recent entity context if present from history
-    let activeEntity = null;
-    const allRecentText = [
-      ...((history && history.length) ? history.map(h => (h.text || h.message || '')) : []),
-      ...((AIGuide.chatHistory && AIGuide.chatHistory.length) ? AIGuide.chatHistory.map(h => h.text || '') : [])
-    ].join(' ').toLowerCase();
+    // ── Extensive Typo Normalization ──
+    q = q
+      .replace(/\b(bild|biuld|build|biult|buil|bult|buld|bld)\b/g, 'built')
+      .replace(/\b(artecthuire|architecher|architectur|arcitecture|arkitecture|artecture|architechture|artitecture)\b/g, 'architecture')
+      .replace(/\b(wen|whens|whn|whne)\b/g, 'when')
+      .replace(/\b(hoo|whos|whoo|whoes)\b/g, 'who')
+      .replace(/\b(wat|wats|whut|wot)\b/g, 'what')
+      .replace(/^tel\b|^tell me\b|^tle\b/g, 'tell')
+      .replace(/^abt\b|^abou\b/g, 'about')
+      .replace(/\b(histry|histroy|histery|histoy)\b/g, 'history')
+      .replace(/\b(tempel|tempal|templee|tmple)\b/g, 'temple')
+      .replace(/\b(monumnet|monumet|monumentt)\b/g, 'monument')
+      .replace(/\b(inscrption|inscriptin|inscripton|inscriptions|inscript)\b/g, 'inscription')
+      .replace(/\b(sculpter|sculptre|sculpure|sculptures|sculptur)\b/g, 'sculpture')
+      .replace(/\b(festval|festivel|festivl|festivals)\b/g, 'festival')
+      .replace(/\b(dynesty|dynasti|dynastie|dynasties)\b/g, 'dynasty')
+      .replace(/\b(ruler|rular|ruelr|rulers)\b/g, 'ruler')
+      .replace(/\b(emperor|emperer|emperur|emperors)\b/g, 'emperor');
 
-    const entityKeywords = [
-      { key: 'khajuraho', match: ['khajuraho', 'chandela', 'kandariya', 'chhatarpur'] },
-      { key: 'taj', match: ['taj mahal', 'taj', 'mumtaz', 'shah jahan', 'agra'] },
-      { key: 'red_fort', match: ['red fort', 'lal qila'] },
-      { key: 'qutub', match: ['qutub', 'qutb', 'iron pillar'] },
-      { key: 'hampi', match: ['hampi', 'vijayanagara', 'vittala', 'stone chariot'] },
-      { key: 'ajanta', match: ['ajanta', 'cave 1', 'frescoes', 'padmapani'] },
-      { key: 'ellora', match: ['ellora', 'kailasa', 'rashtrakuta'] },
-      { key: 'konark', match: ['konark', 'sun temple', 'narasimhadeva'] },
-      { key: 'brihadeeswara', match: ['brihadeeswara', 'thanjavur', 'chola', 'raja raja'] },
-      { key: 'meenakshi', match: ['meenakshi', 'madurai', 'sundareswarar'] },
-      { key: 'sanchi', match: ['sanchi', 'stupa', 'ashoka'] },
-      { key: 'rani_ki_vav', match: ['rani ki vav', 'stepwell', 'patan'] },
-      { key: 'nalanda', match: ['nalanda', 'ancient university'] },
-      { key: 'mahabalipuram', match: ['mahabalipuram', 'mamallapuram', 'pallava', 'shore temple'] },
-      { key: 'fatehpur', match: ['fatehpur', 'buland darwaza', 'akbar'] },
-      { key: 'golden_temple', match: ['golden temple', 'harmandir', 'amritsar'] },
-      { key: 'varanasi', match: ['varanasi', 'kashi', 'banaras', 'ghat'] }
+    // Get user's first name for personalization
+    const userName = (typeof Auth !== 'undefined' && Auth.currentUser?.name) ? Auth.currentUser.name.split(' ')[0] : 'Explorer';
+
+    // ── Heritage Entity Knowledge Base ──
+    const entities = [
+      {
+        key: 'red_fort',
+        name: 'Red Fort (Lal Qila)',
+        match: ['red fort', 'lal qila', 'redfort', 'lal kila', 'delhi fort'],
+        built: '1638–1648 CE',
+        age: 378,
+        builders: 'Mughal Emperor Shah Jahan (with architects Ustad Ahmad and Ustad Hamid)',
+        city: 'Old Delhi (Shahjahanabad)',
+        details: 'Built from red sandstone, featuring the Lahori Gate, Diwan-i-Aam, and the marble Diwan-i-Khas which once held the fabled Peacock Throne.',
+        inscriptions: 'The famous golden Persian couplet by Amir Khusrau on the Diwan-i-Khas marble archway: "If there is paradise on earth, it is this, it is this, it is this."',
+        architecture: 'Indo-Islamic octagonal fortress with 2-kilometer red sandstone battlements, water-cooled marble palaces, and Charbagh gardens along the Yamuna.'
+      },
+      {
+        key: 'taj',
+        name: 'Taj Mahal',
+        match: ['taj mahal', 'taj', 'mumtaz', 'shah jahan', 'agra'],
+        built: '1631–1653 CE',
+        age: 373,
+        builders: 'Mughal Emperor Shah Jahan (with master architect Ustad Ahmad Lahori)',
+        city: 'Agra, Uttar Pradesh',
+        details: 'Commissioned as a mausoleum of eternal love for Empress Mumtaz Mahal, crafted by over 20,000 artisans from white Makrana marble and 28 varieties of semi-precious gems.',
+        inscriptions: '22 Quranic Surahs inscribed in Thuluth calligraphy by Amanat Khan in black jasper, optically scaled so the script looks uniform from the ground.',
+        architecture: 'Masterpiece of bilateral symmetry with a 73m double dome, 4 outward-tilting minarets, and moisture-retaining ebony wood well foundations.'
+      },
+      {
+        key: 'khajuraho',
+        name: 'Khajuraho Temples',
+        match: ['khajuraho', 'chandela', 'kandariya', 'chhatarpur', 'lakshmana temple', 'visvanatha'],
+        built: '950–1050 CE',
+        age: 1000,
+        builders: 'Chandela Rajput Dynasty (Kings Yashovarman, Dhanga, and Vidyadhara)',
+        city: 'Chhatarpur, Madhya Pradesh',
+        details: 'Sublime Nagara-style sandstone temples celebrating the four Purusharthas (Dharma, Artha, Kama, Moksha), with the towering Kandariya Mahadeva as the crown jewel.',
+        inscriptions: 'Sanskrit inscriptions in northern Kutila (early Nagari) script on Lakshmana (954 CE) and Visvanatha (1002 CE) temple plinths detailing Chandela genealogy.',
+        architecture: 'Panchayatana layout elevated on a high Jagati terrace with rhythmic clusters of mini-spires (Urushringas) symbolizing Mount Meru.'
+      },
+      {
+        key: 'qutub',
+        name: 'Qutub Minar Complex',
+        match: ['qutub', 'qutb', 'iron pillar', 'mehrauli'],
+        built: '1193 CE',
+        age: 833,
+        builders: 'Qutb-ud-din Aibak & Shams-ud-din Iltutmish',
+        city: 'Mehrauli, New Delhi',
+        details: 'The world\'s tallest brick minaret at 72.5 meters with five tapered fluted storeys, alongside the 1,600-year-old rust-resistant Iron Pillar.',
+        inscriptions: 'Arabic and Nagari inscriptions on minaret bands, and a 4th-century Gupta Brahmi Sanskrit eulogy to King Chandra on the Iron Pillar.',
+        architecture: 'Fluted red sandstone and white marble storeys with stalactite-bracketed balconies and Indo-Islamic geometric carvings.'
+      },
+      {
+        key: 'hampi',
+        name: 'Hampi (Vijayanagara Empire)',
+        match: ['hampi', 'vijayanagara', 'vittala', 'stone chariot', 'virupaksha', 'krishnadevaraya', 'tungabhadra'],
+        built: '1336 CE (14th century)',
+        age: 650,
+        builders: 'Vijayanagara Empire (Brothers Harihara & Bukka, Emperor Krishnadevaraya)',
+        city: 'Vijayanagara district, Karnataka',
+        details: 'Capital of South India\'s wealthiest empire, featuring over 1,600 monuments, the iconic Stone Chariot, and open-air diamond and gem bazaars.',
+        inscriptions: 'Kannada, Telugu, and Sanskrit inscriptions across temple basements recording royal endowments and international maritime trade.',
+        architecture: 'Dravidian granite architecture with 56 musical SaReGaMa resonant pillars and majestic multi-tiered Gopurams along the Tungabhadra river.'
+      },
+      {
+        key: 'ajanta',
+        name: 'Ajanta Caves',
+        match: ['ajanta', 'cave 1', 'padmapani', 'frescoes', 'waghora'],
+        built: '2nd century BCE to 5th century CE',
+        age: 2200,
+        builders: 'Satavahana & Vakataka dynasties (Buddhist monks & guild artists)',
+        city: 'Aurangabad district, Maharashtra',
+        details: '30 rock-cut Buddhist chaityas and viharas inside a horseshoe canyon, containing ancient India\'s greatest surviving mural paintings.',
+        inscriptions: 'Brahmi and Sanskrit donor inscriptions recording offerings by royal patrons, monks, and merchants.',
+        architecture: 'Rock-cut basalt prayer halls with arched Chaitya windows, ribbed ceilings, and natural tempera murals illuminated by mirrored daylight.'
+      },
+      {
+        key: 'ellora',
+        name: 'Ellora Caves & Kailasa Temple',
+        match: ['ellora', 'kailasa', 'rashtrakuta', 'cave 16', 'krishna i'],
+        built: '8th century CE',
+        age: 1250,
+        builders: 'Rashtrakuta Dynasty (King Krishna I and master architect Kokasa)',
+        city: 'Aurangabad district, Maharashtra',
+        details: '34 rock-cut temples uniting Hindu, Buddhist, and Jain traditions. Cave 16 (Kailasa) is the world\'s largest monolithic excavation from a single volcanic cliff.',
+        inscriptions: 'Rashtrakuta and Yadava inscriptions commemorating royal lineage and the dedication of sacred Shiva sanctums.',
+        architecture: 'Top-down monolithic excavation of 200,000 tonnes of solid basalt rock, featuring multi-story pillared courtyards and life-sized carved elephants.'
+      },
+      {
+        key: 'konark',
+        name: 'Konark Sun Temple',
+        match: ['konark', 'sun temple', 'narasimhadeva', 'black pagoda', 'chandrabhaga'],
+        built: '1250 CE',
+        age: 776,
+        builders: 'King Langula Narasimhadeva I of the Eastern Ganga Dynasty',
+        city: 'Puri district, Odisha',
+        details: 'Designed as a colossal chariot for Surya the Sun God, with 24 carved stone wheels that function as precise astronomical sundials.',
+        inscriptions: 'Odia and Sanskrit palm-leaf chronicles (Madala Panji) and temple plinth inscriptions detailing 12 years of construction under Bisu Maharana.',
+        architecture: 'Kalinga-style architecture crafted from Chlorite and Khondalite stone, with 24 sundial wheels and 7 galloping horses.'
+      },
+      {
+        key: 'brihadeeswara',
+        name: 'Brihadeeswara Temple',
+        match: ['brihadeeswara', 'thanjavur', 'chola', 'raja raja', 'tanjore', 'peruvudaiyar'],
+        built: '1010 CE',
+        age: 1016,
+        builders: 'Emperor Raja Raja Chola I of the Chola Empire',
+        city: 'Thanjavur, Tamil Nadu',
+        details: 'A towering 66-meter granite sanctuary topped with an 80-tonne monolithic dome raised without mortar, celebrating imperial Chola naval supremacy.',
+        inscriptions: 'Extensive Tamil and Grantha inscriptions covering the granite plinths, meticulously recording 400+ temple dancers, musicians, and village endowments.',
+        architecture: 'Interlocking Dravidian granite masonry, square sanctum, and massive Vimana tower that has stood for over a millennium.'
+      },
+      {
+        key: 'meenakshi',
+        name: 'Meenakshi Amman Temple',
+        match: ['meenakshi', 'madurai', 'sundareswarar'],
+        built: '6th century CE (rebuilt 17th century)',
+        age: 1400,
+        builders: 'Pandya Dynasty kings & Nayak rulers (Thirumalai Nayak)',
+        city: 'Madurai, Tamil Nadu',
+        details: 'Sacred center of Tamil heritage dedicated to Goddess Meenakshi and Lord Sundareswarar, with 14 multi-colored towering Gopurams and the Hall of 1,000 Pillars.',
+        inscriptions: 'Ancient Tamil inscriptions chronicling royal Pandya and Nayak benefactions, festivals, and sacred poetic traditions.',
+        architecture: 'Dravidian temple city layout with concentric rectangular walls, polychrome sculpted towers, and the sacred Golden Lotus tank (Porthamarai Kulam).'
+      },
+      {
+        key: 'sanchi',
+        name: 'Great Stupa at Sanchi',
+        match: ['sanchi', 'stupa', 'ashoka', 'torana'],
+        built: '3rd century BCE',
+        age: 2300,
+        builders: 'Mauryan Emperor Ashoka the Great',
+        city: 'Raisen district, Madhya Pradesh',
+        details: 'Oldest stone structure in India enshrining Buddha\'s relics, flanked by four ornate Torana gateways carved with Jataka tales by ivory guilds.',
+        inscriptions: 'Early Brahmi Prakrit edicts of Emperor Ashoka and over 600 donor inscriptions from ordinary citizens and ancient craft guilds.',
+        architecture: 'Hemispherical stone dome (Anda) crowned by a triple umbrella (Chhatra) symbolizing the Three Jewels of Buddhism, surrounded by carved Toranas.'
+      },
+      {
+        key: 'rani_ki_vav',
+        name: 'Rani ki Vav (Queen\'s Stepwell)',
+        match: ['rani ki vav', 'stepwell', 'patan', 'udayamati'],
+        built: '1063 CE',
+        age: 963,
+        builders: 'Queen Udayamati (Chaulukya / Solanki Dynasty)',
+        city: 'Patan, Gujarat',
+        details: 'An inverted underground stepped temple descending seven levels into the earth, adorned with over 800 exquisite sculptures of Lord Vishnu\'s Dashavatara.',
+        inscriptions: 'Mentioned in Merutunga\'s 1304 chronicle *Prabandha Chintamani* commemorating Queen Udayamati\'s memorial for King Bhima I.',
+        architecture: 'Maru-Gurjara style subterranean stepped architecture with pillared pavilions, deep wells, and finely carved niche panels.'
+      },
+      {
+        key: 'fatehpur',
+        name: 'Fatehpur Sikri',
+        match: ['fatehpur', 'buland darwaza', 'akbar', 'salim chishti'],
+        built: '1571 CE',
+        age: 455,
+        builders: 'Mughal Emperor Akbar the Great',
+        city: 'Agra district, Uttar Pradesh',
+        details: 'Akbar\'s planned imperial capital featuring the 54-meter Buland Darwaza ("Gate of Magnificence") and the serene white marble tomb of Sufi saint Salim Chishti.',
+        inscriptions: 'Quranic calligraphy and Persian inscriptions on the Buland Darwaza proclaiming: "The world is a bridge, pass over it, but build no houses upon it."',
+        architecture: 'Red sandstone architectural synthesis blending Mughal, Persian, Gujarati, and Rajasthani palace traditions.'
+      },
+      {
+        key: 'golden_temple',
+        name: 'Golden Temple (Sri Harmandir Sahib)',
+        match: ['golden temple', 'harmandir', 'amritsar', 'darbar sahib'],
+        built: '1577 CE',
+        age: 449,
+        builders: 'Guru Ram Das & Maharaja Ranjit Singh',
+        city: 'Amritsar, Punjab',
+        details: 'Spiritual center of Sikhism surrounded by the holy Amrit Sarovar, with 4 open doors welcoming all humanity and the world\'s largest free langar kitchen.',
+        inscriptions: 'Gurmukhi inscriptions from the Guru Granth Sahib carved in gold leaf along the marble arches and sanctum panels.',
+        architecture: 'Harmonious blend of Indo-Islamic and Hindu architectural elements, overlaid with 24-karat pure gold foil.'
+      },
+      {
+        key: 'varanasi',
+        name: 'Varanasi (Kashi)',
+        match: ['varanasi', 'kashi', 'banaras', 'ghat', 'ganga aarti'],
+        built: 'Over 3,000 years ago (11th century BCE)',
+        age: 3000,
+        builders: 'Ancient sacred civilization & abode of Lord Shiva',
+        city: 'Varanasi, Uttar Pradesh',
+        details: 'The world\'s oldest living city, famed for its 84 historic stone ghats (Dashashwamedh, Manikarnika), Banarasi silk weaving, and evening Ganga Aarti.',
+        inscriptions: 'Ancient stone pillar inscriptions and temple epigraphs recording centuries of pilgrimages, royal grants, and philosophical discourses.',
+        architecture: 'Riverfront stone steps, tiered temple shikhars, narrow historic gallis, and sacred ghats hugging the sacred northern bend of the Ganges.'
+      }
     ];
 
-    // Check if current message or recent context mentions an entity
-    for (const ent of entityKeywords) {
+    // ── Reverse Context Resolution ──
+    let activeEntity = null;
+
+    // 1. Direct match in current query
+    for (const ent of entities) {
       if (ent.match.some(m => q.includes(m))) {
-        activeEntity = ent.key;
+        activeEntity = ent;
+        AIGuide.lastEntity = ent;
         break;
       }
     }
+
+    // 2. Search recent history in reverse order (newest first)
     if (!activeEntity) {
-      for (const ent of entityKeywords) {
-        if (ent.match.some(m => allRecentText.includes(m))) {
-          activeEntity = ent.key;
-          break;
+      const messagesToCheck = [
+        ...((history && Array.isArray(history)) ? history : []),
+        ...((AIGuide.chatHistory && Array.isArray(AIGuide.chatHistory)) ? AIGuide.chatHistory : [])
+      ].slice(-10).reverse();
+
+      for (const item of messagesToCheck) {
+        const text = (item.text || item.message || '').toLowerCase();
+        for (const ent of entities) {
+          if (ent.match.some(m => text.includes(m))) {
+            activeEntity = ent;
+            AIGuide.lastEntity = ent;
+            break;
+          }
         }
+        if (activeEntity) break;
       }
     }
 
-    // 1. Follow-up: Inscriptions & Epigraphy
+    // 3. Fallback to remembered lastEntity
+    if (!activeEntity && AIGuide.lastEntity) {
+      activeEntity = AIGuide.lastEntity;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    //  FOLLOW-UP HANDLERS (Context-Aware)
+    // ══════════════════════════════════════════════════════════════════════════
+
+    // ── 1. How Old / Age / Duration ──
+    if (q.includes('how old') || q.includes('how long') || q.includes('age') || q.includes('years old') || q.includes('how ancient') || q.includes('till now') || q.includes('since when') || q.includes('how many year') || (q.includes('long') && q.includes('it'))) {
+      if (activeEntity) {
+        const centuryStr = activeEntity.age >= 1000 ? `nearly ${Math.round(activeEntity.age / 100)} centuries` : `about ${Math.round(activeEntity.age / 10)} decades`;
+        return `⏳ The **${activeEntity.name}** was originally built around **${activeEntity.built}**, which makes it approximately **${activeEntity.age} years old** — that's ${centuryStr} of standing history in ${activeEntity.city}!\n\nDespite the passage of centuries, it remains one of India's most treasured landmarks, protected by the **Archaeological Survey of India (ASI)** and visited by travelers worldwide.\n\nWould you like to know who built it, explore its architecture, or learn about its inscriptions?`;
+      }
+      return `⏳ India's cultural heritage spans over **5,000 years** of continuous civilization — from the ancient **Indus Valley cities of Harappa and Mohenjo-daro** (3300 BCE) to medieval temple marvels and royal palaces.\n\nWhich specific monument would you like to know the age of? I can share exact dates, builders, and historical context!`;
+    }
+
+    // ── 2. Why Was It Built / Purpose / Significance ──
+    if (q.includes('why was') || q.includes('why built') || q.includes('purpose') || q.includes('reason') || q.includes('why did') || q.includes('significance') || q.includes('kyun')) {
+      if (activeEntity) {
+        if (activeEntity.key === 'red_fort') {
+          return `🎯 **Why the Red Fort was built**: Mughal Emperor **Shah Jahan** commissioned the Red Fort in **1638 CE** to serve as the fortified residence and political headquarters for his new imperial capital, **Shahjahanabad** (Old Delhi). Agra was deemed too congested and hot, and Delhi offered strategic access to the Yamuna river and imperial trade routes. The fortress was designed to project royal invincibility while housing administrative diwans, royal residences, and garrison troops.`;
+        }
+        if (activeEntity.key === 'taj') {
+          return `🎯 **Why the Taj Mahal was built**: The Taj Mahal was commissioned by Emperor **Shah Jahan** in **1631 CE** as an eternal resting place for his beloved empress **Mumtaz Mahal**, who passed away during the birth of their fourteenth child. Shah Jahan wanted to create a terrestrial representation of the celestial paradise (*Jannat*), where her memory would shine untouched by time.`;
+        }
+        if (activeEntity.key === 'konark') {
+          return `🎯 **Why the Konark Sun Temple was built**: King **Langula Narasimhadeva I** commissioned Konark in **1250 CE** to celebrate his major military victories against medieval invaders and to invoke the cosmic blessings of **Surya, the Sun God**, whose rays were believed to bring health, spiritual vigor, and royal prosperity.`;
+        }
+        if (activeEntity.key === 'khajuraho') {
+          return `🎯 **Why the Khajuraho Temples were built**: The Chandela kings built these temples between **950 and 1050 CE** as grand royal offerings celebrating the four **Purusharthas** (Dharma, Artha, Kama, Moksha). They integrated worldly celebration, royal ceremonies, and spiritual enlightenment into one cohesive architectural universe.`;
+        }
+        if (activeEntity.key === 'brihadeeswara') {
+          return `🎯 **Why the Brihadeeswara Temple was built**: Emperor **Raja Raja Chola I** commissioned it in **1010 CE** to commemorate 25 years of imperial victories, demonstrating the supreme naval, military, and artistic supremacy of the Chola Empire while creating a spiritual home for Lord Shiva as Nataraja.`;
+        }
+        if (activeEntity.key === 'sanchi') {
+          return `🎯 **Why Sanchi Stupa was built**: Following the devastating Kalinga War, Emperor **Ashoka** renounced armed conquest and embraced Buddhism. He built the Great Stupa in the **3rd century BCE** to enshrine sacred relics of **Gautama Buddha** and inspire generations toward non-violence (*Ahimsa*) and moral righteousness (*Dhamma*).`;
+        }
+        return `🎯 **Why ${activeEntity.name} was built**: ${activeEntity.name} was conceived around **${activeEntity.built}** by **${activeEntity.builders}** as a grand spiritual, royal, and architectural statement, embodying the cultural ideals and engineering triumphs of its era in ${activeEntity.city}.`;
+      }
+    }
+
+    // ── 3. Who Built It / When Was It Built / History / Dynasties / Founders ──
+    if (q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || q.includes('when was') || q.includes('when is it') || q.includes('history of') || q.includes('founder') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || (q.includes('built') && (q.includes('it') || q.includes('this') || q.includes('when') || q.includes('who')))) {
+      if (activeEntity) {
+        if (activeEntity.key === 'red_fort') {
+          return `👑 The **Red Fort (Lal Qila)** was commissioned between **1638 and 1648 CE** by Mughal Emperor **Shah Jahan** when he relocated the imperial capital from Agra to the newly planned city of **Shahjahanabad** (Old Delhi).\n\nChief court architects **Ustad Ahmad** and **Ustad Hamid** oversaw the 10-year construction using Rajasthan red sandstone. Within its fortified walls, the Emperor held court in the marble *Diwan-i-Khas*, seated upon the fabled **Peacock Throne**.\n\nWould you like to know about its architecture, famous Persian inscriptions, or how to visit?`;
+        }
+        if (activeEntity.key === 'taj') {
+          return `👑 The **Taj Mahal** was commissioned in **1631 CE** by Mughal Emperor **Shah Jahan** as a mausoleum of eternal devotion for his beloved empress **Mumtaz Mahal**.\n\nIt took approximately **22 years** (completed in 1653 CE) and more than **20,000 master artisans** under chief architect **Ustad Ahmad Lahori** to create this white Makrana marble masterpiece.\n\nShall I tell you about its optical calligraphy inscriptions, architecture, or visiting tips?`;
+        }
+        if (activeEntity.key === 'khajuraho') {
+          return `👑 The **Khajuraho Temples** were built by the **Chandela Rajput Dynasty** between **950 and 1050 CE** at their sacred religious capital in Bundelkhand.\n\nKey royal patrons included **King Yashovarman** (who built Lakshmana Temple), **King Dhanga** (Visvanatha Temple), and **King Vidyadhara** (the monumental Kandariya Mahadeva Temple). Of the original 85 temples, **25 survive today**.\n\nWould you like to explore their sculptures or architecture?`;
+        }
+        if (activeEntity.key === 'qutub') {
+          return `👑 The **Qutub Minar** was founded in **1193 CE** by **Qutb-ud-din Aibak**, founder of the Delhi Sultanate, and expanded by his successor **Shams-ud-din Iltutmish** who completed the top storeys.\n\nLater repairs and additions were made by Sultan Firoz Shah Tughlaq and Sikandar Lodi. The complex also houses the **1,600-year-old Iron Pillar** erected during the reign of Chandragupta II Vikramaditya.\n\nWould you like to know about its inscriptions or architectural design?`;
+        }
+        if (activeEntity.key === 'brihadeeswara') {
+          return `👑 The **Brihadeeswara Temple** was built in **1010 CE** by the great Emperor **Raja Raja Chola I** to mark 25 victorious years of imperial Chola rule across South India and the seas.\n\nEngineers hauled an **80-tonne granite dome** to the top of the 66-meter tower using an inclined earth ramp stretching nearly 6 kilometers, constructing the entire temple without mortar.\n\nShall I tell you about its Tamil inscriptions or Chola bronze art?`;
+        }
+        return `👑 **${activeEntity.name}** was built around **${activeEntity.built}** by **${activeEntity.builders}** in **${activeEntity.city}**.\n\nIt has stood for approximately **${activeEntity.age} years** as an enduring testament to India's extraordinary architectural and cultural genius.\n\nWould you like to know more about its architecture, inscriptions, or history?`;
+      }
+      return `👑 India's historic monuments were built by legendary dynasties — from the **Mauryas** (Emperor Ashoka) and **Guptas**, to the **Cholas**, **Chandelas**, **Rashtrakutas**, **Vijayanagara Emperors**, and the **Mughals**.\n\nWhich specific monument or ruler would you like to explore?`;
+    }
+
+    // ── 4. Materials / Stones / Construction ──
+    if (q.includes('material') || q.includes('stone') || q.includes('marble') || q.includes('granite') || q.includes('sandstone') || q.includes('what is it made') || q.includes('made of') || q.includes('kisse bana')) {
+      if (activeEntity) {
+        if (activeEntity.key === 'red_fort') {
+          return `🧱 **Materials of the Red Fort**: The massive outer walls and main pavilions are built from rich red **sandstone** quarried from Rajasthan. Key royal chambers like the *Diwan-i-Khas*, *Khas Mahal*, and *Rang Mahal* feature pure white **Makrana marble** floors, pillars, and arches, originally decorated with gilded ceilings and floral inlay.`;
+        }
+        if (activeEntity.key === 'taj') {
+          return `🧱 **Materials of the Taj Mahal**: The mausoleum is constructed of pristine white **Makrana marble** from Rajasthan that reflects sunlight and moonlight. It is inlaid with **28 varieties of semi-precious stones** (lapis lazuli, carnelian, jade, jasper, crystal) using the delicate *pietra dura* (*Parchin Kari*) technique, set upon a foundation of subterranean ebony wood wells.`;
+        }
+        if (activeEntity.key === 'brihadeeswara') {
+          return `🧱 **Materials of Brihadeeswara Temple**: The entire temple is made of **130,000 tonnes of granite**, quarried over 50 km away. Granite is one of the hardest stones to carve, yet Chola sculptors cut and interlocked every block without mortar, hoisting a single **80-tonne granite dome** to the apex.`;
+        }
+        if (activeEntity.key === 'ellora' || activeEntity.key === 'kailasa') {
+          return `🧱 **Materials of Kailasa Temple**: Kailasa is not constructed with stone blocks — it is carved directly out of **solid volcanic basalt rock** (Deccan Trap). Over **200,000 tonnes of basalt** were excavated top-to-bottom from a single mountain cliff face.`;
+        }
+        if (activeEntity.key === 'konark') {
+          return `🧱 **Materials of Konark Sun Temple**: Built using three distinct stones: green **Chlorite stone** for the sanctum doorframes and deities, **Khondalite** for the massive structural walls and 24 chariot wheels, and heavy **Laterite** for the base plinths.`;
+        }
+        if (activeEntity.key === 'khajuraho') {
+          return `🧱 **Materials of Khajuraho**: Crafted from warm, golden-buff **sandstone** brought from the quarries of Panna. The fine-grained sandstone allowed master artisans to carve extraordinarily intricate, lifelike anatomical details.`;
+        }
+        return `🧱 **Materials used for ${activeEntity.name}**: ${activeEntity.name} was constructed using specialized regional stone, masonry, and architectural techniques suited to its ${activeEntity.architecture}.`;
+      }
+    }
+
+    // ── 5. Gates / Entrances / Halls / Inside Layout ──
+    if (q.includes('gate') || q.includes('entrance') || q.includes('darwaza') || q.includes('gopuram') || q.includes('inside') || q.includes('hall') || q.includes('room') || q.includes('layout') || q.includes('mandapa')) {
+      if (activeEntity) {
+        if (activeEntity.key === 'red_fort') {
+          return `🚪 **Gates & Layout of the Red Fort**:\n\n• **Lahori Gate:** The grand primary western entrance, facing Chandni Chowk, where the Prime Minister addresses the nation on Independence Day.\n• **Delhi Gate:** The southern public entrance decorated with stone elephants.\n• **Inside Halls:** The *Chhatta Chowk* (covered bazaar), *Naubat Khana* (drum house), *Diwan-i-Aam* (Hall of Public Audience with marble canopy), *Diwan-i-Khas* (Hall of Private Audience where the Peacock Throne stood), and the *Nahr-i-Bihisht* (water canal of paradise).`;
+        }
+        if (activeEntity.key === 'taj') {
+          return `🚪 **Gates & Layout of the Taj Mahal**:\n\n• **Darwaza-i-Rauza (Great Gate):** The monumental red sandstone entrance with 11 chhatris and Quranic calligraphy.\n• **Charbagh Garden:** Symmetrical quadripartite garden divided into 16 flowerbeds with central marble water channels.\n• **The Central Tomb:** Octagonal inner chamber holding the cenotaphs of Mumtaz Mahal and Shah Jahan, flanked by an operational red sandstone **Mosque** on the west and an identical **Jawab** (assembly hall) on the east.`;
+        }
+        if (activeEntity.key === 'sanchi') {
+          return `🚪 **Gates of Sanchi Stupa**: The Stupa is enclosed by a stone railing (*Vedika*) punctuated by **four magnificent carved Torana gateways** facing North, South, East, and West. Each 34-foot gateway features three horizontal architraves depicting Buddha's life, Jataka tales, elephants, and Yakshis.`;
+        }
+        if (activeEntity.key === 'golden_temple') {
+          return `🚪 **Entrances of the Golden Temple**: Uniquely designed with **four open entrances** facing the four cardinal directions, demonstrating the core Sikh philosophy that all human beings—regardless of caste, religion, or background—are equally welcome.`;
+        }
+        return `🚪 **Entrances & Layout of ${activeEntity.name}**: ${activeEntity.name} features an organized layout designed in the classical traditions of its era in ${activeEntity.city}.`;
+      }
+    }
+
+    // ── 6. Throne / Peacock Throne / Koh-i-Noor ──
+    if (q.includes('throne') || q.includes('peacock') || q.includes('kohinoor') || q.includes('koh-i-noor') || q.includes('takht')) {
+      return `👑 **The Legendary Peacock Throne (*Takht-i-Taus*)**:\n\nCommissioned by Mughal Emperor **Shah Jahan** in **1635 CE**, the Peacock Throne was one of the most lavish royal seats in world history. Housed inside the Red Fort's marble *Diwan-i-Khas*, it was crafted from solid gold, supported by golden pillars, and encrusted with hundreds of rubies, emeralds, pearls, and the legendary **Koh-i-Noor diamond**.\n\nIn **1739 CE**, Persian emperor **Nadir Shah** invaded Delhi, sacked the city, and took the Peacock Throne and the Koh-i-Noor diamond back to Persia.`;
+    }
+
+    // ── 7. Inscriptions & Epigraphy ──
     if (q.includes('inscription') || q.includes('script') || q.includes('epigraph') || q.includes('writing') || q.includes('written') || q.includes('language') || q.includes('engrav')) {
-      if (activeEntity === 'khajuraho') {
-        return `📜 **Inscriptions & Epigraphy of Khajuraho Temples**\n\n• **Language & Script:** Inscribed in classical Sanskrit using the medieval northern **Kutila (early Nagari)** script.\n• **Key Inscriptions:** Found prominently on the stone plinths of the **Lakshmana Temple** (dated 954 CE under King Yashovarman) and the **Visvanatha Temple** (dated 1002 CE under King Dhanga).\n• **Historical Value:** These prashastis (royal panegyrics) document the divine genealogy of the Chandela dynasty tracing descent from the Moon God (*Chandra*), record royal military victories, and credit master guild architects like *Sutradhara Chhichha*.\n• **Religious Significance:** The inscriptions record the installation of sacred Vaikuntha Vishnu and Marakatesvara Emerald Shiva lingas, establishing Khajuraho as a premier medieval spiritual power center.`;
+      if (activeEntity) {
+        return `📜 The inscriptions of **${activeEntity.name}** hold great historical significance:\n\n${activeEntity.inscriptions}\n\nThese epigraphs offer a direct window into the royal courts, spiritual philosophy, and artistic dedication of ancient India.\n\nWould you like to know about who built it, its architecture, or folklore?`;
       }
-      if (activeEntity === 'taj') {
-        return `📜 **Inscriptions & Calligraphy of the Taj Mahal**\n\n• **Master Calligrapher:** Inscribed by Persian master **Amanat Khan** (Abd al-Haq) in 1639 CE, whose humble signature appears at the base of the central dome.\n• **Script & Style:** Flawless Arabic and Persian calligraphy in the monumental **Thuluth** script, meticulously inlaid using black jasper marble into white Makrana marble panels.\n• **Content:** 22 Surahs from the Holy Quran, including Surah Ya-Sin and Surah Al-Fajr (Daybreak), inviting pure souls into the eternal gardens of Paradise.\n• **Optical Illusion:** The letter sizes increase progressively higher up the arches so they appear perfectly uniform to an observer standing below on the ground.`;
-      }
-      if (activeEntity === 'brihadeeswara') {
-        return `📜 **Inscriptions of Brihadeeswara Temple (Thanjavur)**\n\n• **Script & Language:** Written in ancient Tamil and Grantha scripts encircling the entire granite basement of the Vimana.\n• **Royal Chronicle:** Commissioned by Emperor **Raja Raja Chola I**, recording exact weights of gold, bronze icons donated, and land revenue endowments from 300+ villages across South India and Sri Lanka.\n• **Social History:** Records the names and quarters of over 400 temple dancers (*Talippendir*), musicians, sculptors, and accountants.`;
-      }
-      if (activeEntity === 'sanchi' || activeEntity === 'ashoka') {
-        return `📜 **Inscriptions & Edicts of Sanchi & Ashoka**\n\n• **Brahmi Edicts (3rd Century BCE):** Early Brahmi script in Prakrit language commissioned under Emperor Ashoka the Great.\n• **Schism Edict:** A pillar edict warning Buddhist monks and nuns against dividing the Sangha.\n• **Votive Inscriptions:** Hundreds of donor epigraphs carved on gateways and railings donated by ordinary citizens, guilds (*ivory workers of Vidisha*), and monks.`;
-      }
-      if (activeEntity === 'qutub') {
-        return `📜 **Inscriptions on Qutub Minar & Iron Pillar**\n\n• **Qutub Minar:** Inscriptions in cursive Arabic and Nagari scripts detailing successive construction and repairs by Qutb-ud-din Aibak, Iltutmish, Firoz Shah Tughlaq, and Sikandar Lodi.\n• **Iron Pillar Inscription:** A 6-line Sanskrit poem in 4th-century CE Gupta Brahmi script eulogizing King Chandra (Chandragupta II Vikramaditya).`;
-      }
-      // Universal Indian Inscriptions
-      return `📜 **Ancient Indian Inscriptions & Epigraphy (पुरालेख)**\n\nIndia has over 100,000 recorded historical inscriptions on stone, pillars, and copper plates (*Tamrapatra*):\n\n• **Ashokan Edicts (3rd century BCE):** Deciphered by James Prinsep; written in Brahmi, Kharosthi, Greek, and Aramaic scripts across India advocating Dhamma, non-violence, and tree planting.\n• **Gupta Prashastis:** The Allahabad Pillar (Prayag Prashasti) composed by court poet Harishena recording Samudragupta's conquests in classical Sanskrit.\n• **Copper Plate Grants:** Detailed land grants and maritime expeditions of Chola, Chalukya, and Rashtrakuta dynasties.\n• **Temple Basements:** Indian temples served as living civic archives preserving donor lists, astronomical dates, and historical genealogies.`;
+      return `📜 India is home to over **100,000 historical inscriptions** on stone plinths, pillars, and copper plates (*Tamrapatra*) — including the 3rd-century BCE **Ashokan Edicts** in Brahmi and Kharosthi, royal Chola Tamil chronicles, and exquisite Mughal Thuluth calligraphy.\n\nWhich monument's inscriptions would you like to dive into?`;
     }
 
-    // 2. Follow-up: Sculptures, Murals, Art & Erotic Carvings
-    if (q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mural') || q.includes('painting') || q.includes('art') || q.includes('mithuna')) {
-      if (activeEntity === 'khajuraho') {
-        return `🎨 **Sculptures & Art of Khajuraho Temples**\n\n• **Universal Celebration of Life:** Only about 10% of Khajuraho's carvings are erotic (*Mithuna*); the remaining 90% depict medieval daily life, musicians, celestial maidens (*Apsaras* removing thorns or applying makeup), cosmic deities, and royal warriors.\n• **Spiritual Philosophy:** Represents the four Purusharthas (goals of life)—Dharma (righteousness), Artha (wealth), Kama (desire & love), and Moksha (liberation)—integrating worldly passion into the cosmic spiritual journey.\n• **Mastery:** Carved from fine sandstone with astonishing depth, dynamic movement, and graceful anatomical curves.`;
+    // ── 8. Sculptures, Murals & Art ──
+    if (q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mural') || q.includes('painting') || q.includes('mithuna') || q.includes('art')) {
+      if (activeEntity && activeEntity.key === 'khajuraho') {
+        return `🎨 Contrary to common belief, only about **10% of Khajuraho's sculptures are erotic** (*Mithuna*). The remaining 90% vividly depict medieval daily life — musicians, warriors, cosmic deities, and celestial maidens (*Apsaras*) applying makeup or removing thorns from their feet.\n\nPhilosophically, they embody the four **Purusharthas** (goals of life): *Dharma*, *Artha*, *Kama*, and *Moksha*, carved with lifelike anatomical grace from golden sandstone.\n\nWould you like to know who built them or explore the temple architecture?`;
       }
-      if (activeEntity === 'ajanta') {
-        return `🎨 **Masterpiece Murals of Ajanta Caves**\n\n• **Tempera Frescoes:** Painted over mud-plastered rock surfaces using mineral pigments (lapislazuli, red ochre, lamp black).\n• **Bodhisattva Padmapani (Cave 1):** The lotus-bearing Bodhisattva epitomizes serene compassion with timeless shading and depth.\n• **Narratives:** Illustrates Jataka stories narrating the Buddha's previous births and ancient Indian courtly splendor.`;
+      if (activeEntity && activeEntity.key === 'ajanta') {
+        return `🎨 The **Ajanta Cave murals** represent the golden age of ancient Indian painting. The most famous is the **Bodhisattva Padmapani** in Cave 1 — depicting a serene, lotus-bearing figure whose compassionate gaze has captivated the world for over 1,500 years.\n\nMonk artists used natural mineral pigments like crushed lapis lazuli and red ochre, painting on mud-plastered rock using a *tempera fresco* technique.\n\nShall I tell you about the rock-cut architecture or the Ellora Caves?`;
       }
-      if (activeEntity === 'ellora') {
-        return `🗿 **Sculptural Splendor of Ellora Caves**\n\n• **Ravana Shaking Mount Kailasa (Cave 16):** Dramatic multi-tiered relief where the demon king shakes Shiva's mountain while Parvati clings to Shiva in absolute stillness.\n• **Avatar Relievos:** Colossal sculptures of Narasimha, Varaha, and the cosmic Tandava dance of Lord Shiva.`;
-      }
-      if (activeEntity === 'konark') {
-        return `☀️ **Sculptures of Konark Sun Temple**\n\n• **24 Sundial Wheels:** Sculpted with intricate spokes and medallions depicting seasonal motifs and astronomical precision.\n• **Natya Mandapa:** Adorned with hundreds of sculptures of musicians and dancers in classical Odissi postures.`;
+      if (activeEntity) {
+        return `🎨 The artwork at **${activeEntity.name}** is a masterclass in craftsmanship: ${activeEntity.details}\n\nEvery carved stone and fresco was designed according to sacred proportion and cosmic balance.\n\nWould you like to know about its history, builders, or visiting guide?`;
       }
     }
 
-    // 3. Follow-up: Architecture & Engineering
-    if (q.includes('architecture') || q.includes('design') || q.includes('engineering') || q.includes('how was it built') || q.includes('material') || q.includes('style') || q.includes('height')) {
-      if (activeEntity === 'khajuraho') {
-        return `🏛️ **Architecture of Khajuraho (Nagara Style)**\n\n• **Panchayatana Layout:** A central shrine surrounded by four subsidiary shrines built upon a high stone terrace (*Jagati*).\n• **Spire Progression (Shikhara):** Clusters of miniature spires (*Urushringas*) ascend rhythmically like a mountain range, symbolizing Mount Meru (the cosmic axis).\n• **Inner Sanctuaries:** Progresses seamlessly through Ardhamandapa (entrance porch), Mandapa (hall), Mahamandapa, and Garbhagriha (inner sanctum).`;
+    // ── 9. Architecture & Engineering Styles ──
+    if (q.includes('nagara') || q.includes('dravidian') || q.includes('vesara') || q.includes('indo-islamic') || q.includes('architecture style')) {
+      return `🏛️ **Major Indian Architectural Styles**:\n\n• **Nagara Style (North India):** Characterized by beehive-curved spires called *Shikharas*, cruciform layouts, and elevated stone terraces (*Jagati*), seen in Khajuraho, Konark, and Dilwara.\n• **Dravidian Style (South India):** Features monumental multi-tiered gateway towers (*Gopurams*), square-stepped sanctums (*Vimanas*), and pillared *Mandapa* halls, seen in Brihadeeswara and Meenakshi.\n• **Vesara Style (Central/Deccan):** A harmonious hybrid blending Nagara spires with Dravidian layouts, developed by the Chalukyas and Hoysalas.\n• **Indo-Islamic Style:** Combines Islamic symmetry, arches, and bulbous double domes with Indian sandstone craftsmanship and intricate jali stonework, seen in the Taj Mahal and Red Fort.`;
+    }
+
+    if (q.includes('architecture') || q.includes('design') || q.includes('engineering') || q.includes('how was it built') || q.includes('style') || q.includes('height') || q.includes('structure')) {
+      if (activeEntity) {
+        return `🏛️ **${activeEntity.name}** is renowned for its architectural excellence:\n\n${activeEntity.architecture}\n\nBuilt around **${activeEntity.built}**, its structural harmony and enduring resilience continue to astonish modern architects and engineers.\n\nWould you like to know who built it, explore its inscriptions, or learn travel tips?`;
       }
-      if (activeEntity === 'taj') {
-        return `🏛️ **Architectural Genius of the Taj Mahal**\n\n• **Bilateral Symmetry:** Flawless balance along the central water canal, flanked by red sandstone mosque and jawab.\n• **Double Dome:** An outer bulbous dome rising 73 meters and an inner acoustic dome for reverberating sacred prayers.\n• **Earthquake Engineering:** Four 40-meter minarets tilt slightly outward to safeguard the central tomb in case of seismic shocks.\n• **Timber Well Foundation:** Rests on a subterranean network of ebony wood wells nourished by Yamuna river moisture.`;
-      }
-      if (activeEntity === 'hampi') {
-        return `🏛️ **Vijayanagara Architecture at Hampi**\n\n• **Musical Pillars:** 56 monolithic granite pillars in the Vittala Temple that resonate distinct musical notes when tapped.\n• **Monolithic Stone Chariot:** A shrine dedicated to Garuda crafted with interlocking granite blocks designed to resemble a ceremonial wooden temple car.`;
+      return `🏛️ India features diverse architectural traditions — from the soaring shikharas of **Nagara style** in the North, to the massive granite gopurams of **Dravidian style** in the South, and the symmetrical domes of **Indo-Islamic architecture**.\n\nWhich monument's architecture would you like to discover?`;
+    }
+
+    // ── 10. Ancient Civilizations & Eras ──
+    if (q.includes('indus valley') || q.includes('harappa') || q.includes('mohenjo')) {
+      return `🏺 **The Indus Valley (Harappan) Civilization (3300–1300 BCE)**:\n\nOne of the ancient world's three earliest cradles of civilization alongside Egypt and Mesopotamia. Notable for:\n• **Urban Planning:** Grid-pattern streets, multi-story brick houses, and sophisticated covered drainage networks.\n• **Key Sites:** Harappa, Mohenjo-daro (The Great Bath), Dholavira (water harvesting reservoirs), and Lothal (the world's earliest known tidal dockyard).\n• **Art & Craft:** Steatite seals, terracotta toys, and the iconic lost-wax **Bronze Dancing Girl**.`;
+    }
+
+    if (q.includes('gupta') || q.includes('golden age')) {
+      return `🌟 **The Gupta Empire (320–550 CE) — The Golden Age of India**:\n\nA transformative era of classical achievements in science, mathematics, astronomy, and literature:\n• **Mathematics & Astronomy:** Aryabhata calculated the value of Pi (π), planetary orbits, and the concept of zero (*Shunya*).\n• **Literature & Art:** Sanskrit poet Kalidasa (*Shakuntala*, *Meghaduta*), Ajanta cave murals, and the rust-free Iron Pillar of Delhi.`;
+    }
+
+    if (q.includes('stepwell') || q.includes('baoli') || q.includes('vav')) {
+      return `💧 **Ancient Indian Stepwells (Baolis & Vavs)**:\n\nStepwells are extraordinary subterranean architectural marvels developed across Gujarat and Rajasthan to preserve precious water in arid climates. They served as public cooling pavilions, traveler sanctuaries, and sacred temples. Famous examples include **Rani ki Vav** in Patan (UNESCO Site) and **Chand Baori** in Abhaneri.`;
+    }
+
+    // ── 11. Travel / Visit / Timings ──
+    if (q.includes('how to reach') || q.includes('visit') || q.includes('ticket') || q.includes('timing') || q.includes('best time') || q.includes('where is') || q.includes('how to go') || q.includes('travel')) {
+      if (activeEntity) {
+        return `✈️ **${activeEntity.name}** is located in **${activeEntity.city}**.\n\n• **Best Time to Visit:** October to March when the weather is pleasant.\n• **Preservation:** Maintained by the **Archaeological Survey of India (ASI)**, open generally from sunrise to sunset.\n• **Explorer Tip:** Visit during early morning or late afternoon for the best golden-hour lighting and photography.\n\nWould you like to hear a detailed historical legend about ${activeEntity.name}?`;
       }
     }
 
-    // 4. Follow-up: Who built it / History / Dynasty / Dates
-    if (q.includes('who built') || q.includes('when was') || q.includes('history of') || q.includes('founder') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor')) {
-      if (activeEntity === 'khajuraho') {
-        return `👑 **History & Builders of Khajuraho Temples**\n\n• **Dynasty:** Built by the **Chandela Rajput Dynasty** between **950 and 1050 CE** at their cultural and religious capital in Bundelkhand.\n• **Key Rulers:** King Harshadeva, Yashovarman (Lakshmana Temple), King Dhanga (Visvanatha Temple), and King Vidyadhara (Kandariya Mahadeva).\n• **Survival:** Of the original 85 temples across 20 sq km, 25 survive today preserved by ASI and UNESCO.`;
-      }
-      if (activeEntity === 'taj') {
-        return `👑 **History of the Taj Mahal**\n\n• **Commissioned:** 1631 CE by Mughal Emperor **Shah Jahan** in memory of **Mumtaz Mahal**.\n• **Timeline:** Completed in 1653 CE with 20,000 artisans under chief architect Ustad Ahmad Lahori.`;
-      }
-      if (activeEntity === 'brihadeeswara') {
-        return `👑 **History of Brihadeeswara Temple**\n\n• **Emperor:** Commissioned by Emperor **Raja Raja Chola I** and completed in 1010 CE to celebrate 25 years of Chola imperial rule.`;
-      }
-    }
-
-    // 5. Follow-up: Travel / How to visit / Timings
-    if (q.includes('how to reach') || q.includes('visit') || q.includes('ticket') || q.includes('timing') || q.includes('best time') || q.includes('where is')) {
-      if (activeEntity === 'khajuraho') {
-        return `✈️ **Travel Guide: Khajuraho, Madhya Pradesh**\n\n• **Location:** Chhatarpur district, Madhya Pradesh, India.\n• **How to Reach:** Khajuraho Airport (HJR) and Khajuraho Railway Station connect to Delhi, Varanasi, and Bhopal.\n• **Best Time to Visit:** October to March (pleasant winter climate); don't miss the famous **Khajuraho Dance Festival** held every February against the illuminated temples.\n• **Timings:** Sunrise to sunset daily. Evening Western Group Sound & Light Show in English & Hindi.`;
-      }
-    }
-
-    // 6. Greetings & System Capabilities
+    // ══════════════════════════════════════════════════════════════════════════
+    //  GREETINGS & GENERAL INTRO
+    // ══════════════════════════════════════════════════════════════════════════
     if (/^(hi|hello|hey|namaste|pranam|hola|greetings)/i.test(q) || q === 'hi' || q === 'hello') {
-      return `🙏 **Namaste! I am Virasat AI (विरासत AI)**, your expert companion for Indian heritage, culture, and history.\n\nI can help you discover:\n• **42+ UNESCO World Heritage Sites** & ASI protected monuments across India\n• **Royal Dynasties** (Mughal, Chola, Maurya, Gupta, Vijayanagara, Maratha)\n• **Classical Dance & Music** (Bharatnatyam, Kathak, Carnatic, Hindustani)\n• **Living Festivals** (Diwali, Holi, Navratri, Durga Puja, Pongal, Onam)\n• **Ancient Temple Architecture** (Nagara, Dravidian, Vesara styles)\n\nWhat would you like to explore today?`;
+      return `🙏 **Namaste, ${userName}!** Welcome to Virasat AI — your personal guide to India's 5,000 years of heritage.\n\nI can guide you through **UNESCO World Heritage Sites**, famous **monuments & temples**, royal **dynasties**, classical **dance & music**, and vibrant **festivals**. You can also ask follow-up questions like "when was it built?" or "tell me about its inscriptions" — I'll remember what we're discussing.\n\nWhat would you like to explore today?`;
     }
 
     if (q.includes('kaise ho') || q.includes('how are you')) {
-      return `🙏 **Namaste! I am doing wonderful**, immersed in India's timeless heritage. How can I guide your journey into India's history or culture today?`;
+      return `🙏 I'm doing great, ${userName}, immersed in India's glorious history! What would you like to discover today — a monument, dynasty, festival, or ancient story?`;
     }
 
     if (q.includes('who are you') || q.includes('kya ho') || q.includes('kya kar sakte ho') || q.includes('help')) {
-      return `🙏 **I am Virasat AI**, an AI cultural guide developed for BharatVirasat. I can answer historical queries, summarize monuments, generate ancient legends, provide travel tips, and host interactive quizzes on any Indian heritage topic!`;
+      return `🙏 I'm **Virasat AI**, your AI cultural guide on BharatVirasat. I can share in-depth historical knowledge, architectural insights, artisan legends, travel tips, and generate interactive quizzes on any Indian heritage topic!`;
     }
 
-    // 7. Iconic Monuments (North India)
-    if (q.includes('taj') || q.includes('agra')) {
-      return `🏛️ **Taj Mahal, Agra (Uttar Pradesh)**\n\n• **Commissioned:** 1631–1653 CE by Emperor Shah Jahan in memory of his favorite empress, Mumtaz Mahal.\n• **Architecture:** Masterpiece of Indo-Islamic symmetry built using pristine white Makrana marble from Rajasthan, inlaid with semi-precious pietra dura gems.\n• **Significance:** UNESCO World Heritage Site and one of the New 7 Wonders of the World.\n• **Visiting Tip:** Sunrise or full-moon nights offer breathtaking golden and pearl-white reflections along the Yamuna river.`;
-    }
-
+    // ══════════════════════════════════════════════════════════════════════════
+    //  PRIMARY MONUMENTS (Rich Conversational Paragraphs)
+    // ══════════════════════════════════════════════════════════════════════════
     if (q.includes('red fort') || q.includes('lal qila')) {
-      return `🏰 **Red Fort (Lal Qila), Delhi**\n\n• **Commissioned:** 1638–1648 CE by Emperor Shah Jahan when shifting the Mughal capital to Shahjahanabad (Old Delhi).\n• **Highlights:** Built of red sandstone featuring the Lahori Gate, Diwan-i-Aam (Hall of Public Audience), and the exquisite marble Diwan-i-Khas.\n• **National Symbol:** Every year on 15 August (Independence Day), the Prime Minister of India hoists the tricolor flag and addresses the nation from its ramparts.`;
+      return `🏰 The **Red Fort (Lal Qila)** in Old Delhi is one of India's most iconic historic fortresses. Commissioned between **1638 and 1648 CE** by Mughal Emperor **Shah Jahan** when shifting the imperial capital from Agra to Shahjahanabad, its massive red sandstone bastions have guarded Delhi for nearly four centuries.\n\nInside its fortified walls lie exquisite royal halls like the *Diwan-i-Aam* and the marble *Diwan-i-Khas*, which once housed the legendary Peacock Throne. Every year on **15 August (Independence Day)**, the Prime Minister hoists the national tricolor flag from its ramparts.\n\nWould you like to know about who built it, its architecture, or famous Persian inscriptions?`;
     }
 
-    if (q.includes('qutub minar') || q.includes('qutb')) {
-      return `🗼 **Qutub Minar Complex, Delhi**\n\n• **Built:** Started in 1193 CE by Qutb-ud-din Aibak and completed by Shams-ud-din Iltutmish.\n• **Architecture:** World's tallest brick minaret at 72.5 meters (238 feet), with five distinct tapering storeys of fluted red sandstone.\n• **Wonder:** The complex houses the 1,600-year-old **Iron Pillar of Delhi**, famed worldwide for its ancient rust-resistant metallurgy.`;
-    }
-
-    if (q.includes('fatehpur') || q.includes('buland darwaza')) {
-      return `🚪 **Fatehpur Sikri & Buland Darwaza, Uttar Pradesh**\n\n• **Built:** Founded in 1571 CE by Emperor Akbar as his capital city.\n• **Buland Darwaza:** The 54-meter high "Gate of Magnificence" erected in 1601 to celebrate Akbar's military victory over Gujarat.\n• **Sanctuary:** Houses the serene white marble Tomb of Sufi saint Sheikh Salim Chishti.`;
-    }
-
-    if (q.includes('varanasi') || q.includes('kashi') || q.includes('banaras') || q.includes('ghat')) {
-      return `🪔 **Varanasi (Kashi), Uttar Pradesh**\n\n• **Heritage:** One of the oldest continuously inhabited sacred cities in world history, nestled along the holy Ganges.\n• **Highlights:** Over 84 historic ghats including Dashashwamedh Ghat (famous for the evening Ganga Aarti) and Manikarnika Ghat.\n• **Culture:** Spiritual heart of Shaivism (Kashi Vishwanath Temple), world-renowned Banarasi silk weaving, and Hindustani classical music traditions.`;
-    }
-
-    if (q.includes('golden temple') || q.includes('harmandir') || q.includes('amritsar')) {
-      return `✨ **Golden Temple (Sri Harmandir Sahib), Amritsar**\n\n• **Founded:** 1577 CE by Guru Ram Das, the fourth Sikh Guru; marble sanctum overlaid with pure 24-karat gold foil by Maharaja Ranjit Singh in 1830.\n• **Architecture:** Features four open entrances symbolizing universal welcoming for all castes and creeds.\n• **Langar:** Serves free nutritious meals to over 100,000 pilgrims every single day in the world's largest community kitchen.`;
-    }
-
-    // 8. West & Central India
-    if (q.includes('ajanta')) {
-      return `🎨 **Ajanta Caves, Maharashtra**\n\n• **Era:** 2nd century BCE to 5th century CE, carved into a horseshoe cliff along the Waghora River.\n• **Artistry:** 30 rock-cut Buddhist prayer halls (Chaityas) and monasteries (Viharas) containing ancient masterpiece mural frescoes depicting the Jataka tales.\n• **Significance:** Ancient Indian painting pinnacle preserved for over two millennia.`;
-    }
-
-    if (q.includes('ellora') || q.includes('kailasa')) {
-      return `⛰️ **Ellora Caves & Kailasa Temple, Maharashtra**\n\n• **Harmony:** 100 rock-cut caves carved by Rashtrakuta and Yadava kings representing Buddhist, Hindu, and Jain traditions side by side.\n• **Kailasa Temple (Cave 16):** The world's largest single monolithic rock excavation, carved top-to-bottom from a basalt cliff without scaffolding, removing over 200,000 tonnes of rock!`;
+    if (q.includes('taj') || q.includes('agra')) {
+      return `🏛️ The **Taj Mahal** in Agra is one of the most breathtaking monuments ever created. Commissioned between **1631 and 1653 CE** by Mughal Emperor **Shah Jahan** in memory of his beloved wife **Mumtaz Mahal**, it is a masterpiece of Indo-Islamic symmetry crafted from pristine white **Makrana marble** and inlaid with 28 varieties of semi-precious gems.\n\nRecognized as a **UNESCO World Heritage Site** and one of the New 7 Wonders of the World, it transforms its hues with the heavens — glowing soft rose at dawn and shimmering gold beneath the full moon.\n\nWould you like to know about its optical calligraphy inscriptions, architecture, or who built it?`;
     }
 
     if (q.includes('khajuraho') || q.includes('chandela')) {
-      return `🛕 **Khajuraho Temples, Madhya Pradesh**\n\n• **Built:** 950–1050 CE under the Chandela dynasty.\n• **Architecture:** Sublime Nagara-style sandstone temples featuring intricate sculptures celebrating spiritual devotion, cosmic deities, music, dance, and human passion.\n• **Crown Jewel:** The towering Kandariya Mahadeva Temple dedicated to Lord Shiva.`;
+      return `🛕 The **Khajuraho Temples** in Madhya Pradesh are among India's finest architectural treasures. Built between **950 and 1050 CE** by the **Chandela Rajput dynasty**, these sublime **Nagara-style sandstone temples** feature thousands of intricate sculptures celebrating spiritual devotion, cosmic deities, music, dance, and human passion.\n\nThe crown jewel is the towering **Kandariya Mahadeva Temple**, dedicated to Lord Shiva, designed with 84 mini-spires mimicking sacred Mount Kailash.\n\nWould you like to explore their famous sculptures, inscriptions, or history?`;
     }
 
-    if (q.includes('sanchi') || q.includes('stupa')) {
-      return `☸️ **Great Stupa at Sanchi, Madhya Pradesh**\n\n• **Commissioned:** 3rd century BCE by Emperor Ashoka the Great over the holy relics of the Buddha.\n• **Toranas:** Four intricately sculpted ornamental gateways oriented to the cardinal directions depicting Buddha's life and enlightenment.\n• **Significance:** The oldest stone structure in India and a supreme milestone of Buddhist art.`;
+    if (q.includes('qutub') || q.includes('qutb')) {
+      return `🗼 The **Qutub Minar** in Delhi is the world's tallest brick minaret at **72.5 meters**, featuring five fluted red sandstone storeys. Built starting **1193 CE** under **Qutb-ud-din Aibak** and completed by **Iltutmish**, it stands as a landmark of medieval Indo-Islamic architecture.\n\nThe complex also houses the famous **1,600-year-old Iron Pillar** — an ancient metallurgical marvel that has resisted rust for over sixteen centuries.\n\nWould you like to know about its inscriptions or history?`;
     }
 
-    if (q.includes('rani ki vav') || q.includes('patan') || q.includes('stepwell')) {
-      return `💧 **Rani ki Vav (Queen's Stepwell), Patan (Gujarat)**\n\n• **Built:** 11th century CE by Queen Udayamati in memory of King Bhima I of the Chaulukya dynasty.\n• **Design:** An inverted underground subterranean temple with 7 terraced levels featuring more than 500 principal sculptures dedicated to Lord Vishnu in his Dashavatara forms.`;
-    }
-
-    if (q.includes('jaipur') || q.includes('amer') || q.includes('hawa mahal') || q.includes('rajasthan')) {
-      return `👑 **Rajasthan Heritage & Royal Forts**\n\n• **Jaipur (Pink City):** UNESCO World Heritage city founded in 1727 by Maharaja Sawai Jai Singh II with grid planning and Hawa Mahal (Palace of Winds).\n• **Hill Forts of Rajasthan:** Amer, Kumbhalgarh (world's 2nd longest wall), Chittorgarh, Mehrangarh, and Jaisalmer Fort.\n• **Living Heritage:** Famed for vibrant block-print textiles, puppet kathputli arts, Rajput hospitality, and desert music.`;
-    }
-
-    // 9. South India
     if (q.includes('hampi') || q.includes('vijayanagara')) {
-      return `🏛️ **Hampi & Vijayanagara Empire, Karnataka**\n\n• **Golden Age:** Capital of the Vijayanagara Empire (14th–16th century CE), described by medieval Portuguese and Persian travelers as one of the world's wealthiest capitals.\n• **Monuments:** Vittala Temple with the iconic monolithic **Stone Chariot** and musical pillars, Virupaksha Temple, and royal elephant stables.\n• **Landscape:** Surreal boulder-strewn terrain flanking the holy Tungabhadra river.`;
+      return `🏛️ **Hampi** in Karnataka was the glorious capital of the **Vijayanagara Empire** (14th–16th centuries). Medieval European and Persian travelers described it as one of the **wealthiest metropolises in the world**, where diamonds and rubies were traded openly in street bazaars.\n\nThe UNESCO site features over **1,600 surviving monuments**, including the iconic **Monolithic Stone Chariot**, the 56 musical resonance pillars of Vittala Temple, and the ancient Virupaksha Temple.\n\nWant to know about who built Hampi, its architecture, or the Vijayanagara dynasty?`;
     }
 
-    if (q.includes('brihadeeswara') || q.includes('thanjavur') || q.includes('tanjore') || q.includes('chola')) {
-      return `🛕 **Brihadeeswara Temple (Peruvudaiyar Kovil), Thanjavur**\n\n• **Built:** 1010 CE by Emperor Raja Raja Chola I to mark Chola imperial supremacy.\n• **Engineering Marvel:** Built entirely of interlocking granite. The apex dome (Kumbam) weighs over 80 tonnes, hoisted atop a 66-meter towering Vimana tower without mortar.\n• **Chola Legacy:** Center of classical Bharatnatyam dance and bronze casting.`;
+    if (q.includes('ajanta')) {
+      return `🎨 The **Ajanta Caves** in Maharashtra are **30 rock-cut Buddhist temples** dating from the **2nd century BCE to 5th century CE**, carved into a volcanic cliff along the Waghora River. They preserve ancient India's **greatest surviving mural paintings**, including the world-famous *Bodhisattva Padmapani*.\n\nForgotten for centuries under dense forest, they were rediscovered in 1819 by British officer John Smith during a tiger hunt.\n\nWould you like to know about the murals or the nearby Ellora Caves?`;
+    }
+
+    if (q.includes('ellora') || q.includes('kailasa')) {
+      return `⛰️ The **Ellora Caves** in Maharashtra represent Buddhist, Hindu, and Jain traditions side by side. The undisputed highlight is the **Kailasa Temple (Cave 16)**, the world's largest monolithic rock excavation.\n\nMaster architect Kokasa and Rashtrakuta artisans carved the entire temple **top-down from a basalt cliff**, removing over **200,000 tonnes of solid rock** without scaffolding!\n\nShall I tell you about the Rashtrakuta dynasty or the temple's engineering feats?`;
+    }
+
+    if (q.includes('konark') || q.includes('sun temple')) {
+      return `☀️ The **Konark Sun Temple** in Odisha, built in **1250 CE** by King **Langula Narasimhadeva I**, is designed as a colossal celestial chariot for the **Sun God Surya** — complete with **24 carved wheels** pulled by 7 galloping horses.\n\nThe wheel spokes function as **precise astronomical sundials** calculating exact time by the sun's shadow down to the minute.\n\nWould you like to hear the legend of child architect Dharmapada or learn about its carvings?`;
+    }
+
+    if (q.includes('brihadeeswara') || q.includes('thanjavur') || q.includes('chola')) {
+      return `🛕 The **Brihadeeswara Temple** in Thanjavur, built in **1010 CE** by **Raja Raja Chola I**, is an engineering triumph. Built entirely of **interlocking granite without mortar**, its 66-meter Vimana tower is crowned by a single **80-tonne granite dome** hoisted via a 6 km inclined ramp.\n\nIt nurtured classical **Bharatnatyam dance** and Chola lost-wax bronze casting (Nataraja).\n\nWant to explore its Tamil inscriptions or the Chola maritime empire?`;
     }
 
     if (q.includes('meenakshi') || q.includes('madurai')) {
-      return `🌸 **Meenakshi Amman Temple, Madurai (Tamil Nadu)**\n\n• **Dedication:** Goddess Meenakshi (Parvati) and Sundareswarar (Shiva).\n• **Architecture:** Classic Dravidian jewel with 14 towering, multi-colored Gopurams adorned with thousands of hand-painted mythological statues.\n• **Heritage:** Famous for the Hall of 1,000 Pillars and 2,500 years of living Tamil heritage.`;
+      return `🌸 The **Meenakshi Amman Temple** in Madurai is a jewel of **Dravidian architecture**, dedicated to Goddess **Meenakshi (Parvati)** and **Sundareswarar (Shiva)**. Its **14 towering Gopurams** are adorned with thousands of hand-painted mythological statues, representing 2,500 years of living Tamil heritage.\n\nWould you like to know about Dravidian architecture or Tamil festivals?`;
     }
 
-    if (q.includes('mahabalipuram') || q.includes('mamallapuram') || q.includes('pallava') || q.includes('shore temple')) {
-      return `🌊 **Mahabalipuram Shore Temples, Tamil Nadu**\n\n• **Era:** 7th–8th century CE under the Pallava maritime empire.\n• **Monuments:** Pancha Rathas (five monolithic rock chariots), the dramatic Shore Temple braving the ocean waves, and "Arjuna's Penance" (Descent of the Ganges) rock relief.`;
+    if (q.includes('sanchi') || q.includes('stupa')) {
+      return `☸️ The **Great Stupa at Sanchi** in Madhya Pradesh is the **oldest stone structure in India**, commissioned in the **3rd century BCE by Emperor Ashoka** over Buddha's sacred relics. Its four magnificent carved gateways (*Toranas*) depict Jataka tales with astonishing artistic detail.\n\nWould you like to know about Ashoka's Brahmi edicts or the gateway carvings?`;
     }
 
-    if (q.includes('mysore') || q.includes('mysuru')) {
-      return `🏰 **Mysore Palace (Amba Vilas), Karnataka**\n\n• **Royal Seat:** Historic residence of the Wadiyar dynasty, redesigned in Indo-Saracenic grandeur by Henry Irwin in 1912.\n• **Splendor:** Features stained glass ceilings, Belgian chandeliers, peacock pavilions, and illuminates with nearly 100,000 incandescent light bulbs during Mysore Dasara.`;
+    if (q.includes('rani ki vav') || q.includes('stepwell')) {
+      return `💧 **Rani ki Vav** in Patan, Gujarat, is an inverted underground temple built in **1063 CE** by **Queen Udayamati** in memory of King Bhima I. It descends through **7 terraced levels** adorned with over 800 sculptures of Lord Vishnu's *Dashavatara*.\n\nIt is so celebrated that it is featured on the Indian **₹100 banknote**.\n\nWant to explore Gujarat's other heritage sites?`;
     }
 
-    // 10. East & North-East India
-    if (q.includes('konark') || q.includes('sun temple') || q.includes('odisha')) {
-      return `☀️ **Konark Sun Temple, Odisha**\n\n• **Built:** 1250 CE by King Narasimhadeva I of the Eastern Ganga Dynasty on the Bay of Bengal coast.\n• **Design:** Conceived as a colossal chariot for the Sun God Surya, complete with 24 carved stone wheels pulled by 7 galloping horses.\n• **Sundial Clock:** The wheel spokes function as astronomical sundials calculating exact time to the minute using sunlight shadows.`;
+    if (q.includes('varanasi') || q.includes('kashi')) {
+      return `🪔 **Varanasi (Kashi)** is one of the world's oldest continuously inhabited cities, nestled along the holy **Ganga** in Uttar Pradesh for over **3,000 years** as the abode of Lord Shiva.\n\nFamous for its **84 historic ghats** (Dashashwamedh, Manikarnika), the evening **Ganga Aarti**, Banarasi silk weaving, and classical music heritage, it is the spiritual heart of India.\n\nWant to know about Kashi Vishwanath Temple or the Ganga Aarti?`;
     }
 
-    if (q.includes('nalanda') || q.includes('bihar')) {
-      return `📚 **Nalanda Mahavihara, Bihar**\n\n• **Historic University:** Founded in the 5th century CE under the Gupta Empire; ancient world's greatest residential university hosting 10,000 students and 2,000 teachers from China, Korea, Japan, and Tibet.\n• **Legacy:** Famous scholars like Aryabhata and Nagarjuna taught here; vast library *Dharmaganja* held centuries of sacred manuscripts.`;
+    // ── Arts, Festivals & Dynasties ──
+    if (q.includes('dance') || q.includes('bharatnatyam') || q.includes('kathak')) {
+      return `💃 India features **eight classical dance traditions**: **Bharatnatyam** (Tamil Nadu), **Kathak** (North India), **Kathakali** (Kerala), **Odissi** (Odisha), **Kuchipudi** (Andhra), **Manipuri**, **Mohiniyattam**, and **Sattriya** (Assam).\n\nEach dance form weaves ancient Natya Shastra traditions of rhythm, mudras, and divine storytelling.\n\nWould you like to explore a specific dance form in detail?`;
     }
 
-    // 11. Classical Dances & Art Forms
-    if (q.includes('dance') || q.includes('nritya') || q.includes('bharatnatyam') || q.includes('kathak') || q.includes('kathakali') || q.includes('odissi')) {
-      return `💃 **Indian Classical Dances (Natya Shastra Heritage)**\n\n• **Bharatnatyam (Tamil Nadu):** Temple origins, geometric precision, striking footwork, and expressive Abhinaya.\n• **Kathak (North India):** Storytelling tradition of court and temple with lightning-fast spins (chakkars) and rhythmic ghungroo footwork.\n• **Kathakali (Kerala):** Grand dance-drama with stylized face makeup, elaborate headgear, and heroic mudra gestures.\n• **Odissi (Odisha):** Sculpturesque postures based on the *Tribhanga* (three-bend) stance mirroring temple statues.\n• **Others:** Kuchipudi (Andhra Pradesh), Manipuri (Manipur), Mohiniyattam (Kerala), and Sattriya (Assam).`;
+    if (q.includes('festival') || q.includes('diwali') || q.includes('holi')) {
+      return `🎉 India's festivals are joyous celebrations of history and devotion! **Diwali** celebrates the victory of light over darkness and Lord Rama's return to Ayodhya. **Holi** marks spring and the divine love of Radha-Krishna. **Durga Puja** in Bengal and **Navratri** in Gujarat celebrate the divine feminine with art and dance.\n\nWhich festival would you like to explore?`;
     }
 
-    if (q.includes('painting') || q.includes('madhubani') || q.includes('warli') || q.includes('tanjore') || q.includes('art')) {
-      return `🎨 **Traditional Indian Folk Arts & Paintings**\n\n• **Madhubani (Mithila, Bihar):** Geometric motifs of nature and deities painted with natural mineral pigments and twigs.\n• **Warli Art (Maharashtra):** Minimalist tribal stick figures painted in white rice paste depicting village harvest and communal dances.\n• **Tanjore Painting (Tamil Nadu):** Rich gold leaf foil overlay, glass beads, and vibrant depictions of divine childhood forms.\n• **Pattachitra (Odisha & Bengal):** Cloth scroll paintings depicting epics with natural plant dyes and fine line work.`;
+    if (q.includes('mughal') || q.includes('chola') || q.includes('maurya')) {
+      return `👑 India's great empires shaped world history: the **Mauryan Empire** (Ashoka's Ahimsa and Dhamma), the **Chola Empire** (naval expeditions across Southeast Asia and granite temples), and the **Mughal Empire** (Akbar's synthesis and Shah Jahan's marble monuments).\n\nWhich dynasty would you like to dive into?`;
     }
 
-    // 12. Indian Festivals & Traditions
-    if (q.includes('diwali') || q.includes('deepavali')) {
-      return `🪔 **Diwali (The Festival of Lights)**\n\n• **Significance:** Celebrates the victory of light over darkness and good over evil, commemorating Lord Rama's triumphant return to Ayodhya after 14 years of exile.\n• **Traditions:** Lighting earthen clay diyas, rangoli floor artworks, Lakshmi Puja for prosperity, sharing festive sweets, and family reunions.`;
+    // ══════════════════════════════════════════════════════════════════════════
+    //  SMART CONTEXTUAL FALLBACK (Direct and Helpful, Never Canned)
+    // ══════════════════════════════════════════════════════════════════════════
+    if (activeEntity) {
+      return `🏛️ Regarding **${activeEntity.name}** in ${activeEntity.city}:\n\n${activeEntity.details}\n\nIt was built in **${activeEntity.built}** under **${activeEntity.builders}** and reflects ${activeEntity.architecture}.\n\nWould you like to know more about its history, architectural layout, inscriptions, or travel details?`;
     }
 
-    if (q.includes('holi')) {
-      return `🎨 **Holi (The Festival of Colors & Spring)**\n\n• **Heritage:** Celebrates the arrival of spring (*Vasant Ritu*) and the eternal divine love of Radha-Krishna in Braj (Mathura/Vrindavan).\n• **Significance:** Symbolizes the burning of evil (Holika Dahan) and the triumph of devotion represented by Bhakta Prahlada.`;
-    }
-
-    if (q.includes('festival') || q.includes('navratri') || q.includes('durga puja') || q.includes('pongal') || q.includes('onam')) {
-      return `🎉 **Living Festivals of India**\n\n• **Durga Puja (Bengal):** UNESCO Intangible Cultural Heritage celebrating Goddess Durga with grand artistic pandals and dhunuchi dance.\n• **Navratri & Garba (Gujarat):** 9 nights of devotion with colorful circular community dance.\n• **Onam (Kerala):** Harvest festival celebrating King Mahabali with Pookkalam flower carpets and Vallam Kali snake boat races.\n• **Pongal & Makar Sankranti:** Solar harvest celebrations honoring Surya the Sun God with freshly harvested rice and sugarcane.`;
-    }
-
-    // 13. Dynasties & History
-    if (q.includes('mughal') || q.includes('babur') || q.includes('akbar') || q.includes('shah jahan')) {
-      return `👑 **The Mughal Dynasty (1526–1857 CE)**\n\n• **Founder:** Babur in 1526 following the First Battle of Panipat.\n• **Golden Age:** Akbar the Great championed religious harmony (*Sulh-i-Kul*) and imperial synthesis; Shah Jahan brought Mughal architecture to its zenith with the Taj Mahal and Red Fort.\n• **Architecture:** Characterized by bulbous domes, four-quartered *Charbagh* gardens, red sandstone, and white marble inlay.`;
-    }
-
-    if (q.includes('maurya') || q.includes('ashoka') || q.includes('chandragupta') || q.includes('chanakya')) {
-      return `🦁 **The Mauryan Empire (322–185 BCE)**\n\n• **Founding:** United most of the Indian subcontinent under Chandragupta Maurya with strategic guidance from Chanakya (Kautilya), author of the *Arthashastra*.\n• **Emperor Ashoka:** Following the Kalinga War, embraced Buddhism and propagated Ahimsa (non-violence) through rock and pillar edicts across India.\n• **National Emblem:** The Lion Capital of Ashoka at Sarnath is the official Emblem of India.`;
-    }
-
-    if (q.includes('chola') || q.includes('raja raja')) {
-      return `⚓ **The Imperial Chola Dynasty (848–1279 CE)**\n\n• **Maritime Empire:** Ruled South India with strong naval expeditions extending influence to Sri Lanka, Malaysia, Indonesia, and Southeast Asia.\n• **Living Heritage:** Built monumental granite Dravidian temples (Brihadeeswara at Thanjavur & Gangaikonda Cholapuram) and perfected lost-wax bronze casting (Nataraja).`;
-    }
-
-    // 14. Intelligent Contextual Fallback for all other heritage queries
-    const cleanWord = message.replace(/[?.,!]/g, '').trim();
-    return `🏛️ **Indian Heritage Insights: "${cleanWord}"**\n\nIndia preserves over 5,000 years of civilization with **42 UNESCO World Heritage Sites**, thousands of ASI protected monuments, and rich intangible traditions.\n\n• **Discover Monuments:** Use the **Explore** tab to browse architectural masterpieces and historical dynasties.\n• **Earn Badges:** Visit sites with GPS in **GeoHunt** to unlock explorer achievements.\n• **Ask Virasat AI:** Ask about specific rulers (Ashoka, Akbar, Cholas), temples (Konark, Meenakshi), caves (Ajanta, Ellora), or festivals!\n\nWould you like a detailed historical legend, travel guide, or quiz about this?`;
+    return `🏛️ That is an interesting query, ${userName}! In Indian heritage and civilization, this relates to the rich tapestry of ancient architecture, royal chronicles, and cultural traditions.\n\nCould you mention which specific monument (like Red Fort, Taj Mahal, Khajuraho, Hampi), dynasty, temple, or festival you have in mind? I'll be glad to give you in-depth historical facts!`;
   },
 
   // ─── Append Message to Chat ───────────────────────────────────────────────
@@ -788,32 +1060,50 @@ const AIGuide = {
   },
 
   getStoryFallback(site) {
-    const s = (site || '').toLowerCase();
+    const s = (site || '').toLowerCase().trim();
+    if (s.includes('khajuraho') || s.includes('chandela') || s.includes('kandariya')) {
+      return `In the misty autumn of **950 CE**, nestled beneath the craggy Vindhya hills in the heart of Bundelkhand, **King Yashovarman** and the visionary rulers of the **Chandela Rajput Dynasty** gazed upon a vast sacred clearing. Here, they resolved to translate the entire cosmic order—from the mortal realm to the highest heavenly spheres—into living stone.\n\nOver the course of a glorious century, master architects (*Sutradharas*) like **Chhichha** led guilds of thousands of stonemasons who quarried golden-hued sandstone from the Panna riverbeds. Guided by ancient **Vastu Shastra** and the **Nagara** architectural canon, they raised 85 towering temples. The jewel among them was the soaring **Kandariya Mahadeva Temple**, dedicated to Lord Shiva, designed with a rhythmic cluster of 84 miniature spires (*Urushringas*) that mirrored the sacred peaks of **Mount Kailash**.\n\nOn the exterior walls, sculptors breathed life into the four **Purusharthas** (the fundamental goals of human existence): *Dharma* (righteousness), *Artha* (wealth), *Kama* (love, passion, and artistic beauty), and *Moksha* (ultimate liberation). Celestial dancers (*Apsaras*) applying *kajal*, musicians playing classical *veenas*, royal warriors, and divine couples (*Mithuna*) were carved with such breathtaking anatomical grace that the stone itself seemed to pulse with life.\n\nAs dynasties waned and medieval trade routes shifted, the dense teak jungle slowly enveloped the sacred valley for nearly four centuries. It was not until **1838**, when British surveyor **Captain T.S. Burt** followed local tribal guides deep into the forest, that Khajuraho's 25 surviving sanctuaries were rediscovered—standing as an eternal tribute to the unbound imagination and spiritual harmony of medieval India.`;
+    }
     if (s.includes('ajanta')) {
-      return `Two thousand years ago, deep within the horseshoe canyon of the Waghora River in Maharashtra, Buddhist monks and guild artisans chiseled thirty grand sanctuaries into raw basalt cliffs.\n\nWorking by the gentle glow of brass lamps and sunlight reflected through silver mirrors, they painted the life of the Buddha and vibrant Jataka tales with mineral pigments made of lapis lazuli, red ochre, and crushed leaves.\n\nWhen dynastic fortunes shifted, the jungle reclaimed the gorge for over a millennium—until 1819, when a British tiger hunter named John Smith spotted the arched entrance of Cave 10 hidden beneath tangled vines, awakening ancient India's greatest painted treasure to the world.`;
+      return `Between the **2nd century BCE and the 5th century CE**, in a dramatic crescent-shaped volcanic gorge carved by the Waghora River, Buddhist monks and guild artisans discovered an oasis of profound stillness. Here, sheltered from worldly turmoil, they carved **30 magnificent cave temples and monastic halls** (*Chaityas* and *Viharas*) deep into the raw basalt cliffs of Maharashtra.\n\nWorking in semi-darkness, the ancient painters devised an ingenious lighting system, using polished brass plates and silver mirrors placed at cave entrances to reflect soft natural daylight into the deepest chambers. Upon walls prepared with a plaster of river clay, rice husk, and cow dung, they painted with natural mineral pigments: crushed **lapis lazuli** from Badakhshan for celestial blues, rich **red and yellow ochres** from local volcanic soil, and carbon lampblack.\n\nTheir brushes brought the **Jataka tales** of the Buddha's previous incarnations alive with extraordinary emotional depth and fluidity. In Cave 1, the timeless mural of **Bodhisattva Padmapani** captures the pinnacle of classical Indian art—holding a delicate blue lotus with eyes cast down in boundless compassion for all living beings, wearing pearl necklaces that seem to catch the ambient lamp glow.\n\nWhen royal patronage waned with the fall of the **Vakataka Dynasty**, the lush monsoon jungle slowly concealed the cave entrances under thick curtains of creepers and wild trees. For nearly a thousand years, the painted Buddhas rested in secret peace until **April 1819**, when British cavalry officer **John Smith**, tracking a tiger through the Waghora ravine, spotted the top arch of Cave 10—reawakening the greatest painted heritage of the ancient world.`;
     }
-    if (s.includes('ellora')) {
-      return `In the 8th century CE, King Krishna I of the Rashtrakuta Dynasty envisioned a temple so grand that it would rival Mount Kailash itself. Master architect Kokasa made a daring vow: rather than stacking stone upon stone, his artisans would carve the entire temple top-down from a single volcanic mountain.\n\nOver two centuries, generations of sculptors chipped away 200,000 tonnes of solid rock with mere chisels and hammers. When finished, Cave 16—the Kailasa Temple—stood as a monolithic marvel with life-sized carved elephants and multi-story galleries that defies the limits of human imagination.`;
+    if (s.includes('ellora') || s.includes('kailasa')) {
+      return `In the 8th century CE, amidst the dramatic basalt cliffs of the Deccan plateau in Maharashtra, **King Krishna I** of the **Rashtrakuta Dynasty** conceived an architectural audacity that defied every law of conventional building. Rather than assembling blocks of quarried stone, he declared that his artisans would sculpt an entire sacred mountain out of a single volcanic cliff face to recreate **Mount Kailash**, the mystical abode of Lord Shiva.\n\nMaster architect **Kokasa** made a daring vow: his sculptors would work exclusively **top-down**, carving into the living cliff without the aid of scaffolding or mortar. For over a century, generations of master craftsmen swung iron chisels and hammers beneath the blistering Deccan sun, cutting deep vertical trenches into the mountain and excavating more than **200,000 tonnes of solid basalt rock**.\n\nFrom the living mountain emerged **Cave 16 (The Kailasa Temple)**—a breathtaking monolithic complex twice the footprint of the Parthenon in Athens. Artisans carved multi-story pillared galleries, life-sized elephants that appear to lift the temple on their massive backs, and monumental high-relief panels. The most dramatic among them depicts the demon king **Ravana shaking Mount Kailash**, capturing the trembling fury of the mountain and the calm, effortless grace of Shiva pinning him down with a single toe.\n\nWhen the temple was originally completed, it was coated in brilliant white plaster so that it gleamed like the snow-capped Himalayas in the Indian sun. Even after a thousand years, Kailasa stands as an unfathomable engineering and spiritual marvel—a monument that seems not built by mortal hands, but summoned directly from the stone by divine will.`;
     }
-    if (s.includes('konark')) {
-      return `In 1250 CE along the windswept shores of Odisha, King Narasimhadeva I summoned 1,200 of the finest sculptors in the realm to build a cosmic chariot for Surya, the Sun God. Designed with 24 colossal carved wheels that tell exact time by sunlight shadows, the temple was nearly complete except for the crowning Kalasa dome, which puzzled the master builders for 12 long years.\n\nLegend tells of Dharmapada, the 12-year-old son of chief architect Bisu Maharana, who climbed the towering peak and positioned the missing stone with mathematical precision, sacrificing his life into the roaring ocean to preserve the honor of his father and fellow artisans.`;
+    if (s.includes('konark') || s.includes('sun temple')) {
+      return `In **1250 CE**, where the roaring waves of the Bay of Bengal met the sacred Chandrabhaga River, King **Langula Narasimhadeva I** of the Eastern Ganga Dynasty made an imperial vow. To celebrate his glorious victories and offer gratitude for the blessings of **Surya**, the Supreme Sun God, he commanded the creation of a temple the likes of which mortal eyes had never seen: a colossal celestial stone chariot surging out of the sea toward the rising dawn.\n\nChief architect **Bisu Maharana** led a legion of **1,200 master sculptors** who laboured through twelve grueling years. From heavy Khondalite and Chlorite stones, they carved **24 monumental wheels**, each nearly ten feet in diameter and pulled by seven galloping steeds representing the seven days of the week and the seven colors of sunlight. Each wheel was sculpted with such astronomical precision that the shadows cast by the sun across the intricate hub and eight spokes functioned as an exact sundial, measuring time down to the minute.\n\nYet as the twelfth year drew to a close, a crisis gripped the shore. The massive magnetic iron-clamped crowning dome (*Kalasa*) could not be balanced atop the towering spire, and the King issued a terrifying ultimatum to finish the temple by sunrise or face execution. That fateful night, **Dharmapada**, the 12-year-old son of Bisu Maharana who had grown up studying the sacred architectural treatises, stepped into the sanctum. With brilliant mathematical insight, the young prodigy climbed the dizzying heights and locked the crowning stone into flawless alignment. Then, to protect his father's honor and save the lives of the 1,200 craftsmen from the king's wrath, the brave boy leaped from the temple pinnacle into the raging sea.\n\nThough ocean tides and centuries have weathered its majestic assembly hall (*Jagamohana*), the **Konark Sun Temple** remains one of humanity's grandest achievements—a breathtaking hymn in stone celebrating cosmic rhythm, solar power, and boundless human devotion.`;
     }
-    if (s.includes('taj')) {
-      return `In 1631, on the tranquil banks of the Yamuna River in Agra, Mughal Emperor Shah Jahan vowed to build a resting place of sublime beauty for his beloved empress, Mumtaz Mahal.\n\nFor 22 years, over 20,000 craftsmen, lapidaries, and calligraphers from across Central Asia and India joined hands. Translucent Makrana marble was inlaid with 28 varieties of semi-precious stones—jasper from Punjab, jade from China, turquoise from Tibet, and lapis lazuli from Afghanistan—creating an ethereal monument that shifts color from soft rose at dawn to gleaming gold beneath the full moonlight.`;
+    if (s.includes('taj') || s.includes('mumtaz')) {
+      return `In the sweltering monsoon of **1631 CE**, an overwhelming stillness fell upon the royal camp at Burhanpur. Empress **Mumtaz Mahal**, the beloved companion and confidante of Mughal Emperor **Shah Jahan**, had passed away. Consumed by inconsolable grief, the Emperor resolved to channel his heartbreak into the most sublime monument human hands had ever fashioned—a terrestrial reflection of the gardens of Paradise (*Jannat*).\n\nOn the banks of the sacred **Yamuna River in Agra**, master architect **Ustad Ahmad Lahori** assembled a guild of more than **20,000 artisans**, sculptors, calligraphers, and lapidaries from across India, Persia, the Ottoman Empire, and Central Asia. Massive blocks of translucent, flawless **white Makrana marble** were brought across Rajasthan on teams of specially harnessed bullocks and elephants. The tomb was engineered upon a subterranean network of moisture-retaining **ebony wood wells**, while its four 40-meter minarets were deliberately tilted outward by a fraction of a degree—an ingenious safeguard ensuring they would fall away from the sanctum in the event of an earthquake.\n\nFor 22 tireless years, the artisans practiced the delicate art of *Parchin Kari* (*pietra dura* inlay), embedding 28 varieties of rare semi-precious gems into floral arabesques: deep blue **lapis lazuli** from Afghanistan, glowing **carnelian** from Arabia, green **jade** from China, and fiery **jasper** from Punjab. Calligrapher **Amanat Khan** inscribed 22 Surahs from the Holy Quran in flowing **Thuluth script**, with letters calibrated in ascending scale so that to the mortal eye looking upward, the sacred verses appear in immaculate optical harmony.\n\nToday, the **Taj Mahal** stands not merely as a marble tomb, but as an eternal poem of love and devotion that softly transforms its hues with the shifting heavens—blushing soft rose at dawn, glowing crystalline white under the midday sun, and gleaming like pure molten gold beneath the full moon.`;
     }
-    if (s.includes('hampi')) {
-      return `In the 14th century, along the rugged boulder-strewn banks of the Tungabhadra River, brothers Harihara and Bukka founded Vijayanagara—the City of Victory. At its zenith, Hampi was one of the wealthiest metropolises on earth, where European and Persian travelers wrote of open-air street markets trading diamonds, rubies, and silk by the measure.\n\nToday, its sacred ruins—the musical pillars of Vittala Temple, the monolithic Stone Chariot, and the towering Virupaksha Gopuram—still whisper legends of emperors who balanced cosmic arts with warrior valor.`;
+    if (s.includes('hampi') || s.includes('vijayanagara')) {
+      return `In the year **1336 CE**, amidst a surreal landscape of giant granite boulders along the sacred **Tungabhadra River**, two warrior brothers named **Harihara** and **Bukka** founded the capital of the **Vijayanagara Empire**—the legendary 'City of Victory'. Under the golden reign of **Emperor Krishnadevaraya** in the 16th century, Hampi flourished as one of the largest, wealthiest, and most cosmopolitan metropolises on earth.\n\nForeign travelers like the Persian ambassador **Abdur Razzaq** and Portuguese merchant **Domingo Paes** wrote in sheer astonishment that Hampi's bustling bazaars traded diamonds, pearls, rubies, and emeralds openly by the measure, like common grain. The empire fostered a radiant renaissance of Kannada, Telugu, and Sanskrit literature, while royal *Sthapathis* carved grand temples that blended Dravidian grandeur with bold sculptural vigor.\n\nAt the **Vittala Temple Complex**, artisans created the iconic **Monolithic Stone Chariot**, dedicated to Garuda, and sculpted fifty-six **musical pillars** (*SaReGaMa pillars*) from single resonant granite blocks that produced distinct notes of classical Indian music when gently tapped by royal musicians. Across the river, the sky-piercing Gopuram of the ancient **Virupaksha Temple** watched over sacred festivals where decorated royal elephants marched in gold-embroidered silks.\n\nThough the imperial capital fell in the battle of 1565, the ruins of Hampi spread across 4,100 hectares remain alive with majestic power—where wind whistling through granite colonnades and sacred chants echoing across the Tungabhadra still narrate the golden epoch of South India's greatest empire.`;
+    }
+    if (s.includes('brihadeeswara') || s.includes('thanjavur') || s.includes('chola')) {
+      return `In **1010 CE**, to commemorate the 25th victorious year of his imperial reign, the great Chola Emperor **Raja Raja Chola I** laid the final sanctified stone of the **Brihadeeswara Temple** (*Peruvudaiyar Kovil*) in Thanjavur, Tamil Nadu. Having built a naval empire whose fleets held sway across the Bay of Bengal to Sumatra and Malaya, the Emperor resolved to build the world's most formidable granite temple in tribute to Lord Shiva as the Cosmic Dancer, **Nataraja**.\n\nIn a flat alluvial delta completely devoid of natural stone, the Chola engineers transported over **130,000 tonnes of hard granite** from quarries over 50 kilometers away. The soaring central tower (*Vimana*) was raised to a dizzying **66 meters (216 feet)**, making it the tallest architectural structure of its era. Atop this colossal tower rests the **Kumbam**—a single monolithic granite capstone weighing an astonishing **80 tonnes**.\n\nTo lift this immense monolith to the summit, master builders constructed a monumental inclined earth ramp that stretched nearly **6 kilometers** through the countryside, where regiments of royal elephants, oxen, and thousands of workers hauled the granite block inch by inch. The entire temple was constructed without mortar, using precisely interlocked tongue-and-groove granite blocks that have withstood numerous earthquakes and monsoons for over a millennium.\n\nWithin its circumambulatory halls, Chola artists painted vibrant frescoes, while royal inscriptions etched deeply into the stone plinths meticulously recorded the names of every dancer, musician, architect, and cook who served the temple. The Brihadeeswara Temple stands today as the supreme triumph of **Dravidian architecture**—a monumental granite symphony of imperial power, architectural genius, and unyielding devotion.`;
     }
     if (s.includes('vav') || s.includes('rani')) {
-      return `In 1063 CE in Patan, Gujarat, Queen Udayamati of the Chaulukya dynasty commissioned a subterranean masterpiece in loving memory of her late husband, King Bhima I. Unlike traditional temples reaching toward the sky, Rani ki Vav is an inverted temple descending seven levels into the mother earth.\n\nAdorned with over 500 principal sculptures and a thousand minor carvings of Lord Vishnu in his Dashavatara forms, it elevated water conservation into an exquisite sanctum of devotion, resilience, and architectural perfection.`;
+      return `In **1063 CE**, following the demise of King Bhima I of the Chaulukya (Solanki) Dynasty, **Queen Udayamati** resolved to build a memorial unlike any other in royal history. While kings raised towers reaching toward the heavens, the Queen commissioned an **inverted subterranean temple** in Patan, Gujarat, that plunged seven magnificent levels deep into the womb of the earth to honor the sacred life-giving gift of water.\n\nKnown as **Rani ki Vav** (The Queen's Stepwell), this subterranean marvel was designed as an architectural sanctuary along the ancient Saraswati River. Descending through stepped terraces and intricately pillared pavilions, visitors are surrounded by more than **800 major sculptures** and 1,000 minor carvings of extraordinary sophistication, depicting **Lord Vishnu in his Dashavatara forms**—from Matsya and Kurma to the majestic sleeping form of *Sheshashayi Vishnu* resting upon the cosmic serpent.\n\nWhen the Saraswati River altered its course and flooded the plains in the 13th century, silt and fine sand completely buried the stepwell, sealing it in a natural subterranean time capsule for nearly seven centuries. When the **Archaeological Survey of India** meticulously excavated the monument in the late 20th century, the carvings emerged in pristine, razor-sharp condition—looking as though the master Solanki sculptors had laid down their chisels only yesterday.`;
     }
     if (s.includes('red fort') || s.includes('lal qila')) {
-      return `In 1638, Shah Jahan resolved to shift his imperial capital from Agra to Delhi, designing the octagonal red sandstone fortress of Shahjahanabad. Within its fortified ramparts stood the Diwan-i-Khas, where the fabled Peacock Throne once rested beneath silver ceilings.\n\nOn its marble arch, poet Amir Khusrau's famous Persian verses are inscribed in gold: "Agar firdaus bar roo-e zameen ast, hameen ast-o hameen ast-o hameen ast" (If there is a paradise on earth, it is this, it is this, it is this).`;
+      return `In **1638 CE**, Mughal Emperor **Shah Jahan** decided to shift his imperial throne from Agra to Delhi, designing a brand-new planned capital city named **Shahjahanabad**. For ten years along the Yamuna riverbank, master builders and stonemasons raised the soaring, octagonal bastions of the **Red Fort (Lal Qila)** using glowing red sandstone quarried from Rajasthan.\n\nBehind its formidable two-kilometer battlements lay a majestic world of marble palaces, canal-cooled courtyards, and fragrant *Charbagh* gardens. In the **Diwan-i-Khas** (Hall of Private Audience), the Emperor held council upon the fabled **Peacock Throne**, encrusted with diamonds, emeralds, pearls, and the legendary **Koh-i-Noor diamond**, beneath silver ceilings inlaid with gold.\n\nOn the marble archway overlooking the hall, court poet **Amir Khusrau's** celebrated Persian couplet was inscribed in gleaming gold calligraphy: *"Agar firdaus bar roo-e zameen ast, hameen ast-o hameen ast-o hameen ast"*—**If there is a paradise on earth, it is this, it is this, it is this.** Over three centuries, the fort witnessed the zenith of Mughal majesty, the upheavals of 1857, and finally the historic dawn of **15 August 1947**, when Prime Minister Jawaharlal Nehru raised independent India's tricolor flag from its ramparts—sealing its place as the living heartbeat of the nation.`;
     }
     if (s.includes('sanchi')) {
-      return `Following the devastating battle of Kalinga, Emperor Ashoka renounced conquest through war and embraced the path of Dhamma and peace. In the 3rd century BCE, he selected the tranquil hilltop of Sanchi in Madhya Pradesh to enshrine sacred relics of Gautama Buddha under a massive stone hemisphere.\n\nCenturies later, the Satavahana artisans added four magnificent Torana gateways, each carved with intricate depictions of elephants, winged lions, and Jataka legends, creating a lasting beacon of universal harmony.`;
+      return `In the 3rd century BCE, following the catastrophic bloodbath of the Kalinga War, a profound transformation gripped the heart of the mighty Mauryan Emperor **Ashoka**. Renouncing territorial conquest through war (*Digvijaya*), the Emperor embraced the Buddhist path of moral victory through righteousness (*Dhammavijaya*). On a serene, secluded hilltop at **Sanchi** in Madhya Pradesh, he commissioned the construction of a great hemispherical stone dome to enshrine sacred bone relics of **Gautama Buddha**.\n\nTwo centuries later, under the **Satavahana Dynasty**, guilds of ivory carvers and sculptors from nearby Vidisha added four magnificent **Torana gateways** facing the four cardinal directions. These 34-foot-high gateways were carved with breathtaking density: playful elephants holding lotus flowers, celestial guardians (*Yakshis*) gracefully suspended from mango boughs, and vivid narrative panels recounting the Buddha's life and Jataka tales.\n\nIntriguingly, the Buddha himself was never depicted in human form on these ancient toranas—instead, his presence was reverently symbolized through footprints (*Paduka*), an empty throne beneath the Bodhi tree, the wheel of law (*Dharmachakra*), and the umbrella of spiritual royalty (*Chhatra*). Sanchi stands today as India's oldest surviving stone structure, a timeless sanctuary of inner peace and universal compassion.`;
     }
-    return `Centuries ago in the golden heart of India, master architects, scholars, and devoted artisans gathered to create ${site || 'this timeless monument'}.\n\nUnder the starlit skies of ancient Bharat, every stone was inscribed with royal grandeur, cosmic philosophy, and unmatched devotion. Legends tell of master craftsmen whose dedication defied time itself, leaving behind an enduring cultural marvel that continues to inspire pilgrims and travelers from all corners of the world.`;
+    return `Centuries ago in the golden heart of India, visionary rulers, master sthapathis, and devoted guilds of craftsmen gathered to breathe life into **${site || 'this timeless monument'}**.\n\nWorking under the starlit skies of ancient Bharat, hundreds of stone carvers, metal casters, and painters chipped away at raw granite, sandstone, and marble. Guided by sacred geometric canons and Vedic philosophy, every arch was calibrated to capture the cosmic movement of constellations, while every sculpted pillar mirrored the spiritual harmony between nature, humanity, and the divine.\n\nLegends recount the immense devotion of those master artisans who poured their lifetimes into this creation, leaving behind inscriptions in classical Sanskrit, Prakrit, or Persian that whisper forgotten tales of royal valor, celestial music, and spiritual enlightenment. Today, as travelers and pilgrims walk through its historic corridors, the stones continue to echo with the enduring soul of India's 5,000-year-old civilization.`;
+  },
+
+  formatStoryHtml(rawText) {
+    if (!rawText) return '';
+    const paragraphs = rawText.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+    return paragraphs.map(p => {
+      let formatted = p.trim()
+        .replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--gold)">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n/g, '<br>');
+      return `<p style="margin-bottom:1rem;line-height:1.8;color:var(--text);font-size:0.94rem;text-align:justify">${formatted}</p>`;
+    }).join('');
   },
 
   async fetchStory() {
@@ -822,38 +1112,58 @@ const AIGuide = {
     if (!site) return;
 
     document.getElementById('modal-content').innerHTML = `
-      <div style="text-align:center;padding:2rem">
+      <div style="text-align:center;padding:2.5rem 1rem">
         <div class="typing-indicator" style="justify-content:center">
           <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
         </div>
-        <p style="color:var(--text-secondary);margin-top:1rem;font-size:0.9rem">Summoning ancient legends for <b>${site}</b>...</p>
+        <p style="color:var(--gold);margin-top:1.25rem;font-weight:600;font-size:1rem">Summoning ancient legends for ${site}...</p>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-top:0.3rem">Weaving historical chronicles, architecture & artisan lore</p>
       </div>`;
 
     try {
       const res = await API.generateStory(site);
       const storyText = (res && res.story) ? res.story : AIGuide.getStoryFallback(site);
+      const formattedStory = AIGuide.formatStoryHtml(storyText);
+
       document.getElementById('modal-content').innerHTML = `
-        <h3 style="margin-bottom:1rem">📖 The Legend of ${site}</h3>
-        <p style="line-height:1.85;color:var(--text-secondary);font-style:italic;font-size:0.92rem">${storyText.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</p>
-        <div style="display:flex;gap:0.75rem;margin-top:1.5rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)">
+          <div>
+            <h3 style="margin:0;font-size:1.2rem;color:var(--gold)">📖 The Legend of ${site}</h3>
+            <span style="font-size:0.78rem;color:var(--text-muted)"><i class="fas fa-scroll" style="margin-right:4px"></i> Historical Epic • ~2 min read</span>
+          </div>
+          <span style="background:rgba(212,160,23,0.15);color:var(--gold);border:1px solid rgba(212,160,23,0.3);padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600">VIRASAT TALES</span>
+        </div>
+        <div style="max-height:60vh;overflow-y:auto;padding-right:6px;margin:1rem 0">
+          ${formattedStory}
+        </div>
+        <div style="display:flex;gap:0.75rem;margin-top:1.25rem;padding-top:0.75rem;border-top:1px solid var(--border)">
           <button class="btn-secondary" style="flex:1" onclick="AIGuide.startStory('${site.replace(/'/g, "\\'")}')">
-            <i class="fas fa-redo"></i> Another Story
+            <i class="fas fa-redo"></i> Another Legend
           </button>
           <button class="btn-primary" style="flex:1" onclick="App.closeModal()">
-            <span>Close</span>
+            <span>Close Chronicle</span>
           </button>
         </div>`;
     } catch {
       const fallbackStory = AIGuide.getStoryFallback(site);
+      const formattedStory = AIGuide.formatStoryHtml(fallbackStory);
       document.getElementById('modal-content').innerHTML = `
-        <h3 style="margin-bottom:1rem">📖 The Legend of ${site}</h3>
-        <p style="line-height:1.85;color:var(--text-secondary);font-style:italic;font-size:0.92rem">${fallbackStory.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')}</p>
-        <div style="display:flex;gap:0.75rem;margin-top:1.5rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)">
+          <div>
+            <h3 style="margin:0;font-size:1.2rem;color:var(--gold)">📖 The Legend of ${site}</h3>
+            <span style="font-size:0.78rem;color:var(--text-muted)"><i class="fas fa-scroll" style="margin-right:4px"></i> Historical Epic • ~2 min read</span>
+          </div>
+          <span style="background:rgba(212,160,23,0.15);color:var(--gold);border:1px solid rgba(212,160,23,0.3);padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600">VIRASAT TALES</span>
+        </div>
+        <div style="max-height:60vh;overflow-y:auto;padding-right:6px;margin:1rem 0">
+          ${formattedStory}
+        </div>
+        <div style="display:flex;gap:0.75rem;margin-top:1.25rem;padding-top:0.75rem;border-top:1px solid var(--border)">
           <button class="btn-secondary" style="flex:1" onclick="AIGuide.startStory('${site.replace(/'/g, "\\'")}')">
             <i class="fas fa-redo"></i> Try Another
           </button>
           <button class="btn-primary" style="flex:1" onclick="App.closeModal()">
-            <span>Close</span>
+            <span>Close Chronicle</span>
           </button>
         </div>`;
     }

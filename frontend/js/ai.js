@@ -4,11 +4,16 @@ const AIGuide = {
 
   // ─── Render AI Page ───────────────────────────────────────────────────────
   render() {
+    const user = (typeof Auth !== 'undefined' && Auth.currentUser) ? Auth.currentUser : null;
+    const firstName = user?.name?.split(' ')[0] || 'Explorer';
+    const hour = new Date().getHours();
+    const timeGreeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
+
     document.getElementById('app-content').innerHTML = `
       <div class="ai-header">
         <div class="ai-avatar">🪷</div>
         <h2>Virasat AI</h2>
-        <p>Your personal Indian Heritage Guide</p>
+        <p>Your Personal Indian Heritage Guide</p>
       </div>
 
       <div class="ai-features">
@@ -31,13 +36,19 @@ const AIGuide = {
           <div class="chat-msg">
             <div class="msg-avatar ai-msg-avatar">🪷</div>
             <div class="msg-bubble ai-bubble">
-              <b>Namaste! I'm Virasat AI 🙏</b><br><br>
-              I'm your personal guide to India's incredible heritage. Ask me about:<br>
-              • Any monument or heritage site<br>
-              • Indian festivals and traditions<br>
-              • History, dynasties, and rulers<br>
-              • Folk art, dance, or music<br><br>
-              What would you like to discover today?
+              <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px;font-weight:500;letter-spacing:0.3px">
+                <i class="fas fa-shield-alt" style="margin-right:3px;font-size:0.7rem"></i> PERSONAL SESSION • ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </div>
+              <b>${timeGreeting}, ${firstName}! 🙏</b><br><br>
+              Welcome to your personal heritage session. I'm <b>Virasat AI</b> — your expert guide to India's incredible 5,000-year-old civilization.<br><br>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;align-items:flex-start;gap:7px"><span style="color:var(--gold)">🏛️</span><span>Ask about any <b>monument</b> or heritage site</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px"><span style="color:var(--gold)">👑</span><span>Explore <b>dynasties</b>, rulers & history</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px"><span style="color:var(--gold)">🎭</span><span>Discover <b>festivals</b>, dance & art forms</span></div>
+                <div style="display:flex;align-items:flex-start;gap:7px"><span style="color:var(--gold)">📜</span><span>Deep-dive into <b>inscriptions</b>, architecture & travel</span></div>
+              </div>
+              <br>
+              <span style="color:var(--text-muted);font-size:0.82rem">What would you like to discover today, ${firstName}?</span>
             </div>
           </div>
 
@@ -45,7 +56,7 @@ const AIGuide = {
         </div>
 
         <div class="chat-input-bar">
-          <textarea class="chat-input" id="chat-input" placeholder="Ask me about any heritage site..."
+          <textarea class="chat-input" id="chat-input" placeholder="Ask me about any heritage site, ${firstName}..."
             rows="1" onkeydown="AIGuide.handleKey(event)"
             oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
           <button class="chat-send-btn" onclick="AIGuide.sendMessage()">
@@ -82,13 +93,22 @@ const AIGuide = {
   // ─── Render Message ───────────────────────────────────────────────────────
   renderMessage(msg) {
     const isUser = msg.role === 'user';
+    const user = (typeof Auth !== 'undefined' && Auth.currentUser) ? Auth.currentUser : null;
+    const senderName = isUser ? (user?.name?.split(' ')[0] || 'You') : 'Virasat AI';
+    const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
     return `
       <div class="chat-msg ${isUser ? 'user' : ''}">
         <div class="msg-avatar ${isUser ? 'user-msg-avatar' : 'ai-msg-avatar'}">
           ${isUser ? Auth.getInitials(Auth.currentUser?.name) : '🪷'}
         </div>
-        <div class="msg-bubble ${isUser ? 'user-bubble' : 'ai-bubble'}">
-          ${AIGuide.formatMarkdown(msg.text)}
+        <div class="msg-content-wrap">
+          <div class="msg-sender-row" style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
+            <span style="font-size:0.75rem;font-weight:700;color:${isUser ? 'var(--text-secondary)' : 'var(--gold)'}">${senderName}</span>
+            <span style="font-size:0.65rem;color:var(--text-muted)">${time}</span>
+          </div>
+          <div class="msg-bubble ${isUser ? 'user-bubble' : 'ai-bubble'}">
+            ${AIGuide.formatMarkdown(msg.text)}
+          </div>
         </div>
       </div>`;
   },
@@ -139,6 +159,9 @@ const AIGuide = {
     let q = message.toLowerCase().trim();
     // Normalize typos and question prefixes
     q = q.replace(/^tel\b/, 'tell').replace(/^wat\b/, 'what').replace(/^abt\b/, 'about').replace(/^whos\b/, 'who is').replace(/^whens\b/, 'when is');
+
+    // Get user's first name for personalization
+    const userName = (typeof Auth !== 'undefined' && Auth.currentUser?.name) ? Auth.currentUser.name.split(' ')[0] : 'Explorer';
 
     // Extract recent entity context if present from history
     let activeEntity = null;
@@ -255,7 +278,7 @@ const AIGuide = {
 
     // 6. Greetings & System Capabilities
     if (/^(hi|hello|hey|namaste|pranam|hola|greetings)/i.test(q) || q === 'hi' || q === 'hello') {
-      return `🙏 **Namaste! I am Virasat AI (विरासत AI)**, your expert companion for Indian heritage, culture, and history.\n\nI can help you discover:\n• **42+ UNESCO World Heritage Sites** & ASI protected monuments across India\n• **Royal Dynasties** (Mughal, Chola, Maurya, Gupta, Vijayanagara, Maratha)\n• **Classical Dance & Music** (Bharatnatyam, Kathak, Carnatic, Hindustani)\n• **Living Festivals** (Diwali, Holi, Navratri, Durga Puja, Pongal, Onam)\n• **Ancient Temple Architecture** (Nagara, Dravidian, Vesara styles)\n\nWhat would you like to explore today?`;
+      return `🙏 **Namaste, ${userName}!** Welcome back to Virasat AI (विरासत AI) — your expert companion for Indian heritage, culture, and history.\n\nI can help you discover:\n• **42+ UNESCO World Heritage Sites** & ASI protected monuments across India\n• **Royal Dynasties** (Mughal, Chola, Maurya, Gupta, Vijayanagara, Maratha)\n• **Classical Dance & Music** (Bharatnatyam, Kathak, Carnatic, Hindustani)\n• **Living Festivals** (Diwali, Holi, Navratri, Durga Puja, Pongal, Onam)\n• **Ancient Temple Architecture** (Nagara, Dravidian, Vesara styles)\n\nWhat would you like to explore today?`;
     }
 
     if (q.includes('kaise ho') || q.includes('how are you')) {
@@ -383,7 +406,7 @@ const AIGuide = {
 
     // 14. Intelligent Contextual Fallback for all other heritage queries
     const cleanWord = message.replace(/[?.,!]/g, '').trim();
-    return `🏛️ **Indian Heritage Insights: "${cleanWord}"**\n\nIndia preserves over 5,000 years of civilization with **42 UNESCO World Heritage Sites**, thousands of ASI protected monuments, and rich intangible traditions.\n\n• **Discover Monuments:** Use the **Explore** tab to browse architectural masterpieces and historical dynasties.\n• **Earn Badges:** Visit sites with GPS in **GeoHunt** to unlock explorer achievements.\n• **Ask Virasat AI:** Ask about specific rulers (Ashoka, Akbar, Cholas), temples (Konark, Meenakshi), caves (Ajanta, Ellora), or festivals!\n\nWould you like a detailed historical legend, travel guide, or quiz about this?`;
+    return `🏛️ **Indian Heritage Insights: "${cleanWord}"**\n\n${userName}, India preserves over 5,000 years of civilization with **42 UNESCO World Heritage Sites**, thousands of ASI protected monuments, and rich intangible traditions.\n\n• **Discover Monuments:** Use the **Explore** tab to browse architectural masterpieces and historical dynasties.\n• **Earn Badges:** Visit sites with GPS in **GeoHunt** to unlock explorer achievements.\n• **Ask Virasat AI:** Ask about specific rulers (Ashoka, Akbar, Cholas), temples (Konark, Meenakshi), caves (Ajanta, Ellora), or festivals!\n\nWould you like a detailed historical legend, travel guide, or quiz about this?`;
   },
 
   // ─── Append Message to Chat ───────────────────────────────────────────────

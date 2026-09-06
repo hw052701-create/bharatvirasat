@@ -36,7 +36,8 @@ const API = {
   // ─── AI ──────────────────────────────────────────────────────────────────
   async aiChat(message, history = []) {
     try {
-      const res = await API.post('/ai/chat', { message, history });
+      const userName = (typeof Auth !== 'undefined' && Auth.currentUser) ? Auth.currentUser.name : '';
+      const res = await API.post('/ai/chat', { message, history, userName });
       if (res && res.reply) return res;
     } catch (e) {
       console.warn('API aiChat server fallback:', e.message);

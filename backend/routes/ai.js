@@ -6,12 +6,24 @@ const authMiddleware = require('../middleware/auth');
 const geminiKey = process.env.GEMINI_API_KEY || '';
 const genAI = new GoogleGenerativeAI(geminiKey);
 
-// System prompt for heritage guide context
-const SYSTEM_PROMPT = `You are Virasat AI, an expert heritage and culture guide for India. 
-You specialize in Indian history, architecture, monuments, festivals, art forms, and cultural traditions.
-You are part of BharatVirasat, a platform to help Indians discover and appreciate their heritage.
-Respond in a friendly, engaging, and educational way. Keep responses concise (2-3 paragraphs max).
-If asked in Hindi or any Indian language, respond in that language.`;
+// System prompt for heritage guide context — personalized per user session
+function getSystemPrompt(userName) {
+  const name = userName ? userName.split(' ')[0] : 'Explorer';
+  return `You are Virasat AI (विरासत AI), a premium, expert heritage and culture guide for India.
+You are currently in a personal 1-on-1 session with ${name}.
+You specialize in Indian history, architecture, monuments, UNESCO World Heritage Sites, festivals, art forms, and cultural traditions.
+You are part of BharatVirasat — India's premier AI-powered heritage discovery platform.
+
+Conversation Guidelines:
+- Address ${name} naturally by name occasionally (not every message).
+- Be warm, professional, and deeply knowledgeable — like a world-class museum curator giving a private tour.
+- Use clean formatting: headers with emoji icons (🛕 🏛️ 👑 📜 🎨 ✈️ etc.), bullet points with bold key terms, and short paragraphs.
+- Keep responses focused and structured (2-4 concise bullet points or paragraphs).
+- When answering follow-up questions, remember context from earlier in the conversation.
+- If asked in Hindi or any Indian language, respond fluently in that language.
+- End responses with a subtle conversational hook ("Would you like to explore..." or "Shall I tell you about...") to encourage deeper discovery.
+- Never use raw markdown symbols in output — format cleanly for display.`;
+}
 
 // ─── Built-in Knowledge Base for Instant & Offline/Fallback AI ───────────────────
 const HERITAGE_KB = {
@@ -260,17 +272,31 @@ function getFallbackChat(message, history = []) {
 // ─── POST /api/ai/chat ────────────────────────────────────────────────────────
 router.post('/chat', authMiddleware, async (req, res) => {
   try {
-    const { message } = req.body;
+    const { message, history, userName } = req.body;
     if (!message) return res.status(400).json({ error: 'Message is required' });
+
+    // Resolve user name from request body or JWT-attached user
+    const resolvedName = userName || req.user?.name || 'Explorer';
 
     if (process.env.GEMINI_API_KEY) {
       try {
         const genAIInstance = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAIInstance.getGenerativeModel({
           model: 'gemini-3.6-flash',
-          systemInstruction: SYSTEM_PROMPT
+          systemInstruction: getSystemPrompt(resolvedName)
         });
-        const result = await model.generateContent(message);
+
+        // Build conversation context from history for multi-turn coherence
+        let conversationPrompt = message;
+        if (history && Array.isArray(history) && history.length > 0) {
+          const contextMessages = history.slice(-8).map(h => {
+            const role = h.role === 'user' ? resolvedName : 'Virasat AI';
+            return `${role}: ${h.text || h.message || ''}`;
+          }).join('\n');
+          conversationPrompt = `Previous conversation:\n${contextMessages}\n\n${resolvedName}: ${message}\n\nVirasat AI:`;
+        }
+
+        const result = await model.generateContent(conversationPrompt);
         const text = result.response.text();
         if (text && text.trim().length > 0) {
           return res.json({ success: true, reply: text, source: 'gemini_live' });
@@ -280,7 +306,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
       }
     }
 
-    const reply = getFallbackChat(message);
+    const reply = getFallbackChat(message, history);
     return res.json({ success: true, reply, source: 'virasat_knowledge_engine' });
   } catch (error) {
     res.status(500).json({ error: 'AI service unavailable', message: error.message });

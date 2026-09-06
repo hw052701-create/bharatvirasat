@@ -41,8 +41,88 @@ const HERITAGE_KB = {
   }
 };
 
-function getFallbackChat(message) {
-  const q = message.toLowerCase().trim();
+function getFallbackChat(message, history = []) {
+  let q = message.toLowerCase().trim();
+  q = q.replace(/^tel\b/, 'tell').replace(/^wat\b/, 'what').replace(/^abt\b/, 'about').replace(/^whos\b/, 'who is').replace(/^whens\b/, 'when is');
+
+  let activeEntity = null;
+  const allRecentText = (history && Array.isArray(history)) ? history.map(h => (h.text || h.message || '')).join(' ').toLowerCase() : '';
+
+  const entityKeywords = [
+    { key: 'khajuraho', match: ['khajuraho', 'chandela', 'kandariya', 'chhatarpur'] },
+    { key: 'taj', match: ['taj mahal', 'taj', 'mumtaz', 'shah jahan', 'agra'] },
+    { key: 'red_fort', match: ['red fort', 'lal qila'] },
+    { key: 'qutub', match: ['qutub', 'qutb', 'iron pillar'] },
+    { key: 'hampi', match: ['hampi', 'vijayanagara', 'vittala', 'stone chariot'] },
+    { key: 'ajanta', match: ['ajanta', 'cave 1', 'frescoes', 'padmapani'] },
+    { key: 'ellora', match: ['ellora', 'kailasa', 'rashtrakuta'] },
+    { key: 'konark', match: ['konark', 'sun temple', 'narasimhadeva'] },
+    { key: 'brihadeeswara', match: ['brihadeeswara', 'thanjavur', 'chola', 'raja raja'] },
+    { key: 'meenakshi', match: ['meenakshi', 'madurai', 'sundareswarar'] },
+    { key: 'sanchi', match: ['sanchi', 'stupa', 'ashoka'] },
+    { key: 'rani_ki_vav', match: ['rani ki vav', 'stepwell', 'patan'] },
+    { key: 'nalanda', match: ['nalanda', 'ancient university'] },
+    { key: 'mahabalipuram', match: ['mahabalipuram', 'mamallapuram', 'pallava', 'shore temple'] },
+    { key: 'fatehpur', match: ['fatehpur', 'buland darwaza', 'akbar'] },
+    { key: 'golden_temple', match: ['golden temple', 'harmandir', 'amritsar'] },
+    { key: 'varanasi', match: ['varanasi', 'kashi', 'banaras', 'ghat'] }
+  ];
+
+  for (const ent of entityKeywords) {
+    if (ent.match.some(m => q.includes(m))) {
+      activeEntity = ent.key;
+      break;
+    }
+  }
+  if (!activeEntity && allRecentText) {
+    for (const ent of entityKeywords) {
+      if (ent.match.some(m => allRecentText.includes(m))) {
+        activeEntity = ent.key;
+        break;
+      }
+    }
+  }
+
+  // Follow-up: Inscriptions & Epigraphy
+  if (q.includes('inscription') || q.includes('script') || q.includes('epigraph') || q.includes('writing') || q.includes('written') || q.includes('language') || q.includes('engrav')) {
+    if (activeEntity === 'khajuraho') {
+      return `📜 **Inscriptions & Epigraphy of Khajuraho Temples**\n\n• **Language & Script:** Inscribed in classical Sanskrit using the medieval northern **Kutila (early Nagari)** script.\n• **Key Inscriptions:** Found prominently on the stone plinths of the **Lakshmana Temple** (dated 954 CE under King Yashovarman) and the **Visvanatha Temple** (dated 1002 CE under King Dhanga).\n• **Historical Value:** These prashastis (royal panegyrics) document the divine genealogy of the Chandela dynasty tracing descent from the Moon God (*Chandra*), record royal military victories, and credit master guild architects like *Sutradhara Chhichha*.\n• **Religious Significance:** The inscriptions record the installation of sacred Vaikuntha Vishnu and Marakatesvara Emerald Shiva lingas, establishing Khajuraho as a premier medieval spiritual power center.`;
+    }
+    if (activeEntity === 'taj') {
+      return `📜 **Inscriptions & Calligraphy of the Taj Mahal**\n\n• **Master Calligrapher:** Inscribed by Persian master **Amanat Khan** (Abd al-Haq) in 1639 CE, whose humble signature appears at the base of the central dome.\n• **Script & Style:** Flawless Arabic and Persian calligraphy in the monumental **Thuluth** script, meticulously inlaid using black jasper marble into white Makrana marble panels.\n• **Content:** 22 Surahs from the Holy Quran, including Surah Ya-Sin and Surah Al-Fajr (Daybreak), inviting pure souls into the eternal gardens of Paradise.\n• **Optical Illusion:** The letter sizes increase progressively higher up the arches so they appear perfectly uniform to an observer standing below on the ground.`;
+    }
+    if (activeEntity === 'brihadeeswara') {
+      return `📜 **Inscriptions of Brihadeeswara Temple (Thanjavur)**\n\n• **Script & Language:** Written in ancient Tamil and Grantha scripts encircling the entire granite basement of the Vimana.\n• **Royal Chronicle:** Commissioned by Emperor **Raja Raja Chola I**, recording exact weights of gold, bronze icons donated, and land revenue endowments from 300+ villages across South India and Sri Lanka.\n• **Social History:** Records the names and quarters of over 400 temple dancers (*Talippendir*), musicians, sculptors, and accountants.`;
+    }
+    if (activeEntity === 'sanchi' || activeEntity === 'ashoka') {
+      return `📜 **Inscriptions & Edicts of Sanchi & Ashoka**\n\n• **Brahmi Edicts (3rd Century BCE):** Early Brahmi script in Prakrit language commissioned under Emperor Ashoka the Great.\n• **Schism Edict:** A pillar edict warning Buddhist monks and nuns against dividing the Sangha.\n• **Votive Inscriptions:** Hundreds of donor epigraphs carved on gateways and railings donated by ordinary citizens, guilds (*ivory workers of Vidisha*), and monks.`;
+    }
+    return `📜 **Ancient Indian Inscriptions & Epigraphy (पुरालेख)**\n\nIndia has over 100,000 recorded historical inscriptions on stone, pillars, and copper plates (*Tamrapatra*):\n\n• **Ashokan Edicts (3rd century BCE):** Deciphered by James Prinsep; written in Brahmi, Kharosthi, Greek, and Aramaic scripts across India advocating Dhamma, non-violence, and tree planting.\n• **Gupta Prashastis:** The Allahabad Pillar (Prayag Prashasti) composed by court poet Harishena recording Samudragupta's conquests in classical Sanskrit.\n• **Copper Plate Grants:** Detailed land grants and maritime expeditions of Chola, Chalukya, and Rashtrakuta dynasties.\n• **Temple Basements:** Indian temples served as living civic archives preserving donor lists, astronomical dates, and historical genealogies.`;
+  }
+
+  // Follow-up: Sculptures, Murals, Art & Erotic Carvings
+  if (q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mural') || q.includes('painting') || q.includes('art') || q.includes('mithuna')) {
+    if (activeEntity === 'khajuraho') {
+      return `🎨 **Sculptures & Art of Khajuraho Temples**\n\n• **Universal Celebration of Life:** Only about 10% of Khajuraho's carvings are erotic (*Mithuna*); the remaining 90% depict medieval daily life, musicians, celestial maidens (*Apsaras* removing thorns or applying makeup), cosmic deities, and royal warriors.\n• **Spiritual Philosophy:** Represents the four Purusharthas (goals of life)—Dharma (righteousness), Artha (wealth), Kama (desire & love), and Moksha (liberation)—integrating worldly passion into the cosmic spiritual journey.\n• **Mastery:** Carved from fine sandstone with astonishing depth, dynamic movement, and graceful anatomical curves.`;
+    }
+    if (activeEntity === 'ajanta') {
+      return `🎨 **Masterpiece Murals of Ajanta Caves**\n\n• **Tempera Frescoes:** Painted over mud-plastered rock surfaces using mineral pigments (lapislazuli, red ochre, lamp black).\n• **Bodhisattva Padmapani (Cave 1):** The lotus-bearing Bodhisattva epitomizes serene compassion with timeless shading and depth.\n• **Narratives:** Illustrates Jataka stories narrating the Buddha's previous births and ancient Indian courtly splendor.`;
+    }
+  }
+
+  // Follow-up: Architecture & Engineering
+  if (q.includes('architecture') || q.includes('design') || q.includes('engineering') || q.includes('how was it built') || q.includes('material') || q.includes('style') || q.includes('height')) {
+    if (activeEntity === 'khajuraho') {
+      return `🏛️ **Architecture of Khajuraho (Nagara Style)**\n\n• **Panchayatana Layout:** A central shrine surrounded by four subsidiary shrines built upon a high stone terrace (*Jagati*).\n• **Spire Progression (Shikhara):** Clusters of miniature spires (*Urushringas*) ascend rhythmically like a mountain range, symbolizing Mount Meru (the cosmic axis).\n• **Inner Sanctuaries:** Progresses seamlessly through Ardhamandapa (entrance porch), Mandapa (hall), Mahamandapa, and Garbhagriha (inner sanctum).`;
+    }
+  }
+
+  // Follow-up: Who built it / History / Dynasty / Dates
+  if (q.includes('who built') || q.includes('when was') || q.includes('history of') || q.includes('founder') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor')) {
+    if (activeEntity === 'khajuraho') {
+      return `👑 **History & Builders of Khajuraho Temples**\n\n• **Dynasty:** Built by the **Chandela Rajput Dynasty** between **950 and 1050 CE** at their cultural and religious capital in Bundelkhand.\n• **Key Rulers:** King Harshadeva, Yashovarman (Lakshmana Temple), King Dhanga (Visvanatha Temple), and King Vidyadhara (Kandariya Mahadeva).\n• **Survival:** Of the original 85 temples across 20 sq km, 25 survive today preserved by ASI and UNESCO.`;
+    }
+  }
 
   // 1. Greetings & System Capabilities
   if (/^(hi|hello|hey|namaste|pranam|hola|greetings)/i.test(q) || q === 'hi' || q === 'hello') {

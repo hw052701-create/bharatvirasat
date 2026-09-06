@@ -573,10 +573,6 @@ Rediscovered in 1818 by General Taylor; meticulously restored by Sir John Marsha
     }
   ];
 
-console.log("Entities template ready, length:", entitiesCode.length);
-fs.writeFileSync(path.join(__dirname, 'scratch_entities.js'), entitiesCode);
-
-
   // ── 1. Resolve Active Entity ──
   let activeEntity = null;
 
@@ -608,19 +604,108 @@ fs.writeFileSync(path.join(__dirname, 'scratch_entities.js'), entitiesCode);
   const covered = serverSessionTopics[userKey][target.key];
 
   // ── 2. Detect Intents in Query ──
+  const wantsLostWax = q.includes('lost wax') || q.includes('lost-wax') || q.includes('cire perdue') || q.includes('panchaloha') || (q.includes('bronze') && (q.includes('cast') || q.includes('technique') || q.includes('nataraja') || q.includes('make') || q.includes('made')));
+  const wantsApasmara = q.includes('apasmara') || q.includes('muyalaka') || (q.includes('dwarf') && (q.includes('foot') || q.includes('shiva') || q.includes('nataraja') || q.includes('under') || q.includes('symbolism'))) || (q.includes('nataraja') && q.includes('symbolism'));
+  const wantsNagaraDravidianCompare = (q.includes('nagara') && q.includes('dravidian')) || ((q.includes('compare') || q.includes('comparison') || q.includes('difference')) && (q.includes('style') || q.includes('architecture') || (q.includes('khajuraho') && q.includes('thanjavur'))));
+  const wantsPatronageSocioEconomic = q.includes('patronage') || q.includes('socio-economic') || q.includes('socioeconomic') || q.includes('economic') || (q.includes('funded') && (q.includes('dynast') || q.includes('condition') || q.includes('each') || q.includes('them'))) || q.includes('trade guild') || q.includes('ayyavole') || q.includes('devadana') || q.includes('brahmadeya');
+  const wantsTravelersAccounts = q.includes('traveler') || q.includes('traveller') || q.includes('paes') || q.includes('nuniz') || q.includes('abdur razzaq') || q.includes('mackenzie') || q.includes('foreign account') || q.includes('primary source');
+
   const wantsAll = q.includes('full') || q.includes('all') || q.includes('everything') || q.includes('complete') || (q.includes('proper') && q.includes('information')) || q.includes('deep dive') || q.includes('all the information') || q.includes('research') || q.includes('student') || q.includes('more content') || q.includes('not less') || q.includes('full content');
-  const wantsWhen = (q.includes('when') && (q.includes('built') || q.includes('made') || q.includes('constructed') || q.includes('founded') || q.includes('started') || q.includes('date') || q.includes('period') || q.includes('timeline') || q.includes('century') || q.includes('era') || q.includes('year'))) || q.includes('when was') || q.includes('which year') || q.includes('which century') || q.includes('what time period') || q.includes('kab bana');
+  const wantsWhen = (q.includes('when') && (q.includes('built') || q.includes('made') || q.includes('constructed') || q.includes('founded') || q.includes('started') || q.includes('date') || q.includes('period') || q.includes('timeline') || q.includes('century') || q.includes('era') || q.includes('year') || q.includes('occupied') || q.includes('phases'))) || q.includes('when was') || q.includes('which year') || q.includes('which century') || q.includes('what time period') || q.includes('kab bana');
   const wantsAge = (q.includes('how old') || q.includes('how long') || q.includes('age') || q.includes('years old') || q.includes('how ancient') || q.includes('since when') || q.includes('since today') || q.includes('how many year') || (q.includes('long') && q.includes('been'))) && !wantsWhen;
-  const wantsHistory = (q.includes('history') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || q.includes('chronicle')) && !wantsWhen;
+  const wantsHistory = (q.includes('history') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || q.includes('chronicle')) && !wantsWhen && !wantsPatronageSocioEconomic;
   const wantsBuilder = (q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || (q.includes('who') && q.includes('built')) || q.includes('king who') || q.includes('ruler who') || q.includes('architect who'));
   const wantsWhy = q.includes('why was') || q.includes('why built') || q.includes('purpose') || q.includes('reason') || q.includes('why did') || q.includes('significance') || q.includes('kyun');
-  const wantsArchitecture = q.includes('architecture') || q.includes('design') || q.includes('engineering') || q.includes('structure') || q.includes('layout') || q.includes('shikhara') || q.includes('vimana');
-  const wantsSculptures = q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mithuna') || q.includes('mural') || q.includes('painting') || (q.includes('art') && !q.includes('architecture')) || (q.includes('detail') && covered.has('sculptures'));
+  const wantsArchitecture = (q.includes('architecture') || q.includes('design') || q.includes('engineering') || q.includes('structure') || q.includes('layout') || q.includes('shikhara') || q.includes('vimana')) && !wantsNagaraDravidianCompare;
+  const wantsSculptures = (q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mithuna') || q.includes('mural') || q.includes('painting') || (q.includes('art') && !q.includes('architecture'))) && !wantsApasmara && !wantsLostWax;
   const wantsInscriptions = q.includes('inscription') || q.includes('script') || q.includes('epigraph') || q.includes('writing') || q.includes('written') || q.includes('engrav') || q.includes('proof') || q.includes('evidence') || q.includes('source') || q.includes('record');
   const wantsMaterials = q.includes('material') || q.includes('stone') || q.includes('marble') || q.includes('granite') || q.includes('sandstone') || q.includes('made of');
   const wantsTravel = q.includes('travel') || q.includes('visit') || q.includes('ticket') || q.includes('timing') || q.includes('how to reach') || q.includes('how to go') || q.includes('where is');
 
   const isAffirmation = /^(yes|yeah|yep|sure|ok|okay|yes please|please|tell me|continue|go ahead|more|tell more|next)$/i.test(q) || q === 'yes please' || q === 'yes' || q === 'sure' || q === 'tell me more';
+
+  // ── Dedicated Scholarly Deep-Dive Query Handlers ──
+  if (wantsLostWax) {
+    return `🔥 **The Chola Lost-Wax Casting Technique (*Cire Perdue* / *Madhuchchishtavidhana*)**:
+
+In the master guilds of the Chola Empire (9th–13th century CE), imperial *Sthapathis* created non-reproducible bronze masterpieces according to the canonical rules of the **Shilpa Shastras**:
+
+1. **Wax Model Sculpting:** Master artisans sculpted a precise model by hand using a pliable blend of pure **beeswax**, tree dammar resin (*kungilium*), and castor oil. Every posture, finger mudra, and sacred jewel was shaped in wax.
+2. **Layered Refractory Clay Mold:** The wax sculpture was coated in three progressive layers of specialized clay:
+   • *First coat:* Fine alluvial silt (*vandal*) from the Kaveri River basin to capture microscopic ornamentation.
+   • *Second & Third coats:* Coarser clay mixed with charred rice husks and river sand for structural rigidity and porosity.
+3. **Dewaxing (Lost Wax):** The clay block was fired in a brick kiln. The melting wax flowed out through prepared drainage ducts, leaving a hollow, heat-hardened ceramic matrix.
+4. **Panchaloha Pouring:** A molten alloy of **Panchaloha** (five metals: ~85% copper, 10% brass/zinc, 4% lead/tin, with auspicious traces of gold and silver) heated above 1,000°C was poured continuously in a single uninterrupted stream into the hollow mold.
+5. **Mold Destruction & Chasing:** Once cooled over several days, the clay casing was broken away—**meaning every single Chola bronze is a completely unique, unrepeatable original**. Craftsmen then spent weeks chiseling, engraving, and polishing the metal to a glowing finish.
+
+Would you like to explore the spiritual symbolism of **Nataraja's cosmic dance** or examine the temple inscriptions of Queen Sembiyan Mahadevi next, ${displayName}?`;
+  }
+
+  if (wantsApasmara) {
+    return `🕉️ **Spiritual & Cosmological Symbolism of Apasmara (Muyalaka) under Nataraja's Foot**:
+
+In the iconography of **Lord Shiva as Nataraja** performing the **Ananda Tandava** (Cosmic Dance of Bliss), the dwarf pinned beneath his right foot is **Apasmara** (known as *Muyalakan* in Tamil tradition):
+
+• **Personification of Ignorance:** Apasmara represents *Avidya* (spiritual ignorance), *Maya* (worldly illusion), egotistical pride, and the forgetfulness of the soul's divine nature. He is sculpted smiling upwards while grasping a cobra.
+• **Subdued, Not Slayed:** In Hindu philosophy, ignorance cannot be totally destroyed in the physical realm without collapsing the cosmic balance of free will and spiritual growth. Shiva therefore suppresses Apasmara beneath his right foot (*Tirobhava* / divine concealment) rather than killing him, keeping ego and delusion perpetually restrained.
+• **The Five Cosmic Acts (*Pancha Kritya*):**
+  1. **Srishti (Creation):** The hourglass drum (*Damaru*) in the upper right hand vibrates the primordial sound of the universe (*Nada-Brahman*).
+  2. **Sthiti (Preservation):** The lower right hand is raised in the **Abhaya Mudra**, granting divine protection and refuge.
+  3. **Samhara (Dissolution):** Blazing fire (*Agni*) in the upper left palm dissolves decayed forms and worldly illusions.
+  4. **Tirobhava (Veiling / Restraint):** The right foot pinned on Apasmara holds spiritual blindness in check.
+  5. **Anugraha (Grace / Liberation):** The lifted left foot pointing gracefully downward indicates ultimate salvation and *Moksha*.
+• **The Ring of Fire (*Tiruvasi*):** The surrounding circular aureole represents the continuous, cyclical cosmos of time, energy, and cosmic space.
+
+Would you like to know how the Chola sthapathis translated this cosmic philosophy into cast bronze and stone reliefs, ${displayName}?`;
+  }
+
+  if (wantsNagaraDravidianCompare) {
+    return `🏛️ **Comparative Architectural Analysis: Nagara (North Indian) vs. Dravidian (South Indian) Temple Architecture**:
+
+| Architectural Parameter | **Nagara Style (e.g., Khajuraho, Modhera, Puri)** | **Dravidian Style (e.g., Thanjavur, Hampi, Madurai)** |
+| :--- | :--- | :--- |
+| **Main Tower (Superstructure)** | **Shikhara**: Curvilinear, beehive-shaped tower tapering inward gracefully. | **Vimana**: Stepped pyramidal tower rising in diminishing horizontal storeys (*talas*). |
+| **Tower Finial (Apex)** | Ribbed circular stone disc (**Amalaka**) surmounted by a water-pot (**Kalasha**). | Rounded, domical or octagonal monolithic capstone (**Shikhara** / *Stupika*). |
+| **Spire Clustering** | Clustered with dozens of miniature subsidiary spires (**Urushringas**) evoking Mount Meru. | Uniform stepped profile; clean geometrical elevation without subsidiary spire clusters. |
+| **Gateways (*Gopurams*)** | Modest entrance porticos (*Ardhamandapa*); no giant perimeter gateways. | Soaring, multi-tiered monumental entrance towers (**Gopurams**) dominating the compound perimeter. |
+| **Plinth & Perimeter** | Built on an elevated high stone platform (**Jagati**); usually lacks high boundary walls. | Enclosed within high concentric fortified enclosure walls (**Prakaras**) with pillared cloistered walkways. |
+| **Sacred Water Tanks** | Water reservoirs are usually external or detached from the main plinth. | Dedicated stepped temple tank (**Kalyani** / *Pushkarani*) integrated directly within the sacred precinct. |
+| **Sanctum Layout** | Unified axial continuum from porch to sanctum under a continuous stepped roofline. | Expansive detached pavilions (*Nandi Mandapa*, *Mahamandapa*, *1,000-Pillar Kalyana Mandapas*). |
+
+Would you like to explore the intermediate hybrid **Vesara style** (Chalukyas/Hoysalas) or delve into the socio-economic funding of these temples, ${displayName}?`;
+  }
+
+  if (wantsPatronageSocioEconomic) {
+    return `💰 **Dynastic Patronages & Socio-Economic Foundations of Khajuraho & Thanjavur**:
+
+The construction of these monumental wonders was powered by sophisticated medieval political, agrarian, and commercial institutions:
+
+1. **Brihadeeswara Temple (Imperial Cholas / Thanjavur):**
+   • **Agrarian Wealth of Kaveri Delta:** The Cholas built an extraordinary network of irrigation canals, stone anicuts (such as the *Kallanai*), and sluices across the fertile Kaveri Delta, generating vast agricultural yields.
+   • **Imperial Conquest & Tribute:** Emperor Raja Raja Chola I redirected immense royal war treasuries and tributes from Sri Lanka, the Cheras, and Pandyas directly into the temple treasury.
+   • **Maritime Trade Guilds:** Powerful autonomous merchant corporations like the **Ayyavole 500** (*Ainurruvar*) and **Manigramam** conducted lucrative trade across Southeast Asia (Srivijaya) and Song Dynasty China, channeling customs duties and endowments into temple foundations.
+   • **Temple as Economic Engine:** The temple operated as the kingdom's central bank—lending gold at fixed interest, employing over **600 specialized staff** (musicians, dancers, accountants, metal-smiths), and managing extensive tax-free *Devadana* land grants.
+
+2. **Khajuraho Temples (Chandela Rajputs / Bundelkhand):**
+   • **Sovereign Legitimization:** As former feudatories of the Gurjara-Pratiharas, Chandela monarchs (Yashovarman, Dhanga, Vidyadhara) built monumental temples to declare royal sovereignty (*Chhatrapati*) and cosmological legitimacy over Central India.
+   • **Trade Corridors:** Khajuraho was strategically situated along trade routes linking the Gangetic plains to the Malwa plateau and the Deccan, collecting transit tolls.
+   • **Agrarian & Mineral Charters:** Financed through royal *Brahmadeya* and *Shasana* copper-plate endowments, timber concessions, and agricultural harvests along the Ken and Betwa river basins.
+
+Would you like to examine the specific copper-plate land charters or the epigraphical payrolls discovered at these sites?`;
+  }
+
+  if (wantsTravelersAccounts) {
+    return `📜 **Primary Foreign Accounts & Chronicles of Hampi (Vijayanagara)**:
+
+Hampi's imperial scale and wealth were chronicled by prominent international travelers:
+
+• **Abdur Razzaq (Persian Envoy, 1443 CE):** Sent by Timurid ruler Shah Rukh, he recorded: *"The city of Bijanagar is such that the eye has not seen nor the ear heard of any place to equal it upon the whole earth. It is so built that it has seven concentric rings of fortified walls."*
+• **Domingo Paes (Portuguese Merchant, 1520 CE):** Described Hampi under Krishnadevaraya as *"as large as Rome, very beautiful to the sight... the city is full of people and the king has an incredible multitude of troops."* He was astonished by merchants openly measuring out rubies, diamonds, and pearls in the bazaar streets.
+• **Fernão Nuniz (Portuguese Chronicler, 1535 CE):** Detailed the imperial administration, military levies, royal diamond mines, and the grand nine-day Mahanavami festival celebrations.
+• **Colin Mackenzie (1800 CE):** British surveyor and antiquarian who created the first modern archaeological map and collected historic local manuscripts (*Kaifiyats*) that inaugurated modern archaeological fieldwork.
+
+Would you like to explore the ASI archaeological excavations or the epigraphical records found across the Tungabhadra basin?`;
+  }
 
   // ── 3. Comprehensive Master Research Dossier if user asks for "full / all / research / deep dive" ──
   if (wantsAll && !isAffirmation) {

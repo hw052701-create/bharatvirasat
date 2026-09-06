@@ -1,7 +1,8 @@
 // ── api.js — All backend API calls ──────────────────────────────────────────
 // 🌐 Frontend: https://hw052701-create.github.io/bharatvirasat
-// 🚂 Backend: Live Railway URL
-const API_BASE = 'https://bharatvirasat-production.up.railway.app/api';
+// 🚂 Backend: Live Railway URL with local dev fallback
+const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const API_BASE = isLocal ? 'http://localhost:5000/api' : 'https://bharatvirasat-production.up.railway.app/api';
 
 const API = {
   // ─── Auth ────────────────────────────────────────────────────────────────
@@ -37,7 +38,7 @@ const API = {
   async aiChat(message, history = []) {
     try {
       const userName = (typeof Auth !== 'undefined' && Auth.currentUser) ? Auth.currentUser.name : '';
-      const res = await API.post('/ai/chat', { message, history, userName });
+      const res = await API.post('/ai/chat', { message, history, userName }, false);
       if (res && res.reply) return res;
     } catch (e) {
       console.warn('API aiChat server fallback:', e.message);

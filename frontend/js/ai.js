@@ -190,121 +190,512 @@ const AIGuide = {
     // Get user's first name for natural conversational interaction
     const userName = (typeof Auth !== 'undefined' && Auth.currentUser?.name) ? Auth.currentUser.name.split(' ')[0] : 'Explorer';
 
-    // ── Comprehensive Heritage Entity Knowledge Base ──
+    // ── Comprehensive Heritage Entity Research Knowledge Base ──
     const entities = [
       {
         key: 'khajuraho',
         name: 'Khajuraho Temples',
-        match: ['khajuraho', 'chandela', 'kandariya', 'chhatarpur', 'lakshmana temple', 'visvanatha'],
+        match: ['khajuraho', 'chandela', 'kandariya', 'chhatarpur', 'lakshmana temple', 'visvanatha', 'purushartha', 'mithuna'],
         built: '950–1050 CE',
         startYear: 950,
         age: 1076,
         city: 'Chhatarpur district, Madhya Pradesh',
-        overview: `🛕 The **Khajuraho Temples** in Madhya Pradesh are among India's most sublime architectural treasures. Built between **950 and 1050 CE** by the **Chandela Rajput dynasty**, these Nagara-style sandstone temples celebrate the four *Purusharthas* — Dharma, Artha, Kama, and Moksha. The crown jewel is the towering **Kandariya Mahadeva Temple**, dedicated to Lord Shiva, sculpted with 84 mini-spires mimicking sacred Mount Kailash.`,
-        history: `👑 **Historical Chronicles of Khajuraho**:\n\nThe temples were built during the golden age of the **Chandela Rajput Dynasty** (10th–11th centuries CE), who ruled the Jejakabhukti region (Bundelkhand). Rulers like **King Harshadeva**, **Yashovarmadeva** (who built Lakshmana Temple in 954 CE), **King Dhanga** (Visvanatha Temple in 1002 CE), and **King Vidyadhara** (Kandariya Mahadeva in 1030 CE) patronized vast guilds of *Sutradharas* (master sculptors).\n\nOut of an original **85 temples** spread over 20 sq km, **25 magnificent temples survive today**, preserved under UNESCO World Heritage protection.`,
-        builders: `👑 **Builders of Khajuraho**:\n\nCommissioned by the **Chandela Rajput Dynasty** between **950 and 1050 CE** at their sacred cultural capital in Bundelkhand. Key royal visionaries included **King Yashovarman**, **King Dhanga**, and **King Vidyadhara**, with master architect **Chhichha** leading guilds of thousands of stonemasons.`,
-        why: `🎯 **Why Khajuraho was built**:\n\nThe Chandela kings built these temples as monumental spiritual offerings celebrating the cosmic harmony of life. Unlike conventional secluded shrines, Khajuraho integrated worldly celebration, royal rituals, classical arts, music, and spiritual liberation into a unified architectural universe.`,
-        ageText: `⏳ **Age of Khajuraho Temples**:\n\nConstruction began in **950 CE** (completed ~1050 CE). From 950 CE to the present year (2026), the temples are approximately **1,076 years old** — spanning over **10 centuries** of standing history!`,
-        architecture: `🏛️ **Architecture & Layout of Khajuraho**:\n\nBuilt in the classical **Nagara (North Indian)** architectural style on an elevated stone terrace (*Jagati*). Each temple follows a harmonious linear progression: the *Ardhamandapa* (entrance porch), *Mandapa* (pillared hall), *Mahamandapa* (great hall with ambulatory pathway), and the *Garbhagriha* (inner sanctum) under the soaring *Shikhara*.\n\nThe shikhara features a rhythmic cluster of miniature spires (*Urushringas*) that ascend organically like the peaks of the Himalayas, symbolizing the cosmic mountain **Mount Meru**.`,
-        sculptures: `🎨 **Sculptures & Art of Khajuraho**:\n\nContrary to popular misconceptions, only about **10% of Khajuraho's carvings depict erotic themes (*Mithuna*)**. The remaining 90% vividly depict everyday medieval life — celestial dancers (*Apsaras* applying kajal, writing letters, or plucking thorns from their feet), royal musicians, marching armies, celestial deities, and animals.\n\nEvery carving reflects extraordinary anatomical grace and fluid movement chiseled with surgical precision from golden-buff sandstone.`,
-        inscriptions: `📜 **Inscriptions at Khajuraho**:\n\nWritten in classical **Sanskrit** using the medieval northern **Kutila (early Nagari)** script. The stone plinth inscriptions on the **Lakshmana Temple** (dated 954 CE) and **Visvanatha Temple** (dated 1002 CE) record Chandela royal genealogy, military triumphs, and dedicate the temples to Vishnu and Shiva.`,
-        materials: `🧱 **Materials & Construction**:\n\nCrafted from fine-grained golden **sandstone** quarried from the riverbeds of Panna, set upon massive granite foundations without mortar using mortise-and-tenon interlocking joints.`,
-        travel: `✈️ **Travel Guide for Khajuraho**:\n\n• **Location:** Chhatarpur district, Madhya Pradesh.\n• **How to Reach:** Khajuraho Airport (HJR) connects directly to Delhi and Varanasi; Khajuraho Railway Station connects across India.\n• **Best Time:** October to March (mild, pleasant weather). Don't miss the famous **Khajuraho Dance Festival** held every February!\n• **Timings:** Open daily from sunrise to sunset. Guided evening Sound & Light Shows are held in English and Hindi.`
+        overview: `🛕 The **Khajuraho Group of Monuments** in Madhya Pradesh is an internationally celebrated UNESCO World Heritage Site (inscribed 1986 under Criteria i, iii). Constructed between **950 and 1050 CE** during the apex of the **Chandela Rajput Dynasty**, these sandstone sanctuaries represent the ultimate zenith of northern Indian **Nagara-style temple architecture**. Dedicated to Shiva, Vishnu, and the Jain Tirthankaras, they embody the synthesis of spiritual transcendence (*Moksha*) with cosmological, royal, and erotic vibrancy (*Dharma, Artha, Kama*).`,
+        history: `👑 **Historical Chronicles & Dynastic Context**:
+
+• **The Chandela Golden Age:** Originating as feudatories of the imperial Gurjara-Pratiharas, the Chandela Rajputs established sovereign rule over Jejakabhukti (modern Bundelkhand) in the 10th century. Rulers like **Harshadeva**, **Yashovarmadeva** (r. 925–950 CE), **Dhangadeva** (r. 950–1002 CE), and **Vidyadhara** (r. 1003–1035 CE) transformed Khajuraho into their religious capital.
+• **Royal Patronage:** Yashovarman commissioned the **Lakshmana Temple** (dedicated in 954 CE) to enshrine a sacred Vaikuntha Vishnu idol obtained from the ruler of Kashmir. King Dhanga built the **Visvanatha Temple** (1002 CE), while Vidyadhara celebrated his successful resistance against Mahmud of Ghazni by raising the monumental **Kandariya Mahadeva Temple** (~1030 CE).
+• **Medieval Eclipse & Rediscovery:** Following the sack of Kalinjar in 1202 CE, Khajuraho fell into obscurity, protected by dense teak forests until British surveyor **Captain T.S. Burt** re-documented the site in 1838 with the help of local guides. Out of 85 original temples spread across 20 sq km, **25 survive today** across Western, Eastern, and Southern complexes.`,
+        builders: `👑 **Builders & Guilds of Khajuraho**:
+
+Commissioned by the **Chandela Kings** and patronized by court prime ministers like Prabhasa. Construction was executed by vast artisan guilds (*Shrenis*) under master architects (*Sutradharas*) such as **Chhichha**, who oversaw thousands of hereditary sculptors, stone masons, and iconographers working in tight accordance with classical **Vastu Shastra** canons.`,
+        why: `🎯 **Theological & Cosmological Purpose**:
+
+Khajuraho was conceived as a microcosm of the sacred universe (*Vastu Purusha Mandala*). Rejecting severe asceticism, the Chandelas subscribed to Kashmir Shaivism, Kaula-Kapalika, and Tantric-Puranic philosophies that viewed phenomenal reality and spiritual liberation as inseparable. The temples celebrate the full spectrum of human existence—devotion, warfare, music, fertility, and divine love.`,
+        ageText: `⏳ **Chronology & Age**:
+
+Construction began around **950 CE** under Yashovarman and concluded circa **1050 CE**. Measuring from 950 CE to the present year (2026), the temples are **1,076 years old** (spanning more than **10 centuries** of architectural survival).`,
+        architecture: `🏛️ **Architectural Analysis & Structural Layout**:
+
+Khajuraho represents the refined **Sandhara / Panchayatana** Nagara style elevated on a high podium (*Jagati*):
+1. **Axial Alignment:** Temples follow a strict East-West axis:
+   • *Ardhamandapa* (entrance portico with makara torana)
+   • *Mandapa* (pillared assembly hall with pyramidal *phamsana* roof)
+   • *Mahamandapa* (transept with lateral transepts and balconies / *jharokhas*)
+   • *Antarala* (vestibule connecting human and divine realms)
+   • *Garbhagriha* (unadorned, dark inner sanctum enshrining the deity)
+   • *Pradakshina Patha* (circumambulatory ambulatory path).
+2. **The Shikhara System:** The soaring superstructure of Kandariya Mahadeva reaches **31 meters (102 feet)** and is clustered with **84 miniature subordinate spires (*Urushringas*)**. These ascend rhythmically like Himalayan foothills, symbolizing the cosmic axis **Mount Meru**.
+3. **Lighting & Airflow:** Perforated balconies (*Kakshasanas*) create a dramatic interplay of light and shadow, illuminating interior friezes while keeping sanctums cool.`,
+        sculptures: `🎨 **Iconography, Sculptures & Decorative Friezes**:
+
+Khajuraho's walls preserve over **20,000 sculptures** carved in high and medium relief:
+• **The 90/10 Ratio:** Contrary to sensationalized myths, only about **10% of carvings are erotic (*Mithuna*)**. The remaining 90% illustrate everyday medieval life, mythological battles, musicians playing veenas and mridangams, ascetics teaching disciples, and cosmic deities.
+• **Apsaras & Surasundaris:** Celestial maidens are depicted in dynamic tribhanga postures applying kajal (*anjanasana*), extracting thorns from soles, drying wet hair, writing love epistles, or adjusting anklets.
+• **Mithuna Panels:** Concentrated on the junction wall (*Karpura-manjari*) linking the Mahamandapa and Garbhagriha, erotic postures symbolize Tantric union (*Yab-Yum*), the dissolving of duality (*Jivatma* and *Paramatma*), and serve as protective apotropaic talismans warding off lightning and evil spirits.`,
+        inscriptions: `📜 **Epigraphy & Inscriptions**:
+
+• **Language & Script:** Classical **Sanskrit** engraved in the northern **Kutila / Early Nagari** script.
+• **Lakshmana Temple Inscription (954 CE):** A 28-line stone slab recording the Chandela genealogy from the mythical sage Chandratreya down to Yashovarman and Dhanga.
+• **Visvanatha Temple Inscription (1002 CE):** Composed by court poet Rama, dedicating the temple to Shiva and recording the donation of two emerald and stone lingams by King Dhanga.`,
+        materials: `🧱 **Petrography & Engineering Joinery**:
+
+Constructed from fine-grained, buff-colored **sandstone** quarried from the Ken riverbed near Panna, resting on massive sub-foundations of hard local granite. Stones were assembled purely using **dry masonry** (no mortar) with precision mortise-and-tenon joints, iron dowels, and gravity interlocking.`,
+        researchNotes: `🔬 **Archaeological & Research Notes**:
+
+• **ASI Conservation:** Modern 3D laser-scanning and moisture-penetration monitoring by the Archaeological Survey of India (ASI).
+• **Microclimate Studies:** Sandstone exfoliation due to diurnal temperature swings and fungal bio-films is currently treated using biocide preservation treatments and consolidation resins.
+• **Key Academic References:** Krishna Deva (*Temples of Khajuraho*, ASI, 1990); Devangana Desai (*The Religious Imagery of Khajuraho*, 1996); Stella Kramrisch (*The Hindu Temple*, 1946).`,
+        travel: `✈️ **Field Visit & Research Guide**:
+
+• **Location:** Chhatarpur District, Madhya Pradesh (24.8318° N, 79.9199° E).
+• **Transit:** Khajuraho Airport (HJR) connects Delhi/Varanasi; Khajuraho Railway Station (KURJ) connects Delhi, Bhopal, and Jaipur.
+• **Timings & Fees:** Sunrise to sunset daily; ASI Western Group requires entry ticket (₹40 Indian / ₹600 Foreign). Light & Sound Show in English/Hindi every evening.
+• **Research Facilities:** ASI Archaeological Museum on site houses exquisite Chandela stone sculptures and epigraphical casts.`
       },
       {
         key: 'red_fort',
         name: 'Red Fort (Lal Qila)',
-        match: ['red fort', 'lal qila', 'redfort', 'lal kila', 'delhi fort'],
+        match: ['red fort', 'lal qila', 'redfort', 'lal kila', 'delhi fort', 'shahjahanabad', 'diwan-i-khas', 'diwan-i-aam'],
         built: '1638–1648 CE',
         startYear: 1638,
         age: 388,
         city: 'Old Delhi (Shahjahanabad)',
-        overview: `🏰 The **Red Fort (Lal Qila)** in Old Delhi is one of India's most iconic historic fortresses. Commissioned between **1638 and 1648 CE** by Mughal Emperor **Shah Jahan** when shifting the imperial capital from Agra to Shahjahanabad, its massive red sandstone bastions have guarded Delhi for nearly four centuries.`,
-        history: `👑 **History of the Red Fort**:\n\nCommissioned by Mughal Emperor **Shah Jahan** in **1638 CE** when he decided to move the Mughal capital from Agra to his new planned city, **Shahjahanabad** (Old Delhi). Chief architects **Ustad Ahmad** and **Ustad Hamid** supervised 10 years of construction along the Yamuna riverbank.\n\nThe fort served as the imperial throne of Mughal emperors until 1857. On **15 August 1947**, Prime Minister Jawaharlal Nehru hoisted independent India's tricolor from its ramparts, establishing an annual national tradition.`,
-        builders: `👑 **Builders of the Red Fort**:\n\nCommissioned by Mughal Emperor **Shah Jahan** in **1638 CE** with court architects **Ustad Ahmad** and **Ustad Hamid**, built by thousands of stonemasons and artisans over a 10-year span.`,
-        why: `🎯 **Why the Red Fort was built**:\n\nShah Jahan needed a larger, grander, and more strategically fortified administrative capital. Agra had become overcrowded and difficult to expand, while Delhi offered direct access to northern trade routes and the sacred Yamuna river for water supply and natural defense.`,
-        ageText: `⏳ **Age of the Red Fort**:\n\nConstruction began in **1638 CE** and was completed in **1648 CE**. As of 2026, the Red Fort is approximately **388 years old** (nearly 4 centuries).`,
-        architecture: `🏛️ **Architecture & Layout of the Red Fort**:\n\nAn octagonal citadel enclosed by 2 kilometers of red sandstone battlements. Key royal complexes include the *Chhatta Chowk* (vaulted bazaar), *Diwan-i-Aam* (Hall of Public Audience with marble throne canopy), *Diwan-i-Khas* (Hall of Private Audience), *Rang Mahal*, and the stream of paradise canal (*Nahr-i-Bihisht*).`,
-        sculptures: `🎨 **Sculptures, Palatial Inlay & Artwork of Red Fort**:\n\nWhile Islamic Mughal traditions avoid figurative deity idols, the Red Fort features some of the finest decorative art in world architecture:\n\n• **Pietra Dura (*Parchin Kari*) Inlay:** The royal chambers in the *Diwan-i-Khas* and *Khas Mahal* are lined with pure white Makrana marble inlaid with thousands of semi-precious stones (onyx, jasper, carnelian, lapis lazuli) forming intricate floral scrollwork.\n• **The Orpheus Panel:** Behind the Emperor's marble Baldachin throne in the *Diwan-i-Aam* sits a celebrated Florentine pietra dura panel depicting the Greek mythological musician **Orpheus calming beasts with his lute**.\n• **Carved Marble Screens (*Jalis*):** The *Khas Mahal* and *Hammam* feature geometrically perforated screens carved with razor-sharp symmetry that diffuse harsh sunlight into soft ambient illumination.\n• **Lotus Fountains & Canals:** The *Nahr-i-Bihisht* (Stream of Paradise) channels water through scalloped marble lotus fountains (*Katora*) carved in low relief, cooling the royal chambers naturally.\n• **Ceiling Splendour:** The *Rang Mahal* (Palace of Colors) was famed for its gilded woodwork, mirror mosaic (*Aina-Kari*), and painted floral ceilings.`,
-        inscriptions: `📜 **Inscriptions at Red Fort**:\n\nThe famous Persian couplet in gold calligraphy by Amir Khusrau overlooks the Diwan-i-Khas archway: *"Agar firdaus bar roo-e zameen ast, hameen ast-o hameen ast-o hameen ast"* — **If there is a paradise on earth, it is this, it is this, it is this.**`,
-        materials: `🧱 **Materials of the Red Fort**:\n\nMassive exterior ramparts constructed from Rajasthan **red sandstone**, with internal royal chambers paved in pure white **Makrana marble** inlaid with semi-precious stones.`,
-        travel: `✈️ **Travel Details for Red Fort**:\n\n• **Location:** Netaji Subhash Marg, Chandni Chowk, Old Delhi.\n• **Nearest Metro:** Lal Qila Metro Station (Violet Line) or Chandni Chowk (Yellow Line).\n• **Timings:** 9:30 AM – 4:30 PM (Closed on Mondays).\n• **Explorer Tip:** Combine your visit with Chandni Chowk street food and the historic Jama Masjid next door.`
+        overview: `🏰 The **Red Fort (Lal Qila)** is a monumental 17th-century Mughal imperial palace fortress in Old Delhi, designated a UNESCO World Heritage Site in 2007. Commissioned in **1638 CE** by the fifth Mughal Emperor **Shah Jahan** upon transferring his court from Agra, this red sandstone citadel served as the zenith of Indo-Islamic-Persian palatial architecture for over two centuries.`,
+        history: `👑 **Historical Chronicles & Political Significance**:
+
+• **Foundation (1638–1648 CE):** Shah Jahan laid the foundation stone on 12 May 1638 (Muharram 1048 AH) on the western bank of the Yamuna. Under the superintendence of **Ghairat Khan** and **Makramat Khan**, construction took precisely 9 years, 11 months, costing 10 million rupees.
+• **Imperial Seat:** Housed emperors from Shah Jahan to Aurangzeb, Farrukhsiyar, Muhammad Shah (witnessing Nadir Shah's 1739 sack of Delhi), and Bahadur Shah Zafar II.
+• **The 1857 Uprising:** The epicenter of the 1857 First War of Independence. Following British reconquest, over 80% of internal pavilion structures were demolished for military barracks.
+• **National Symbol of Sovereign India:** On **15 August 1947**, Prime Minister Jawaharlal Nehru unfurled the national tricolor from the Lahori Gate ramparts, inaugurating the annual Independence Day address.`,
+        builders: `👑 **Architects & Master Craftsmen**:
+
+Designed by chief imperial architects **Ustad Ahmad Lahori** (who also designed the Taj Mahal) and **Ustad Hamid**, working with tens of thousands of masons, stone cutters from Rajasthan, and Italian/Persian lapidary specialists.`,
+        why: `🎯 **Strategic & Imperial Purpose**:
+
+Agra Fort had become congested, militarily vulnerable, and climatically harsh. Shah Jahan envisioned a spacious, planned metropolis (**Shahjahanabad**) along the perennial Yamuna, strategically positioned at the nexus of the Grand Trunk road and northern trading networks, designed to reflect the terrestrial model of Paradise (*Jannat*).`,
+        ageText: `⏳ **Chronology & Age**:
+
+Begun in **1638 CE** and inaugurated in **1648 CE**. As of 2026, the Red Fort is **388 years old** (nearly four centuries of continuous national history).`,
+        architecture: `🏛️ **Architectural Layout & Spatial Geometry**:
+
+An irregular octagonal citadel spanning **254 acres** enclosed by a 2.41 km curtain wall:
+1. **Ramparts & Gates:** Soaring 18-meter riverfront to 33-meter landward walls with battlements, machicolations, and two monumental gates—**Lahori Gate** (west) and **Delhi Gate** (south).
+2. **Chhatta Chowk (Meena Bazaar):** A 37-bay vaulted, two-storey covered arcade that served as the imperial silk and jewelry market.
+3. **Naubat Khana (Drum House):** Entrance to inner court where royal musicians announced visitors and nobles dismounted.
+4. **Diwan-i-Aam (Public Audience):** 40-pillared red sandstone hall featuring the elevated marble **Baldachin (Jharokha-i-Murassa)** throne canopy.
+5. **Diwan-i-Khas (Private Council):** Pure Makrana marble pavilion where the fabled jewel-encrusted **Peacock Throne (*Takht-i-Taus*)** stood before 1739.
+6. **Khas Mahal & Rang Mahal:** Private imperial apartments cooled by the **Nahr-i-Bihisht (Stream of Paradise)** channel fed by the Yamuna via the western Yamuna canal.`,
+        sculptures: `🎨 **Decorative Arts, Pietra Dura & Carvings**:
+
+• **Pietra Dura (*Parchin Kari*):** Behind the Diwan-i-Aam throne canopy sits an exceptional series of Florentine pietra dura black marble plaques depicting birds, lion-and-lamb harmony, and the Greek mythological hero **Orpheus charming beasts with his lute** (attributed to Florentine artist Austin de Bordeaux).
+• **Marble Jalis:** Intricately perforated geometric and floral lattice screens carved from single marble slabs in the Khas Mahal and Hammam.
+• **Nahr-i-Bihisht Lotus Basins:** Scalloped marble basins with central fountain jets designed to shimmer under candlelight.
+• **Rang Mahal Ceilings:** Elaborate gilded woodwork, polychrome floral frescoes, and mirror-work (*Aina-Kari*) that reflected water cascading through floor channels.`,
+        inscriptions: `📜 **Inscriptions & Persian Epigraphy**:
+
+• **The Golden Inscription of Diwan-i-Khas:** Gilded Persian Nasta'liq calligraphy on the northern and southern arches quoting **Amir Khusrau**:
+  *"Agar firdaus bar roo-e zameen ast, hameen ast-o hameen ast-o hameen ast"*
+  (If there is a paradise on the face of the earth, it is this, it is this, it is this).
+• **Moti Masjid & Imperial Seals:** Quranic inscriptions and imperial chronograms etched into marble facades.`,
+        materials: `🧱 **Petrography & Engineering**:
+
+Built of fine-grained **Rajasthan Red Sandstone** (quarried from Fatehpur Sikri / Bharatpur regions) for defensive ramparts and **Makrana White Marble** (Nagaur, Rajasthan) for the royal pavilions. Foundations rest on stone rubble masonry and wooden piles embedded in the Yamuna silt.`,
+        researchNotes: `🔬 **Archaeological & Academic Research**:
+
+• **ASI Excavations:** Unearthed structural evidence of ancient **Painted Grey Ware (PGW)** culture beneath the fort's southern lawns, correlating with the mythical Mahabharata city of **Indraprastha**.
+• **Conservation Projects:** Conservation of British-era colonial barracks into five modern historical museums (Subhash Chandra Bose Museum, 1857 Memorial, Azadi Ke Deewane, Yaad-e-Jallian, Drishyakala).
+• **Key References:** Ebba Koch (*Mughal Architecture*, 2002); Gordon Risley Hearn (*The Seven Cities of Delhi*, 1906); ASI Architectural Survey Reports.`,
+        travel: `✈️ **Field Visit & Research Guide**:
+
+• **Location:** Netaji Subhash Marg, Chandni Chowk, Old Delhi (28.6562° N, 77.2410° E).
+• **Transit:** Lal Qila Metro Station (Violet Line, Gate 4) or Chandni Chowk (Yellow Line).
+• **Timings:** 9:30 AM – 4:30 PM (Closed on Mondays); Tickets online via ASI portal.
+• **Special Features:** Sound & Light Show, Swatantrata Sangram Museum, Mumtaz Mahal Museum.`
       },
       {
         key: 'taj',
         name: 'Taj Mahal',
-        match: ['taj mahal', 'taj', 'mumtaz', 'shah jahan', 'agra'],
+        match: ['taj mahal', 'taj', 'mumtaz', 'shah jahan', 'agra', 'mumtaz mahal', 'ustad ahmad lahori'],
         built: '1631–1653 CE',
         startYear: 1631,
         age: 395,
         city: 'Agra, Uttar Pradesh',
-        overview: `🏛️ The **Taj Mahal** in Agra is a globally renowned masterpiece of Indo-Islamic architecture. Commissioned in **1631 CE** by Emperor **Shah Jahan** as a mausoleum for his beloved wife **Mumtaz Mahal**, it is crafted from pure white Makrana marble and inlaid with 28 varieties of semi-precious gems.`,
-        history: `👑 **History of the Taj Mahal**:\n\nFollowing Empress **Mumtaz Mahal's** death in Burhanpur in 1631, Emperor **Shah Jahan** summoned over **20,000 master artisans** from India, Persia, and the Ottoman Empire. Led by chief architect **Ustad Ahmad Lahori**, construction took 22 years (1631–1653 CE) at an estimated cost of 32 million rupees of that era.`,
-        builders: `👑 **Builders of Taj Mahal**:\n\nCommissioned by Mughal Emperor **Shah Jahan** for Empress **Mumtaz Mahal**, designed by master architect **Ustad Ahmad Lahori** with master calligrapher **Amanat Khan**.`,
-        why: `🎯 **Why the Taj Mahal was built**:\n\nBuilt as an eternal monument of boundless love and a terrestrial recreation of the gardens of Paradise (*Jannat*) for Empress Mumtaz Mahal.`,
-        ageText: `⏳ **Age of the Taj Mahal**:\n\nCommissioned in **1631 CE**. As of 2026, the Taj Mahal is **395 years old** (nearly four centuries).`,
-        architecture: `🏛️ **Architecture of the Taj Mahal**:\n\nA triumph of bilateral symmetry. Features a 73-meter central double dome, four 40-meter minarets tilted slightly outward for seismic protection, and a subterranean foundation of moisture-retaining ebony wood wells along the Yamuna.`,
-        sculptures: `🎨 **Art & Inlay of Taj Mahal**:\n\nAdorned with delicate *Parchin Kari* (*pietra dura*) inlay using lapis lazuli from Afghanistan, carnelian from Arabia, jade from China, and jasper from Punjab.`,
-        inscriptions: `📜 **Calligraphy Inscriptions**:\n\n22 Quranic Surahs inscribed in elegant Thuluth script in black jasper by Amanat Khan, with letters optically enlarged toward the top so they appear uniform from the ground.`,
-        materials: `🧱 **Materials Used**:\n\nPristine translucent white **Makrana marble** from Rajasthan, red sandstone for auxiliary mosque and guest house, and 28 types of precious stones.`,
-        travel: `✈️ **Travel Guide for Taj Mahal**:\n\n• **Location:** Agra, Uttar Pradesh (2 hours from Delhi via Yamuna Expressway or Vande Bharat Express).\n• **Timings:** 30 minutes before sunrise to 30 minutes before sunset (Closed Fridays).\n• **Best Time:** Sunrise for soft pink hues, or night viewing during the 5 nights of the full moon.`
+        overview: `🏛️ The **Taj Mahal** in Agra is globally celebrated as the supreme jewel of Indo-Islamic architecture and a UNESCO World Heritage Site (1983, Criterion i). Commissioned in **1631 CE** by the fifth Mughal Emperor **Shah Jahan** as the final resting mausoleum (*Rauza*) for his favorite consort **Arjumand Banu Begum (Mumtaz Mahal)**, this marble marvel embodies perfect bilateral symmetry, cosmic geometry, and paradise garden allegories.`,
+        history: `👑 **Historical Chronicles & Primary Sources**:
+
+• **The Tragic Impetus:** Mumtaz Mahal died on 17 June 1631 in Burhanpur during the birth of her 14th child (Gauhar Ara Begum). Her remains were temporarily interred in Burhanpur before being brought to Agra in December 1631.
+• **Construction Timeline (1631–1653 CE):** Chronicled in official Mughal court annals like the *Badshahnama* of Abdul Hamid Lahori and Muhammad Salih Kambo's *Amal-i Salih*. Construction of the plinth and tomb took 12 years (~1643 CE), while auxiliary buildings, minarets, and gardens took another decade, finishing in 1653 CE at an imperial cost of 32 million rupees.
+• **Post-Shah Jahan Era:** Shah Jahan was imprisoned in Agra Fort by his son Aurangzeb in 1658, gazing upon the Taj Mahal until his death in 1666, when he was interred beside Mumtaz Mahal.`,
+        builders: `👑 **The Imperial Architectural Board**:
+
+Led by chief architect **Ustad Ahmad Lahori**, with **Mir Abd-ul Karim** and **Makramat Khan** managing fiscal and logistical operations. Master calligrapher **Amanat Khan Shirazi** designed the epigraphs, Ismail Afandi (Ottoman Empire) designed the dome, and Chiranjilal of Delhi directed mosaic lapidary guilds comprising over **20,000 workers**.`,
+        why: `🎯 **Theological & Philosophical Concept**:
+
+Conceived as a physical manifestation of the **Throne of God (*Arsh*)** suspended above the Gardens of Paradise (*Jannat* / *Rawdah*) on the Day of Judgment. The four-part *Charbagh* garden divided by four water channels represents the four rivers of paradise (milk, honey, water, wine) described in Surah Muhammad.`,
+        ageText: `⏳ **Chronology & Age**:
+
+Commissioned in **1631 CE**. As of 2026, the Taj Mahal is **395 years old** (nearly 4 full centuries of architectural legacy).`,
+        architecture: `🏛️ **Architectural Precision & Engineering Breakdown**:
+
+1. **Bilateral Symmetry:** Flawless axial symmetry centered on the tomb. The complex is flanked by two identical red sandstone structures: the active **Mosque (*Masjid*)** to the west and its identical architectural mirror **Jawab (*Mehman Khana*)** to the east.
+2. **The Double Dome:** A high bulbous outer dome (73 meters high) raised on an elevated cylindrical drum, with an inner dome creating balanced acoustic proportions for the tomb chamber.
+3. **Seismic Minarets:** Four 40-meter minarets at the corners of the plinth, engineered with a deliberate 1.5-degree outward tilt so that in the event of an earthquake, they fall away from the central mausoleum.
+4. **Subterranean Well Foundation:** The foundation along the Yamuna relies on an ingenious grid of deep masonry wells cased with timber (mahogany/sal/ebony) that requires continuous moisture from the Yamuna to prevent desiccating and structural collapse.`,
+        sculptures: `🎨 **Parchin Kari Inlay & Bas-Reliefs**:
+
+• **Parchin Kari (Pietra Dura):** 28 varieties of precious and semi-precious stones inlaid into marble surfaces:
+  - Deep blue **Lapis Lazuli** from Badakhshan (Afghanistan)
+  - Golden **Topaz** and **Agate** from Yemen
+  - Glowing orange **Carnelian** from Arabia
+  - Green **Jade** and **Chrysolite** from China
+  - **Turquoise** from Tibet and **Malachite** from Russia.
+• **Marble Bas-Reliefs:** Dados of the lower tomb walls feature sculpted flowering plants (tulips, lilies, daffodils) carved in naturalistic high-relief with delicate stem undulations.`,
+        inscriptions: `📜 **Calligraphy & Quranic Epigraphy**:
+
+Designed by **Amanat Khan** in flowing **Thuluth script** using inlaid black marble:
+• **Optical Scaling:** The letter size increases progressively towards the top of the arches so that to a viewer standing on the ground, the script appears uniform in scale throughout.
+• **Quranic Surahs:** 22 Surahs are inscribed, culminating in Surah 89 (Al-Fajr) on the Great Gate (*Darwaza-i Rauza*): *"O soul that art at rest, return to thy Lord, well-pleased with Him and He well-pleased with thee..."*`,
+        materials: `🧱 **Petrography & Materials Logistics**:
+
+• **Makrana Marble:** Pristine calcitic white marble quarried in Makrana, Rajasthan, transported 300+ km on ox carts.
+• **Red Sandstone:** Quarried from Tantpur and Roopbas near Bharatpur.
+• **Mortar:** Special lime mortar blended with gum, sugar, lentils (*urad dal*), and jute fiber for elasticity.`,
+        researchNotes: `🔬 **Scientific Studies & Conservation**:
+
+• **Taj Trapezium Zone (TTZ):** 10,400 sq km environmental buffer zone created by Supreme Court mandate to mitigate industrial pollution and acid-rain yellowing.
+• **Mud-Pack Treatment:** Regular *Multani Mitti* (Fuller's earth) absorbent clay packs applied to safely extract atmospheric grime from marble pores without abrasion.
+• **Hydrological Monitoring:** ASI and Central Pollution Control Board (CPCB) continuously monitor Yamuna riverbed water tables to preserve the timber foundation wells.`,
+        travel: `✈️ **Field Visit & Research Guide**:
+
+• **Location:** Dharmapuri, Forest Colony, Agra, Uttar Pradesh (27.1751° N, 78.0421° E).
+• **Transit:** Agra Cantt (AGC) via Gatimaan / Vande Bharat Express (90 min from Delhi); Yamuna Expressway.
+• **Timings:** 30 minutes before sunrise to 30 minutes before sunset (Closed Fridays for prayers). Night viewing open during 5 full-moon nights monthly.
+• **Research Access:** Archaeological Museum inside the Taj complex houses original Mughal drawings and miniature portraits.`
       },
       {
         key: 'hampi',
         name: 'Hampi (Vijayanagara Empire)',
-        match: ['hampi', 'vijayanagara', 'vittala', 'stone chariot', 'virupaksha', 'krishnadevaraya', 'tungabhadra'],
-        built: '1336 CE (14th century)',
+        match: ['hampi', 'vijayanagara', 'vittala', 'stone chariot', 'virupaksha', 'krishnadevaraya', 'tungabhadra', 'pampa'],
+        built: '1336–1565 CE',
         startYear: 1336,
         age: 690,
         city: 'Vijayanagara district, Karnataka',
-        overview: `🏛️ **Hampi** in Karnataka was the capital of the mighty **Vijayanagara Empire** (14th–16th centuries). It features over 1,600 surviving monuments, including the iconic Stone Chariot, musical granite pillars, and royal palaces set against surreal boulder hills along the Tungabhadra River.`,
-        history: `👑 **History of Hampi**:\n\nFounded in **1336 CE** by warrior brothers **Harihara I** and **Bukka Raya I**. Under **Emperor Krishnadevaraya** (1509–1529 CE), Hampi became one of the world's richest cities, trading diamonds and silks with Persia and Portugal.`,
-        builders: `👑 **Builders of Hampi**:\n\nBuilt and expanded by the Sangama, Saluva, and Tuluva dynasties of the **Vijayanagara Empire**, especially Emperor Krishnadevaraya.`,
-        why: `🎯 **Why Hampi was built**:\n\nEstablished as a fortified capital to defend South India's culture and heritage, nestled among impenetrable granite boulder hills and the sacred Tungabhadra River.`,
-        ageText: `⏳ **Age of Hampi**:\n\nFounded in **1336 CE**. As of 2026, Hampi's heritage spans **690 years** (nearly 7 centuries).`,
-        architecture: `🏛️ **Architecture of Hampi**:\n\nDravidian granite architecture featuring colossal multi-tiered Gopurams, open *Mahamandapas*, the monolithic **Garuda Stone Chariot**, and 56 musical resonant pillars.`,
-        sculptures: `🎨 **Sculptures & Reliefs**:\n\nVivid high-relief carvings of Ramayana and Mahabharata episodes, royal processions, and mythical Yali beasts carved directly into solid granite.`,
-        inscriptions: `📜 **Inscriptions at Hampi**:\n\nKannada, Sanskrit, and Telugu inscriptions on stone tablets and temple plinths detailing royal endowments, market trade, and temple rituals.`,
-        materials: `🧱 **Materials**:\n\nLocal hard grey and pink granite boulders interlocked with precision masonry.`,
-        travel: `✈️ **Travel Guide for Hampi**:\n\n• **Location:** Vijayanagara district, Karnataka.\n• **Nearest Hub:** Hospet Railway Station (13 km) or Jindal Vijayanagar Airport (Toranagallu, 40 km).\n• **Best Time:** November to February. Rent a bicycle or e-rickshaw to explore the vast 4,100-hectare site.`
+        overview: `🏛️ **Hampi** (Group of Monuments at Hampi) is a UNESCO World Heritage Site in Karnataka representing the ruined capital of the **Vijayanagara Empire** (1336–1646 CE). Spanning over **4,100 hectares (16 sq miles)** in the Tungabhadra River basin, it contains over 1,600 surviving monuments—including temples, royal palaces, civic structures, water aqueducts, and bustling market complexes carved into surreal granite boulder hills.`,
+        history: `👑 **Historical Chronicles & Imperial Reign**:
+
+• **Foundation (1336 CE):** Established by brothers **Harihara I** and **Bukka Raya I** of the Sangama Dynasty under the spiritual guidance of sage **Vidyaranya** to unify southern India against northern sultanate incursions.
+• **Golden Epoch (1509–1529 CE):** Under the Tuluva Dynasty emperor **Krishnadevaraya**, Vijayanagara reached its geopolitical and artistic zenith, dominating maritime trade from Goa to coastal Odisha. European travelers (**Domingo Paes**, **Fernão Nunes**) described Hampi as larger and wealthier than Rome.
+• **Battle of Talikota (1565 CE):** The combined Deccan Sultanates defeated Rama Raya; Hampi was sacked, burned, and looted for six months before being abandoned.`,
+        builders: `👑 **Imperial Builders & Royal Sthapathis**:
+
+Commissioned across three dynasties—**Sangama**, **Saluva**, and **Tuluva**—with Emperor Krishnadevaraya personally funding the Vittala temple expansion, the Krishna temple, and the giant Lakshmi Narasimha monolith.`,
+        why: `🎯 **Defensive & Religious Significance**:
+
+Strategically nestled in an impenetrable natural fortress of colossal granite hills along the sacred **Tungabhadra River (ancient Pampa Sarovar)**. Hampi revived and defended traditional Dravidian temple culture, literature, and temple banking economies across South India.`,
+        ageText: `⏳ **Chronology & Age**:
+
+Founded in **1336 CE**. As of 2026, Hampi represents **690 years** of standing civilizational legacy.`,
+        architecture: `🏛️ **Dravidian Granite Architecture & Urban Planning**:
+
+1. **Vittala Temple Complex:** Masterpiece of Vijayanagara Dravidian architecture:
+   • **Garuda Stone Chariot (*Ratha*):** An architectural shrine assembled from interlocking granite slabs designed as a processional chariot pulled by two elephants.
+   • **Musical Pillars (*SaReGaMa*):** 56 monolithic granite pillars in the *Mahamandapa* that resonate with distinct musical acoustic frequencies (percussion, wind, string tones) when tapped.
+2. **Virupaksha Temple:** An ancient active temple dating from the 7th century with a towering 50-meter (164 ft) 9-tiered eastern *Raja Gopuram*.
+3. **Royal Center:** Includes the **Lotus Mahal** (syncretic Indo-Islamic secular pavilion), the **Elephant Stables** (11 domed chambers), **Queen's Bath**, and the **Mahanavami Dibba** (massive 3-tiered ceremonial platform).`,
+        sculptures: `🎨 **High-Relief Granite Sculptures & Iconography**:
+
+• **Yali Pillars:** Rearing mythical leonine beasts (*Yalis*) with elephant trunks and lion bodies straddled by warrior riders, carved from single granite monoliths.
+• **Narrative Panels:** Reliefs depicting episodes from the Ramayana, Mahabharata, Krishna Leela, and scenes of foreign Portuguese horse traders with ruffled collars.
+• **Colossal Monoliths:** The 6.7-meter **Ugra Narasimha** (carved from a single boulder in 1528 CE) and the monolithic **Kadalekalu Ganesha** and **Sasivekalu Ganesha**.`,
+        inscriptions: `📜 **Epigraphical Records**:
+
+Over **1,000 stone and copper-plate inscriptions** in **Kannada**, **Telugu**, and **Sanskrit** (Nandi Nagari script). Inscriptions document land grants (*Brahmadeya*), gold endowments, diamond trading regulations, and irrigation canal charters.`,
+        materials: `🧱 **Materials & Engineering**:
+
+Built almost exclusively from local **grey and pink granite** boulders split using wooden wedges soaked in water, assembled without lime mortar using precision tongue-and-groove joints.`,
+        researchNotes: `🔬 **Archaeological & Research Highlights**:
+
+• **Vijayanagara Research Project (VRP):** Decades of international archaeological surveys mapping ancient road systems, defensive walls, and irrigation canal networks.
+• **Acoustic Testing:** NDT (Non-Destructive Testing) by sonic resonance confirming harmonic mineral variations in the Vittala musical pillars.`,
+        travel: `✈️ **Field Visit & Research Guide**:
+
+• **Location:** Vijayanagara district, Karnataka (15.3350° N, 76.4600° E).
+• **Transit:** Hospet Junction Railway Station (13 km); Jindal Vijayanagar Airport, Toranagallu (40 km); Hubli Airport (145 km).
+• **Best Time:** November to February (Hampi Utsav held annually in Nov/Jan).
+• **Research Hub:** ASI Archaeological Museum at Kamalapur housing detailed scale models and bronze collections.`
       },
       {
         key: 'konark',
         name: 'Konark Sun Temple',
-        match: ['konark', 'sun temple', 'narasimhadeva', 'black pagoda', 'chandrabhaga'],
+        match: ['konark', 'sun temple', 'narasimhadeva', 'black pagoda', 'chandrabhaga', 'odisha', 'kalinga'],
         built: '1250 CE',
         startYear: 1250,
         age: 776,
         city: 'Puri district, Odisha',
-        overview: `☀️ The **Konark Sun Temple** in Odisha, built in **1250 CE** by King **Langula Narasimhadeva I**, is designed as a colossal celestial chariot for the **Sun God Surya** — complete with 24 carved stone wheels that function as precise astronomical sundials.`,
-        history: `👑 **History of Konark**:\n\nBuilt in the 13th century by the Eastern Ganga Dynasty. 1,200 master sculptors worked for 12 years under chief architect **Bisu Maharana** and his prodigy son **Dharmapada**, who solved the engineering lock of the pinnacle dome.`,
-        builders: `👑 **Builders of Konark**:\n\nKing **Langula Narasimhadeva I** of the Eastern Ganga Dynasty in 1250 CE.`,
-        why: `🎯 **Why Konark was built**:\n\nCommissioned to celebrate military victories against medieval invaders and to invoke the health and cosmic power of Surya the Sun God.`,
-        ageText: `⏳ **Age of Konark**:\n\nBuilt in **1250 CE**. As of 2026, Konark is **776 years old** (nearly 8 centuries).`,
-        architecture: `🏛️ **Architecture of Konark**:\n\nKalinga-style architecture designed as a 24-wheeled chariot with 7 galloping horses, aligned precisely to catch the first rays of the morning dawn.`,
-        sculptures: `🎨 **Sculptures of Konark**:\n\nIntricate chlorite carvings of dancers (*Natya Mandapa*), musicians, celestial nymphs (*Alasa Kanyas*), and cosmic deities.`,
-        inscriptions: `📜 **Inscriptions & Chronicles**:\n\nOdia palm-leaf *Madala Panji* chronicles and temple stone epigraphs recording construction logistics and solar rituals.`,
-        materials: `🧱 **Materials**:\n\nGreen Chlorite for deities, Khondalite for walls, and Laterite for base plinths.`,
-        travel: `✈️ **Travel Guide for Konark**:\n\n• **Location:** 35 km from Puri, 65 km from Bhubaneswar (BBI Airport).\n• **Best Time:** September to March. Enjoy the annual Konark Dance Festival in December along the Marine Drive.`
+        overview: `☀️ The **Sun Temple of Konark** (ancient *Arka Kshetra*) in Odisha is a 13th-century monument of monumental ambition and a UNESCO World Heritage Site (1984, Criteria i, iii, vi). Built circa **1250 CE** by King **Langula Narasimhadeva I** of the **Eastern Ganga Dynasty**, it was conceived as a titanic stone chariot for the Sun God Surya, complete with 24 carved wheels that function as accurate astronomical sundials.`,
+        history: `👑 **Historical Chronicles & Epigraphs**:
+
+• **Royal Patronage:** Commissioned by King Narasimhadeva I (r. 1238–1264 CE) following his military triumphs against the Delhi Sultanate forces in Bengal.
+• **Primary Chronicles:** Recorded in the **Madala Panji** (temple chronicle of Puri) and the palm-leaf manuscript *Baya Chakada* (detailing 12 years of accounts, salaries, and daily stone consignments).
+• **The Legend of Dharmapada:** When 1,200 sculptors led by chief architect **Bisu Maharana** failed to fix the heavy magnetic crowning finial (*Dadhinauti*), Bisu's 12-year-old son **Dharmapada** solved the mathematical lock, then leapt into the ocean from the pinnacle to save his father's team from the King's death decree.`,
+        builders: `👑 **Builders & Master Sthapathis**:
+
+Designed by master architect **Bisu Maharana** and constructed by 1,200 master craftsmen over a 12-year span, financed by 12 years of imperial revenue from the Eastern Ganga Empire.`,
+        why: `🎯 **Solar Worship & Royal Legitimacy**:
+
+Built as a cosmic tribute to **Surya** (the giver of life and healer of ailments, linking back to the legend of Samba, son of Krishna, who was cured of leprosy at the Chandrabhaga river mouth) and to project the invincible celestial authority of the Ganga monarch.`,
+        ageText: `⏳ **Chronology & Age**:
+
+Consecrated in **1250 CE**. As of 2026, Konark is **776 years old** (nearly 8 centuries of heritage).`,
+        architecture: `🏛️ **Kalinga Architectural Style & Sun Chariot Concept**:
+
+1. **Chariot Ground Plan:** The entire temple complex is designed as a chariot with **24 colossal carved wheels** (each 9 ft 9 in in diameter) drawn by **7 galloping horses** representing the days of the week and colors of sunlight.
+2. **The 24 Sundial Wheels:** 8 major spokes divide the wheel into 8 three-hour periods (*Prahars*), with beads along the rim measuring time accurately down to minutes based on shadow angles.
+3. **Structural Components:**
+   • *Jagamohana* (Assembly Hall): The sole standing monumental pyramidal superstructure (39 m high).
+   • *Rekha Deul* (Sanctum Tower): The original towering spire reached ~70 meters (230 ft) before collapsing in the 17th century.
+   • *Natya Mandapa* (Dancing Hall): An open pillared hall adorned with 128 musical postures.`,
+        sculptures: `🎨 **Sculptural Mastery & Chlorite Iconography**:
+
+• **Surya Deities:** Three magnificent green chlorite statues of the Sun God positioned to catch the sun at dawn, midday, and sunset.
+• **Alasa Kanyas:** Celestial nymphs playing cymbals, drums, flutes, and veenas along the upper terraces.
+• **War Elephants & Gajasimhas:** Massive monolithic sculptures of rearing lions crushing war elephants at the eastern entrance.`,
+        inscriptions: `📜 **Inscriptions & Epigraphical Records**:
+
+Sanskrit and Old Odia epigraphs on copper plates (Kendupatna plates of Narasimhadeva II) documenting royal endowments to the temple of Surya at Konark.`,
+        materials: `🧱 **Petrography & Heavy Engineering**:
+
+Constructed using three stone types: **Khondalite** (weathered metamorphic rock for main walls), **Chlorite** (fine green stone for sanctum idols and doorframes), and **Laterite** (for sub-foundations). Heavy **iron beams** (up to 35 feet long and 90 kg/ft) were forged without welding to support the lintels.`,
+        researchNotes: `🔬 **ASI Conservation & Sand-Filling**:
+
+• **1901 British Stabilization:** Lt. Governor John Woodburn ordered the hollow Jagamohana filled with sand and sealed with stone masonry in 1903 to prevent internal roof collapse.
+• **Modern Sand Removal:** ASI has begun using advanced robotic endoscopes and laser scanning to safely evacuate the internal sand and reinforce the inner structure from within.`,
+        travel: `✈️ **Field Visit & Research Guide**:
+
+• **Location:** Konark, Puri district, Odisha (19.8876° N, 86.0945° E).
+• **Transit:** Biju Patnaik Airport, Bhubaneswar (65 km); Puri Railway Station (35 km) via the scenic Marine Drive.
+• **Events:** Annual Konark Dance Festival and International Sand Art Festival every December at Chandrabhaga Beach.`
       },
       {
         key: 'brihadeeswara',
-        name: 'Brihadeeswara Temple',
-        match: ['brihadeeswara', 'thanjavur', 'chola', 'raja raja', 'tanjore', 'peruvudaiyar'],
+        name: 'Brihadeeswara Temple (Thanjavur)',
+        match: ['brihadeeswara', 'thanjavur', 'chola', 'raja raja', 'tanjore', 'peruvudaiyar', 'big temple', 'karuvur'],
         built: '1010 CE',
         startYear: 1010,
         age: 1016,
         city: 'Thanjavur, Tamil Nadu',
-        overview: `🛕 The **Brihadeeswara Temple** in Thanjavur, completed in **1010 CE** by Chola Emperor **Raja Raja Chola I**, is a monumental Dravidian granite sanctuary crowned by an 80-tonne monolithic dome raised without mortar.`,
-        history: `👑 **History of Brihadeeswara**:\n\nBuilt to celebrate 25 victorious years of Raja Raja Chola I's naval empire across South India, Sri Lanka, and Southeast Asia.`,
-        builders: `👑 **Builders**:\n\nEmperor **Raja Raja Chola I** and master royal architect **Kunjara Mallan Raja Raja Perunthachan**.`,
-        why: `🎯 **Why it was built**:\n\nBuilt as the supreme cultural and spiritual citadel of the Chola Empire dedicated to Lord Shiva as Nataraja.`,
-        ageText: `⏳ **Age of Brihadeeswara**:\n\nConsecrated in **1010 CE**. As of 2026, it is **1,016 years old** (over 10 centuries).`,
-        architecture: `🏛️ **Architecture**:\n\nPure Dravidian granite architecture with a 66-meter *Vimana* tower, huge *Nandi* bull monolith, and expansive pillared cloister halls.`,
-        sculptures: `🎨 **Sculptures & Chola Frescoes**:\n\nRich Chola frescoes depicting Lord Shiva and 108 classical *Karanas* (dance postures) of Bharatnatyam.`,
-        inscriptions: `📜 **Inscriptions**:\n\nExtensive Tamil and Grantha stone inscriptions recording names of all 400+ temple dancers, musicians, and village endowments.`,
-        materials: `🧱 **Materials**:\n\n130,000 tonnes of hard granite transported over 50 km and assembled without mortar.`,
-        travel: `✈️ **Travel Guide for Brihadeeswara**:\n\n• **Location:** Thanjavur, Tamil Nadu (Nearest airport: Tiruchirappalli TRZ, 55 km).\n• **Best Time:** October to March.`
+        overview: `🛕 The **Brihadeeswara Temple** (*Peruvudaiyar Kovil* / The Big Temple) in Thanjavur, Tamil Nadu, is an apex masterpiece of **Dravidian Chola architecture** and the centerpiece of the UNESCO Great Living Chola Temples (1987). Completed in **1010 CE** by Emperor **Raja Raja Chola I**, this all-granite monumental temple features the tallest stone *Vimana* of its era crowned by an **80-tonne monolithic dome**.`,
+        history: `👑 **Imperial Chola History & Consecration**:
+
+• **The 25th Regnal Year:** Consecrated in **1010 CE** (275th day of Raja Raja I's 25th regnal year) to commemorate the imperial triumphs of the Chola navy across Sri Lanka, the Maldives, and Sumatra.
+• **Royal Endowments:** Raja Raja I and his sister **Kundavai** endowed hundreds of kilograms of gold, silver, jewel-encrusted crowns, and the revenues of dozens of villages for perpetual maintenance.`,
+        builders: `👑 **The Imperial Sthapathi**:
+
+Chief architect **Kunjara Mallan Raja Raja Perunthachan** with assistant architects Nithi Raja Perunthachan and Ilamai Raja Perunthachan, as recorded on the temple's northern wall.`,
+        why: `🎯 **Spiritual & Imperial Zenith**:
+
+Built as the supreme dynastic monument of the Chola Empire dedicated to **Lord Shiva as Rajarajeshwaram (Lord of Raja Raja)** and as a cosmic center for classical dance, bronze casting, and Tamil literature.`,
+        ageText: `⏳ **Chronology & Age**:
+
+Consecrated in **1010 CE**. As of 2026, it is **1,016 years old** (standing proudly across more than a millennium).`,
+        architecture: `🏛️ **Architectural Marvel & Dravidian Engineering**:
+
+1. **The Soaring Vimana:** Unlike later Dravidian temples where Gopurams dominate, here the central tower (*Vimana*) rises to a colossal **66 meters (216 feet)** in 16 diminishing tiers (*talas*).
+2. **The 80-Tonne Kumbam:** The crowning capstone (*Shikhara*) is a single monolithic granite block weighing **80 tonnes (80,000 kg)**. Chola engineers built a **6-kilometer-long inclined earthen ramp** from the village of Sarapallam to roll the monolith to the top using elephants and pulleys.
+3. **The Monolithic Nandi:** A single-block granite Nandi bull (12 ft high, 19.5 ft long, 25 tonnes) sits in an open pavilion at the entrance.
+4. **Interlocking Dry Masonry:** 130,000 tonnes of granite were assembled without cement or mortar, relying on gravity and mortise-tenon joinery.`,
+        sculptures: `🎨 **Iconography, Frescoes & Dance Karanas**:
+
+• **The 108 Dance Karanas:** Sculpted along the upper circumambulatory tier of the sanctum, depicting the classical postures of Natya Shastra performed by Lord Shiva.
+• **Chola Frescoes:** Discovered beneath 17th-century Nayak paintings, these 11th-century frescoes depict Raja Raja I with sage Karuvur Devar, Nataraja in cosmic dance, and the burning of the three mythical cities (*Tripurantaka*).`,
+        inscriptions: `📜 **The Most Detailed Inscriptions in India**:
+
+Etched into the stone plinth are thousands of lines of **Tamil and Grantha epigraphs** recording the exact names, home addresses, and daily grain rations of **400 devadasis (temple dancers)**, 212 musicians, accountants, cooks, and washermen, creating an unparalleled socioeconomic record of medieval India.`,
+        materials: `🧱 **Petrography & Logistics**:
+
+Over **130,000 tonnes of hard charnockite granite** transported by river barges and elephant teams from quarries in the Pachaimalai hills over 50 km away to a completely stone-less river delta.`,
+        researchNotes: `🔬 **Academic & ASI Conservation Insights**:
+
+• **Shadow Mystery:** Due to its stepped geometry, the apex dome casts a tight shadow that falls within the temple's high plinth during midday, giving rise to the popular folklore that the tower casts no shadow.
+• **Fresco Preservation:** Advanced chemical de-layering by ASI to uncover the hidden Chola fresco layer beneath later Nayaka over-paintings.`,
+        travel: `✈️ **Field Visit & Research Guide**:
+
+• **Location:** Membalam Road, Thanjavur, Tamil Nadu (10.7828° N, 79.1318° E).
+• **Transit:** Tiruchirappalli International Airport (TRZ, 55 km); Thanjavur Junction Railway Station (TJ).
+• **Timings:** 6:00 AM – 12:30 PM & 4:00 PM – 8:30 PM daily.
+• **Research Centers:** Saraswathi Mahal Library (one of the oldest medieval libraries in Asia) and the Art Gallery at Thanjavur Maratha Palace nearby.`
+      },
+      {
+        key: 'ellora',
+        name: 'Ellora Caves (Kailasa Temple)',
+        match: ['ellora', 'kailasa', 'cave 16', 'rashtrakuta', 'krishna i', 'verul', 'aurangabad', 'chhatrapati sambhaji nagar'],
+        built: '756–773 CE',
+        startYear: 756,
+        age: 1270,
+        city: 'Chhatrapati Sambhaji Nagar (Aurangabad), Maharashtra',
+        overview: `🏛️ **Ellora Caves** in Maharashtra is a monumental UNESCO World Heritage Site (1983) comprising 34 rock-cut monasteries and temples spanning Hindu, Buddhist, and Jain faiths. The crowning jewel is **Cave 16 (The Kailasa Temple)**—the largest monolithic rock-cut structure on Earth, carved **top-down** from a single basalt cliff face in the 8th century CE under **Rashtrakuta King Krishna I**.`,
+        history: `👑 **Rashtrakuta History & Top-Down Excavation**:
+
+Commissioned between **756 and 773 CE** by King Krishna I (Kannada: ಕೃಷ್ಣ I) to replicate Mount Kailash. Master architect **Kokasa** and generations of sculptors excavated over **200,000 tonnes of basalt rock** by carving vertically downward from the mountain top, eliminating the need for scaffolding.`,
+        builders: `👑 **Builders**:
+
+King **Krishna I** of the Rashtrakuta Dynasty, executed by master stonecutter guilds from the Deccan.`,
+        why: `🎯 **Spiritual Audacity**:
+
+Conceived to represent the Himalayan abode of Lord Shiva in volcanic basalt, demonstrating the divine omnipotence and cosmological supremacy of the Rashtrakuta Empire.`,
+        ageText: `⏳ **Age of Kailasa**:
+
+Begun in **756 CE**. As of 2026, Kailasa is **1,270 years old** (nearly 13 centuries of standing rock marvel).`,
+        architecture: `🏛️ **Monolithic Architecture**:
+
+A multi-storeyed monolithic sanctuary twice the area of the Parthenon in Athens. Features an entry Gopuram, Nandi Mandapa, multi-pillared Sabha Mandapa, and soaring Dravidian-style Vimana, flanked by two 15-meter freestanding monolithic victory pillars (*Dhvajastambhas*) and life-sized elephants.`,
+        sculptures: `🎨 **Monumental Basalt Reliefs**:
+
+• **Ravana Shaking Mount Kailash:** Celebrated as one of the greatest dynamic sculptures in world art—capturing the frantic muscular strain of Ravana below and the effortless serenity of Shiva stabilizing the mountain with his big toe.
+• **Shiva as Tripurantaka:** Dynamic relief of Shiva in a flying war chariot firing an arrow.`,
+        inscriptions: `📜 **Inscriptions**:
+
+Kannada and Sanskrit epigraphs on copper plates (Baroda copper plates of Karka II) noting: *"When the gods flying in celestial chariots saw this temple, they were astonished and said: This temple of Shiva is self-created, for such art is impossible in handiwork."*`,
+        materials: `🧱 **Materials**:
+
+Monolithic **Deccan Trap Basalt** rock carved in situ with hammer and chisel.`,
+        researchNotes: `🔬 **Engineering Research**:
+
+Studies show the builders removed an estimated 3 million cubic feet of rock without dynamite, utilizing thermal expansion (heating rock with fire and fracturing with cold water).`,
+        travel: `✈️ **Field Visit**:
+
+• **Location:** Ellora, 30 km from Chhatrapati Sambhaji Nagar (Aurangabad).
+• **Timings:** Sunrise to sunset (Closed Tuesdays).`
+      },
+      {
+        key: 'ajanta',
+        name: 'Ajanta Caves',
+        match: ['ajanta', 'fresco', 'padmapani', 'buddhist cave', 'chaitya', 'vihara', 'vakataka', 'harishena'],
+        built: '2nd century BCE – 5th century CE',
+        startYear: -200,
+        age: 2226,
+        city: 'Chhatrapati Sambhaji Nagar, Maharashtra',
+        overview: `🎨 The **Ajanta Caves** in Maharashtra (UNESCO World Heritage Site, 1983) consist of **30 rock-cut Buddhist cave sanctuaries** dating from the 2nd century BCE to 480 CE. Nestled in a horseshoe-shaped gorge along the Waghora River, they preserve the world's most exquisite masterworks of classical Indian **mural painting (frescoes)** and Buddhist sculptural art.`,
+        history: `👑 **Two Historical Phases**:
+
+• **Phase 1 (Satavahana Era, 2nd–1st c. BCE):** Early Hinayana (Theravada) caves (9, 10, 12, 13, 15A) focusing on symbolic aniconic stupa worship.
+• **Phase 2 (Vakataka Era, 5th c. CE):** Mahayana renaissance under **Emperor Harishena** of the Vakataka Dynasty, creating rich viharas and painted masterworks.
+• **Rediscovery (1819):** Rediscovered on 28 April 1819 by British officer **John Smith** while tiger hunting.`,
+        builders: `👑 **Builders & Monastic Guilds**:
+
+Royal Vakataka ministers like Varahadeva (minister of Harishena) and Upendragupta (king of Rishika), with monk painters and guild lapidaries.`,
+        why: `🎯 **Monastic Retreat & Spiritual Education**:
+
+Carved as serene monsoon retreats (*Varshavasa*) for Buddhist monks situated near ancient Deccan trade routes linking the northern plains to western ports.`,
+        ageText: `⏳ **Age of Ajanta**:
+
+Oldest caves date from **200 BCE** (~2,226 years old), while the painted Mahayana caves date from **480 CE** (~1,546 years old).`,
+        architecture: `🏛️ **Chaityas & Viharas**:
+
+• *Chaitya Grihas* (Worship halls, Caves 19 & 26) with ribbed stone vaults imitating wooden beams and vaulted horseshoe sun-windows (*Chandrashalas*).
+• *Viharas* (Monastic residences) with square pillared central halls and monk cells.`,
+        sculptures: `🎨 **Mural Art & Iconography**:
+
+• **Bodhisattva Padmapani (Cave 1):** The lotus-bearing Bodhisattva reflecting infinite grace and compassion.
+• **Bodhisattva Vajrapani (Cave 1):** Majestic crowned protector.
+• **Reclining Buddha (Cave 26):** A colossal 7-meter sculpture depicting Mahaparinirvana.`,
+        inscriptions: `📜 **Inscriptions**:
+
+Brahmi and Sanskrit donor inscriptions on cave facades recording royal endowments and verses of Buddhist philosophy.`,
+        materials: `🧱 **Pigments & Plaster**:
+
+Painted on rock plaster made of clay, cow dung, and rice husk using natural mineral pigments: **Lapis Lazuli** (blue from Badakhshan), **Red/Yellow Ochres**, **Glauconite** (green), and **Kaolin** (white).`,
+        researchNotes: `🔬 **Conservation Insights**:
+
+ASI collaborates with international conservators using micro-climate sensors and low-lux LED illumination to prevent pigment fading and micro-crack expansion.`,
+        travel: `✈️ **Field Visit**:
+
+• **Location:** 100 km from Chhatrapati Sambhaji Nagar.
+• **Timings:** 9:00 AM – 5:00 PM (Closed Mondays).`
+      },
+      {
+        key: 'rani_ki_vav',
+        name: 'Rani ki Vav (The Queen’s Stepwell)',
+        match: ['rani ki vav', 'stepwell', 'patan', 'udayamati', 'solanki', 'chaulukya', 'gujarat stepwell'],
+        built: '1063 CE',
+        startYear: 1063,
+        age: 963,
+        city: 'Patan, Gujarat',
+        overview: `🏛️ **Rani ki Vav** (The Queen’s Stepwell) in Patan, Gujarat, is a supreme masterpiece of subterranean stepwell architecture and a UNESCO World Heritage Site (2014). Built in **1063 CE** by **Queen Udayamati** as a memorial for King Bhima I of the **Chaulukya (Solanki) Dynasty**, it is designed as an **inverted underground temple** descending through 7 stepped tiers of sculpted sanctity.`,
+        history: `👑 **History & Rediscovery**:
+
+Commissioned in memory of Bhima I (r. 1022–1064 CE). Silted over by the ancient Saraswati River in the 13th century, it remained buried under sand until the Archaeological Survey of India excavated and restored it in the 1980s.`,
+        builders: `👑 **Commissioned By**:
+
+Queen **Udayamati**, daughter of Khengara of Saurashtra, working with master Maru-Gurjara guild architects.`,
+        why: `🎯 **Subterranean Temple of Sacred Water**:
+
+Celebrates water (*Jala*) as the divine source of life, offering physical respite to desert travelers while providing spiritual merit through underground darshan.`,
+        ageText: `⏳ **Age**:
+
+Constructed in **1063 CE**. As of 2026, it is **963 years old** (nearly 10 centuries).`,
+        architecture: `🏛️ **Maru-Gurjara Subterranean Architecture**:
+
+Measures 65 m long, 20 m wide, and 28 m deep. Composed of 7 pillared storeys with stepped corridors leading to a circular draw-well at the western end.`,
+        sculptures: `🎨 **Iconography & Over 800 Carvings**:
+
+Contains over **800 major sculpted panels** depicting **Lord Vishnu in his Dashavatara forms** (Varaha, Vamana, Narasimha, Rama, Kalki), celestial Apsaras (*Solah Shringar*), and **Sheshashayi Vishnu** reclining on the multi-headed serpent Ananta at water level.`,
+        inscriptions: `📜 **Inscriptions**:
+
+Referenced in Merutunga's 1304 CE chronicle *Prabandha Chintamani*.`,
+        materials: `🧱 **Materials**:
+
+Fine Dhrangadhra sandstone carved with razor-sharp micro-detailing.`,
+        researchNotes: `🔬 **Conservation**:
+
+Featured on the reverse of the Indian ₹100 currency note.`,
+        travel: `✈️ **Travel Guide**:
+
+• **Location:** Patan, Gujarat (125 km north of Ahmedabad).
+• **Timings:** 8:00 AM – 6:00 PM daily.`
+      },
+      {
+        key: 'sanchi',
+        name: 'Great Stupa at Sanchi',
+        match: ['sanchi', 'stupa', 'ashoka', 'mauryan', 'torana', 'vidisha', 'satavahana'],
+        built: '3rd century BCE – 1st century BCE',
+        startYear: -250,
+        age: 2276,
+        city: 'Raisen district, Madhya Pradesh',
+        overview: `☸️ The **Great Stupa at Sanchi** in Madhya Pradesh is the oldest intact stone structure in India and a UNESCO World Heritage Site (1989). Commissioned by **Emperor Ashoka the Great** in the 3rd century BCE over the sacred bone relics of the Buddha, its four magnificent **Torana gateways** represent the pinnacle of early Buddhist narrative art.`,
+        history: `👑 **Mauryan Foundation & Satavahana Gateways**:
+
+• **Ashokan Core (c. 250 BCE):** Ashoka built the original brick stupa crowned by a stone parasol (*Chhatra*).
+• **Shunga & Satavahana Expansion (2nd–1st c. BCE):** Enclosed in stone casing and embellished with four 34-foot-high sculpted Toranas by guilds of Vidisha ivory carvers.`,
+        builders: `👑 **Builders**:
+
+Emperor **Ashoka**, with later gateways donated by merchant and artisan guilds (*Dantakaras* of Vidisha).`,
+        why: `🎯 **Relic Shrine & Dharmachakra**:
+
+Constructed to enshrine corporal relics of Gautama Buddha, symbolizing the parinirvana and universal teachings (*Dhamma*).`,
+        ageText: `⏳ **Age**:
+
+Founded circa **250 BCE** (~2,276 years old).`,
+        architecture: `🏛️ **Cosmic Stupa Architecture**:
+
+Consists of a hemispherical dome (*Anda*), raised terrace (*Medhi*), square railed balcony (*Harmika*), and 3-tiered umbrella (*Chhatra*) representing the Three Jewels (*Triratna*).`,
+        sculptures: `🎨 **Aniconic Buddhist Art on Toranas**:
+
+The Buddha is never depicted in human form; instead represented by symbols: **Footprints (*Paduka*)**, **Empty Throne**, **Bodhi Tree**, and **Wheel (*Dharmachakra*)**, surrounded by Yakshis and Jataka tales.`,
+        inscriptions: `📜 **Inscriptions**:
+
+Over 600 **Brahmi inscriptions** in Prakrit recording donations from monks, nuns, and common citizens.`,
+        materials: `🧱 **Materials**:
+
+Local grey and purple Vindhyan sandstone.`,
+        researchNotes: `🔬 **Conservation**:
+
+Rediscovered in 1818 by General Taylor; meticulously restored by Sir John Marshall between 1912 and 1919.`,
+        travel: `✈️ **Travel Guide**:
+
+• **Location:** 46 km northeast of Bhopal (Sanchi Railway Station / BPL Airport).
+• **Timings:** Sunrise to sunset.`
       }
     ];
 
@@ -356,7 +747,7 @@ const AIGuide = {
     const covered = AIGuide.sessionTopics[target.key];
 
     // ── 2. Detect Intents in Query ──
-    const wantsAll = q.includes('full') || q.includes('all') || q.includes('everything') || q.includes('complete') || (q.includes('proper') && q.includes('information')) || q.includes('deep dive') || q.includes('all the information');
+    const wantsAll = q.includes('full') || q.includes('all') || q.includes('everything') || q.includes('complete') || (q.includes('proper') && q.includes('information')) || q.includes('deep dive') || q.includes('all the information') || q.includes('research') || q.includes('student') || q.includes('more content') || q.includes('not less') || q.includes('full content');
     const wantsAge = q.includes('how old') || q.includes('how long') || q.includes('age') || q.includes('years old') || q.includes('how ancient') || q.includes('since when') || q.includes('since today') || q.includes('how many year') || (q.includes('long') && q.includes('been'));
     const wantsHistory = q.includes('history') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || q.includes('chronicle');
     const wantsBuilder = q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || (q.includes('who') && q.includes('built')) || (q.includes('when') && q.includes('built'));
@@ -369,14 +760,17 @@ const AIGuide = {
 
     const isAffirmation = /^(yes|yeah|yep|sure|ok|okay|yes please|please|tell me|continue|go ahead|more|tell more|next)$/i.test(q) || q === 'yes please' || q === 'yes' || q === 'sure' || q === 'tell me more';
 
-    // ── 3. Comprehensive Master Dossier if user asks for "full / all / everything / deep dive" ──
+    // ── 3. Comprehensive Master Research Dossier if user asks for "full / all / research / deep dive" ──
     if (wantsAll && !isAffirmation) {
       const fullDossier = [
         target.overview,
         target.history,
+        target.why,
         target.architecture,
         target.sculptures,
         target.inscriptions,
+        target.materials,
+        target.researchNotes,
         target.travel
       ].filter(Boolean);
 
@@ -384,9 +778,11 @@ const AIGuide = {
       covered.add('architecture');
       covered.add('sculptures');
       covered.add('inscriptions');
+      covered.add('materials');
+      covered.add('researchNotes');
       covered.add('travel');
 
-      return `🏰 **Complete Master Heritage Guide: ${target.name}**\n\n` + fullDossier.join('\n\n') + `\n\nIs there any specific legend, hidden room, or architectural mystery about **${target.name}** you'd like to explore further, ${userName}?`;
+      return `🎓 **Comprehensive Academic & Research Dossier: ${target.name}**\n\n` + fullDossier.join('\n\n') + `\n\nWould you like further academic analysis on its **epigraphical translations**, **structural conservation**, or **comparative dynastic history**, ${userName}?`;
     }
 
     // ── 4. Multi-Topic Composition ──

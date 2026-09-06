@@ -137,13 +137,21 @@ const AIGuide = {
     AIGuide.showTyping();
 
     try {
-      const res = await API.aiChat(message, AIGuide.chatHistory.slice(-10));
+      // 1. Try Direct live Gemini 3.6 Flash from client
+      let reply = await AIGuide.callGeminiDirect(message, AIGuide.chatHistory);
+
+      // 2. If client direct fails, try backend API
+      if (!reply) {
+        const res = await API.aiChat(message, AIGuide.chatHistory.slice(-10));
+        if (res && res.reply) reply = res.reply;
+      }
+
       AIGuide.hideTyping();
-      if (res && res.reply) {
-        AIGuide.chatHistory.push({ role: 'model', text: res.reply });
-        AIGuide.appendMessage({ role: 'model', text: res.reply });
+      if (reply && reply.trim().length > 0) {
+        AIGuide.chatHistory.push({ role: 'model', text: reply.trim() });
+        AIGuide.appendMessage({ role: 'model', text: reply.trim() });
       } else {
-        throw new Error('No reply from server');
+        throw new Error('Fallback needed');
       }
     } catch (err) {
       AIGuide.hideTyping();
@@ -151,6 +159,52 @@ const AIGuide = {
       AIGuide.chatHistory.push({ role: 'model', text: fallbackReply });
       AIGuide.appendMessage({ role: 'model', text: fallbackReply });
     }
+  },
+
+  // ─── Direct In-Browser Live Gemini 3.6-Flash Engine ───────────────────────
+  async callGeminiDirect(message, history = []) {
+    const key = (typeof window !== 'undefined' && (window.GEMINI_KEY || localStorage.getItem('gemini_api_key'))) ? (window.GEMINI_KEY || localStorage.getItem('gemini_api_key')) : '';
+    if (!key) return null;
+    const userName = (typeof Auth !== 'undefined' && Auth.currentUser?.name) ? Auth.currentUser.name.split(' ')[0] : 'Explorer';
+    const sysPrompt = `You are Virasat AI (विरासत AI), India's premier, highly knowledgeable, friendly, and expert heritage guide.
+You are currently in a personal session with ${userName}.
+Always provide rich, natural, deeply informative, and engaging conversational responses without rigid bullet points or repetitive boilerplate.
+Highlight key historical figures, dates, dynasties, architectural terms, and scriptures in **bold**.
+Provide thorough, accurate, and detailed context. When asked follow-ups, maintain seamless continuity with previous questions.`;
+
+    const contents = [
+      { role: 'user', parts: [{ text: `${sysPrompt}\nPlease acknowledge and begin guiding.` }] },
+      { role: 'model', parts: [{ text: `Namaste, ${userName}! I am Virasat AI, your personal guide to India's 5,000-year-old heritage.` }] }
+    ];
+
+    if (Array.isArray(history) && history.length > 0) {
+      history.slice(-8).forEach(h => {
+        const role = (h.sender === 'user' || h.role === 'user') ? 'user' : 'model';
+        const text = h.text || h.message || '';
+        if (text) contents.push({ role, parts: [{ text }] });
+      });
+    }
+
+    contents.push({ role: 'user', parts: [{ text: message }] });
+
+    const models = ['gemini-3.6-flash', 'gemini-2.5-pro'];
+    for (const m of models) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${key}`;
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents })
+        });
+        const data = await res.json();
+        if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+          return data.candidates[0].content.parts[0].text;
+        }
+      } catch (e) {
+        console.warn(`Client direct Gemini ${m} error:`, e.message);
+      }
+    }
+    return null;
   },
 
   // ─── Comprehensive Multi-Domain Heritage Knowledge Engine ─────────────────
@@ -748,13 +802,14 @@ Rediscovered in 1818 by General Taylor; meticulously restored by Sir John Marsha
 
     // ── 2. Detect Intents in Query ──
     const wantsAll = q.includes('full') || q.includes('all') || q.includes('everything') || q.includes('complete') || (q.includes('proper') && q.includes('information')) || q.includes('deep dive') || q.includes('all the information') || q.includes('research') || q.includes('student') || q.includes('more content') || q.includes('not less') || q.includes('full content');
-    const wantsAge = q.includes('how old') || q.includes('how long') || q.includes('age') || q.includes('years old') || q.includes('how ancient') || q.includes('since when') || q.includes('since today') || q.includes('how many year') || (q.includes('long') && q.includes('been'));
-    const wantsHistory = q.includes('history') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || q.includes('chronicle');
-    const wantsBuilder = q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || (q.includes('who') && q.includes('built')) || (q.includes('when') && q.includes('built'));
+    const wantsWhen = (q.includes('when') && (q.includes('built') || q.includes('made') || q.includes('constructed') || q.includes('founded') || q.includes('started') || q.includes('date') || q.includes('period') || q.includes('timeline') || q.includes('century') || q.includes('era') || q.includes('year'))) || q.includes('when was') || q.includes('which year') || q.includes('which century') || q.includes('what time period') || q.includes('kab bana');
+    const wantsAge = (q.includes('how old') || q.includes('how long') || q.includes('age') || q.includes('years old') || q.includes('how ancient') || q.includes('since when') || q.includes('since today') || q.includes('how many year') || (q.includes('long') && q.includes('been'))) && !wantsWhen;
+    const wantsHistory = (q.includes('history') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || q.includes('chronicle')) && !wantsWhen;
+    const wantsBuilder = (q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || (q.includes('who') && q.includes('built')) || q.includes('king who') || q.includes('ruler who') || q.includes('architect who'));
     const wantsWhy = q.includes('why was') || q.includes('why built') || q.includes('purpose') || q.includes('reason') || q.includes('why did') || q.includes('significance') || q.includes('kyun');
     const wantsArchitecture = q.includes('architecture') || q.includes('design') || q.includes('engineering') || q.includes('structure') || q.includes('layout') || q.includes('shikhara') || q.includes('vimana');
     const wantsSculptures = q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mithuna') || q.includes('mural') || q.includes('painting') || (q.includes('art') && !q.includes('architecture')) || (q.includes('detail') && covered.has('sculptures'));
-    const wantsInscriptions = q.includes('inscription') || q.includes('script') || q.includes('epigraph') || q.includes('writing') || q.includes('written') || q.includes('engrav');
+    const wantsInscriptions = q.includes('inscription') || q.includes('script') || q.includes('epigraph') || q.includes('writing') || q.includes('written') || q.includes('engrav') || q.includes('proof') || q.includes('evidence') || q.includes('source') || q.includes('record');
     const wantsMaterials = q.includes('material') || q.includes('stone') || q.includes('marble') || q.includes('granite') || q.includes('sandstone') || q.includes('made of');
     const wantsTravel = q.includes('travel') || q.includes('visit') || q.includes('ticket') || q.includes('timing') || q.includes('how to reach') || q.includes('how to go') || q.includes('where is');
 
@@ -788,7 +843,12 @@ Rediscovered in 1818 by General Taylor; meticulously restored by Sir John Marsha
     // ── 4. Multi-Topic Composition ──
     const sections = [];
 
-    if (wantsAge && target.ageText) {
+    if (wantsWhen) {
+      sections.push(`⏳ **Construction Timeline & Historical Era of ${target.name}**:\n\n• **Built:** **${target.built}**\n• **Historical Period:** Consecrated / founded around **${target.startYear > 0 ? target.startYear + ' CE' : Math.abs(target.startYear) + ' BCE'}** (~**${target.age} years old**).\n• **Era Context:** Developed across the flourishing epoch of its ruling dynasty in ${target.city}.`);
+      covered.add('when');
+    }
+
+    if (wantsAge && !wantsWhen && target.ageText) {
       sections.push(target.ageText);
       covered.add('age');
     }
@@ -803,7 +863,7 @@ Rediscovered in 1818 by General Taylor; meticulously restored by Sir John Marsha
       covered.add('builders');
     }
 
-    if (wantsHistory && !wantsBuilder && target.history) {
+    if (wantsHistory && !wantsBuilder && !wantsWhen && target.history) {
       sections.push(target.history);
       covered.add('history');
     }

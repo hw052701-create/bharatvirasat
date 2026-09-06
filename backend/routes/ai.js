@@ -609,13 +609,14 @@ fs.writeFileSync(path.join(__dirname, 'scratch_entities.js'), entitiesCode);
 
   // ── 2. Detect Intents in Query ──
   const wantsAll = q.includes('full') || q.includes('all') || q.includes('everything') || q.includes('complete') || (q.includes('proper') && q.includes('information')) || q.includes('deep dive') || q.includes('all the information') || q.includes('research') || q.includes('student') || q.includes('more content') || q.includes('not less') || q.includes('full content');
-  const wantsAge = q.includes('how old') || q.includes('how long') || q.includes('age') || q.includes('years old') || q.includes('how ancient') || q.includes('since when') || q.includes('since today') || q.includes('how many year') || (q.includes('long') && q.includes('been'));
-  const wantsHistory = q.includes('history') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || q.includes('chronicle');
-  const wantsBuilder = q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || (q.includes('who') && q.includes('built')) || (q.includes('when') && q.includes('built'));
+  const wantsWhen = (q.includes('when') && (q.includes('built') || q.includes('made') || q.includes('constructed') || q.includes('founded') || q.includes('started') || q.includes('date') || q.includes('period') || q.includes('timeline') || q.includes('century') || q.includes('era') || q.includes('year'))) || q.includes('when was') || q.includes('which year') || q.includes('which century') || q.includes('what time period') || q.includes('kab bana');
+  const wantsAge = (q.includes('how old') || q.includes('how long') || q.includes('age') || q.includes('years old') || q.includes('how ancient') || q.includes('since when') || q.includes('since today') || q.includes('how many year') || (q.includes('long') && q.includes('been'))) && !wantsWhen;
+  const wantsHistory = (q.includes('history') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || q.includes('chronicle')) && !wantsWhen;
+  const wantsBuilder = (q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || (q.includes('who') && q.includes('built')) || q.includes('king who') || q.includes('ruler who') || q.includes('architect who'));
   const wantsWhy = q.includes('why was') || q.includes('why built') || q.includes('purpose') || q.includes('reason') || q.includes('why did') || q.includes('significance') || q.includes('kyun');
   const wantsArchitecture = q.includes('architecture') || q.includes('design') || q.includes('engineering') || q.includes('structure') || q.includes('layout') || q.includes('shikhara') || q.includes('vimana');
   const wantsSculptures = q.includes('sculpture') || q.includes('carving') || q.includes('statue') || q.includes('erotic') || q.includes('mithuna') || q.includes('mural') || q.includes('painting') || (q.includes('art') && !q.includes('architecture')) || (q.includes('detail') && covered.has('sculptures'));
-  const wantsInscriptions = q.includes('inscription') || q.includes('script') || q.includes('epigraph') || q.includes('writing') || q.includes('written') || q.includes('engrav');
+  const wantsInscriptions = q.includes('inscription') || q.includes('script') || q.includes('epigraph') || q.includes('writing') || q.includes('written') || q.includes('engrav') || q.includes('proof') || q.includes('evidence') || q.includes('source') || q.includes('record');
   const wantsMaterials = q.includes('material') || q.includes('stone') || q.includes('marble') || q.includes('granite') || q.includes('sandstone') || q.includes('made of');
   const wantsTravel = q.includes('travel') || q.includes('visit') || q.includes('ticket') || q.includes('timing') || q.includes('how to reach') || q.includes('how to go') || q.includes('where is');
 
@@ -649,7 +650,12 @@ fs.writeFileSync(path.join(__dirname, 'scratch_entities.js'), entitiesCode);
   // ── 4. Multi-Topic Composition ──
   const sections = [];
 
-  if (wantsAge && target.ageText) {
+  if (wantsWhen) {
+    sections.push(`⏳ **Construction Timeline & Historical Era of ${target.name}**:\n\n• **Built:** **${target.built}**\n• **Historical Period:** Consecrated / founded around **${target.startYear > 0 ? target.startYear + ' CE' : Math.abs(target.startYear) + ' BCE'}** (~**${target.age} years old**).\n• **Era Context:** Developed across the flourishing epoch of its ruling dynasty in ${target.city}.`);
+    covered.add('when');
+  }
+
+  if (wantsAge && !wantsWhen && target.ageText) {
     sections.push(target.ageText);
     covered.add('age');
   }
@@ -664,7 +670,7 @@ fs.writeFileSync(path.join(__dirname, 'scratch_entities.js'), entitiesCode);
     covered.add('builders');
   }
 
-  if (wantsHistory && !wantsBuilder && target.history) {
+  if (wantsHistory && !wantsBuilder && !wantsWhen && target.history) {
     sections.push(target.history);
     covered.add('history');
   }
@@ -746,18 +752,44 @@ fs.writeFileSync(path.join(__dirname, 'scratch_entities.js'), entitiesCode);
   return `🏛️ Regarding **${target.name}** in ${target.city}:\n\n${target.overview || target.details}\n\nWould you like to know about its **history**, **architecture**, **sculptures**, **inscriptions**, or **travel tips**?`;
 }
 
-// ─── Helper to get working Gemini model ─────────────────────────────────────
-function getGeminiModel() {
+// ─── Direct Live Gemini 3.6-Flash Engine ─────────────────────────────────────
+async function callGeminiLive(message, history = [], userName = 'Explorer') {
   if (!geminiKey) return null;
-  try {
-    return genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-  } catch (e) {
+  const sysPrompt = getSystemPrompt(userName);
+  const models = ['gemini-3.6-flash', 'gemini-2.5-pro'];
+
+  const contents = [
+    { role: 'user', parts: [{ text: `${sysPrompt}\nPlease acknowledge and begin guiding.` }] },
+    { role: 'model', parts: [{ text: `Namaste! I am Virasat AI, your personal guide to India's 5,000-year-old heritage.` }] }
+  ];
+
+  if (Array.isArray(history) && history.length > 0) {
+    history.slice(-8).forEach(h => {
+      const role = (h.sender === 'user' || h.role === 'user') ? 'user' : 'model';
+      const text = h.text || h.message || '';
+      if (text) contents.push({ role, parts: [{ text }] });
+    });
+  }
+
+  contents.push({ role: 'user', parts: [{ text: message }] });
+
+  for (const model of models) {
     try {
-      return genAI.getGenerativeModel({ model: 'gemini-pro' });
-    } catch (err) {
-      return null;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents })
+      });
+      const data = await res.json();
+      if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        return data.candidates[0].content.parts[0].text;
+      }
+    } catch (e) {
+      console.warn(`Gemini live ${model} error:`, e.message);
     }
   }
+  return null;
 }
 
 // ─── POST /api/ai/chat ────────────────────────────────────────────────────────
@@ -768,43 +800,18 @@ router.post('/chat', async (req, res) => {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    // Try Gemini API first if key configured
-    if (geminiKey) {
-      try {
-        const model = getGeminiModel();
-        if (model) {
-          const sysPrompt = getSystemPrompt(userName);
-          let fullPrompt = `${sysPrompt}\n\n`;
-
-          if (history && Array.isArray(history) && history.length > 0) {
-            fullPrompt += 'Recent conversation history:\n';
-            history.slice(-6).forEach(h => {
-              const role = h.sender === 'user' ? (userName || 'User') : 'Virasat AI';
-              const text = h.text || h.message || '';
-              if (text) fullPrompt += `${role}: ${text}\n`;
-            });
-            fullPrompt += '\n';
-          }
-
-          fullPrompt += `Current user query: "${message}"\nVirasat AI response:`;
-
-          const result = await model.generateContent(fullPrompt);
-          const replyText = result.response.text();
-          if (replyText && replyText.trim().length > 0) {
-            return res.json({ success: true, reply: replyText.trim(), source: 'gemini_live' });
-          }
-        }
-      } catch (geminiErr) {
-        console.warn('Gemini chat API error (using fallback):', geminiErr.message);
-      }
+    // Call live Gemini 3.6 Flash
+    const liveReply = await callGeminiLive(message, history, userName);
+    if (liveReply && liveReply.trim().length > 0) {
+      return res.json({ success: true, reply: liveReply.trim(), source: 'gemini_3.6_flash_live' });
     }
 
     // High quality intelligent fallback engine
-    const reply = getFallbackChat(message, history);
+    const reply = getFallbackChat(message, history, userName);
     return res.json({ success: true, reply, source: 'virasat_knowledge_engine' });
   } catch (error) {
     console.error('AI chat error:', error);
-    const reply = getFallbackChat(req.body?.message || '', req.body?.history || []);
+    const reply = getFallbackChat(req.body?.message || '', req.body?.history || [], req.body?.userName || 'Explorer');
     res.json({ success: true, reply, source: 'virasat_knowledge_engine' });
   }
 });

@@ -42,6 +42,18 @@ const API = {
     } catch (e) {
       console.warn('API aiChat server fallback:', e.message);
     }
+
+    if (typeof AIGuide !== 'undefined' && AIGuide.callGeminiDirect) {
+      try {
+        const liveReply = await AIGuide.callGeminiDirect(message, history);
+        if (liveReply && liveReply.trim().length > 0) {
+          return { success: true, reply: liveReply.trim(), source: 'gemini_3.6_client' };
+        }
+      } catch (err) {
+        console.warn('Client Gemini direct fallback:', err.message);
+      }
+    }
+
     return {
       success: true,
       reply: (typeof AIGuide !== 'undefined' && AIGuide.getInstantAnswer)

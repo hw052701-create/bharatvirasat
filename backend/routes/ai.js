@@ -3,7 +3,7 @@ const router = express.Router();
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const authMiddleware = require('../middleware/auth');
 
-const geminiKey = process.env.GEMINI_API_KEY || 'AIzaSyDTAEun8A5aaioCZz2roIxX4WAkU3s5gn4';
+const geminiKey = process.env.GEMINI_API_KEY || '';
 const genAI = new GoogleGenerativeAI(geminiKey);
 
 // System prompt for heritage guide context
@@ -182,6 +182,23 @@ router.post('/chat', authMiddleware, async (req, res) => {
   try {
     const { message } = req.body;
     if (!message) return res.status(400).json({ error: 'Message is required' });
+
+    if (process.env.GEMINI_API_KEY) {
+      try {
+        const genAIInstance = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        const model = genAIInstance.getGenerativeModel({
+          model: 'gemini-3.6-flash',
+          systemInstruction: SYSTEM_PROMPT
+        });
+        const result = await model.generateContent(message);
+        const text = result.response.text();
+        if (text && text.trim().length > 0) {
+          return res.json({ success: true, reply: text, source: 'gemini_live' });
+        }
+      } catch (geminiErr) {
+        console.warn('Gemini API call failed, using knowledge engine fallback:', geminiErr.message);
+      }
+    }
 
     const reply = getFallbackChat(message);
     return res.json({ success: true, reply, source: 'virasat_knowledge_engine' });

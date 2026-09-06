@@ -35,34 +35,29 @@ function getFallbackChat(message, history = []) {
 
   // ── Extensive typo normalization ──
   q = q
-    .replace(/\bartecthu\w*/gi, 'architecture')
-    .replace(/\barchitectur\b/gi, 'architecture')
-    .replace(/\barchitecher\b/gi, 'architecture')
-    .replace(/\bbuild\b/g, 'built')
-    .replace(/\bbiult\b/g, 'built')
-    .replace(/\bwen\b/g, 'when')
-    .replace(/\bhistry\b/g, 'history')
-    .replace(/\bhistroy\b/g, 'history')
-    .replace(/\bhow lon g/g, 'how long')
-    .replace(/\bgit\b/g, 'it')
-    .replace(/^tel\b/, 'tell')
-    .replace(/^wat\b/, 'what')
-    .replace(/^abt\b/, 'about')
-    .replace(/^whos\b/, 'who is')
-    .replace(/^whens\b/, 'when is')
-    .replace(/\btempel\b/g, 'temple')
-    .replace(/\btempal\b/g, 'temple')
-    .replace(/\bmonumnet\b/g, 'monument')
-    .replace(/\binscrption\b/g, 'inscription')
-    .replace(/\bsculpter\b/g, 'sculpture')
-    .replace(/\bfestval\b/g, 'festival');
+    .replace(/\b(bild|biuld|build|biult|buil|bult|buld|bld)\b/g, 'built')
+    .replace(/\b(artecthuire|architecher|architectur|arcitecture|arkitecture|artecture|architechture|artitecture)\b/g, 'architecture')
+    .replace(/\b(wen|whens|whn|whne)\b/g, 'when')
+    .replace(/\b(hoo|whos|whoo|whoes)\b/g, 'who')
+    .replace(/\b(wat|wats|whut|wot)\b/g, 'what')
+    .replace(/^tel\b|^tell me\b|^tle\b/g, 'tell')
+    .replace(/^abt\b|^abou\b/g, 'about')
+    .replace(/\b(histry|histroy|histery|histoy)\b/g, 'history')
+    .replace(/\b(tempel|tempal|templee|tmple)\b/g, 'temple')
+    .replace(/\b(monumnet|monumet|monumentt)\b/g, 'monument')
+    .replace(/\b(inscrption|inscriptin|inscripton|inscriptions|inscript)\b/g, 'inscription')
+    .replace(/\b(sculpter|sculptre|sculpure|sculptures|sculptur)\b/g, 'sculpture')
+    .replace(/\b(festval|festivel|festivl|festivals)\b/g, 'festival')
+    .replace(/\b(dynesty|dynasti|dynastie|dynasties)\b/g, 'dynasty')
+    .replace(/\b(ruler|rular|ruelr|rulers)\b/g, 'ruler')
+    .replace(/\b(emperor|emperer|emperur|emperors)\b/g, 'emperor');
 
   // ── Entity DB with metadata for age/builder follow-ups ──
   const entities = [
     { key: 'khajuraho', name: 'Khajuraho Temples', match: ['khajuraho', 'chandela', 'kandariya', 'chhatarpur'], built: '950–1050 CE', age: 1000, builders: 'Chandela Rajput Dynasty' },
     { key: 'taj', name: 'Taj Mahal', match: ['taj mahal', 'taj', 'mumtaz', 'shah jahan', 'agra'], built: '1631–1653 CE', age: 373, builders: 'Emperor Shah Jahan' },
-    { key: 'red_fort', name: 'Red Fort', match: ['red fort', 'lal qila'], built: '1638–1648 CE', age: 378, builders: 'Emperor Shah Jahan' },
-    { key: 'qutub', name: 'Qutub Minar', match: ['qutub', 'qutb', 'iron pillar'], built: '1193 CE', age: 833, builders: 'Qutb-ud-din Aibak & Iltutmish' },
+    { key: 'red_fort', name: 'Red Fort', match: ['red fort', 'lal qila', 'redfort', 'delhi fort'], built: '1638–1648 CE', age: 378, builders: 'Mughal Emperor Shah Jahan' },
+    { key: 'qutub', name: 'Qutub Minar', match: ['qutub', 'qutb', 'iron pillar', 'mehrauli'], built: '1193 CE', age: 833, builders: 'Qutb-ud-din Aibak & Iltutmish' },
     { key: 'hampi', name: 'Hampi', match: ['hampi', 'vijayanagara', 'vittala', 'stone chariot'], built: '14th century CE', age: 650, builders: 'Vijayanagara Empire' },
     { key: 'ajanta', name: 'Ajanta Caves', match: ['ajanta', 'cave 1', 'frescoes', 'padmapani'], built: '2nd century BCE', age: 2200, builders: 'Satavahana & Vakataka dynasties' },
     { key: 'ellora', name: 'Ellora Caves', match: ['ellora', 'kailasa', 'rashtrakuta'], built: '6th–11th century CE', age: 1200, builders: 'Rashtrakuta & Yadava kings' },
@@ -78,16 +73,24 @@ function getFallbackChat(message, history = []) {
     { key: 'varanasi', name: 'Varanasi', match: ['varanasi', 'kashi', 'banaras', 'ghat'], built: '11th century BCE (legendary)', age: 3000, builders: 'Ancient sacred city' }
   ];
 
-  // ── Entity resolution: current message → then history ──
+  // ── Entity resolution: current message → then history in reverse order ──
   let activeEntity = null;
-  const allRecentText = (history && Array.isArray(history)) ? history.map(h => (h.text || h.message || '')).join(' ').toLowerCase() : '';
 
   for (const ent of entities) {
     if (ent.match.some(m => q.includes(m))) { activeEntity = ent; break; }
   }
-  if (!activeEntity && allRecentText) {
-    for (const ent of entities) {
-      if (ent.match.some(m => allRecentText.includes(m))) { activeEntity = ent; break; }
+
+  if (!activeEntity && history && Array.isArray(history)) {
+    const reversedHistory = [...history].reverse();
+    for (const item of reversedHistory) {
+      const text = (item.text || item.message || '').toLowerCase();
+      for (const ent of entities) {
+        if (ent.match.some(m => text.includes(m))) {
+          activeEntity = ent;
+          break;
+        }
+      }
+      if (activeEntity) break;
     }
   }
 
@@ -105,12 +108,18 @@ function getFallbackChat(message, history = []) {
   }
 
   // ── Who built it / History / Dynasty / When ──
-  if (q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || q.includes('when was') || q.includes('history of') || q.includes('founder') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor')) {
-    if (activeEntity && activeEntity.key === 'khajuraho') {
-      return `👑 The **Khajuraho Temples** were built by the **Chandela Rajput dynasty** between **950 and 1050 CE**, during a golden century of artistic and spiritual expression in the Bundelkhand region of central India.\n\nThe key rulers behind the construction were **King Yashovarman** (who built the Lakshmana Temple), **King Dhanga** (Visvanatha Temple), and **King Vidyadhara** (the magnificent Kandariya Mahadeva Temple). Out of the original 85 temples spread across 20 square kilometers, **25 have survived to this day**, carefully preserved by ASI and UNESCO.\n\nWould you like to explore their architecture or learn about the famous sculptures?`;
+  if (q.includes('who built') || q.includes('who made') || q.includes('who create') || q.includes('who construct') || q.includes('builder') || q.includes('when was') || q.includes('history of') || q.includes('founder') || q.includes('dynasty') || q.includes('ruler') || q.includes('king') || q.includes('emperor') || (q.includes('built') && (q.includes('it') || q.includes('this') || q.includes('when') || q.includes('who')))) {
+    if (activeEntity && activeEntity.key === 'red_fort') {
+      return `👑 The **Red Fort (Lal Qila)** was commissioned between **1638 and 1648 CE** by Mughal Emperor **Shah Jahan** when he relocated the imperial capital from Agra to the newly planned city of **Shahjahanabad** (Old Delhi).\n\nChief court architects **Ustad Ahmad** and **Ustad Hamid** oversaw the 10-year construction using Rajasthan red sandstone. Within its fortified walls, the Emperor held court in the marble *Diwan-i-Khas*, seated upon the fabled **Peacock Throne**.\n\nWould you like to know about its architecture, famous Persian inscriptions, or how to visit?`;
     }
     if (activeEntity && activeEntity.key === 'taj') {
       return `👑 The **Taj Mahal** was commissioned in **1631 CE** by Mughal Emperor **Shah Jahan** as an eternal monument of love for his beloved wife **Mumtaz Mahal**, who passed away during childbirth. It took about **22 years** and over **20,000 artisans** under chief architect **Ustad Ahmad Lahori** to complete this masterpiece.\n\nThe pristine white Makrana marble was brought from Rajasthan, and semi-precious stones for the *pietra dura* inlay work were sourced from Sri Lanka, Tibet, and Persia.\n\nShall I tell you about its architecture, inscriptions, or the best time to visit?`;
+    }
+    if (activeEntity && activeEntity.key === 'khajuraho') {
+      return `👑 The **Khajuraho Temples** were built by the **Chandela Rajput dynasty** between **950 and 1050 CE**, during a golden century of artistic and spiritual expression in the Bundelkhand region of central India.\n\nThe key rulers behind the construction were **King Yashovarman** (who built the Lakshmana Temple), **King Dhanga** (Visvanatha Temple), and **King Vidyadhara** (the magnificent Kandariya Mahadeva Temple). Out of the original 85 temples spread across 20 square kilometers, **25 have survived to this day**, carefully preserved by ASI and UNESCO.\n\nWould you like to explore their architecture or learn about the famous sculptures?`;
+    }
+    if (activeEntity && activeEntity.key === 'qutub') {
+      return `👑 The **Qutub Minar** was founded in **1193 CE** by **Qutb-ud-din Aibak**, founder of the Delhi Sultanate, and completed by **Shams-ud-din Iltutmish**.\n\nThe complex also houses the famous **1,600-year-old Iron Pillar** erected during the Gupta Empire under Chandragupta II Vikramaditya.\n\nWould you like to know about its inscriptions or architectural design?`;
     }
     if (activeEntity && activeEntity.key === 'brihadeeswara') {
       return `👑 The **Brihadeeswara Temple** was commissioned by the legendary **Raja Raja Chola I** and completed in **1010 CE** to celebrate 25 years of imperial Chola rule. The entire temple is built from **interlocking granite blocks** — the 80-tonne apex dome was hoisted atop the 66-meter tower without mortar, a feat that still amazes modern engineers.\n\nWould you like to know about its inscriptions or the Chola dynasty's maritime empire?`;

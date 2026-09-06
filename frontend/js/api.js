@@ -45,7 +45,7 @@ const API = {
     return {
       success: true,
       reply: (typeof AIGuide !== 'undefined' && AIGuide.getInstantAnswer)
-        ? AIGuide.getInstantAnswer(message)
+        ? AIGuide.getInstantAnswer(message, history)
         : `🙏 Namaste! I am Virasat AI, your personal guide to India's glorious heritage.`
     };
   },

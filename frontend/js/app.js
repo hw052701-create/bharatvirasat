@@ -123,14 +123,15 @@ const App = {
 
       <!-- Daily Challenge -->
       ${(() => {
-        const isDailyDone = localStorage.getItem('bv_daily_quiz_claimed') === new Date().toISOString().slice(0, 10);
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const isDailyDone = localStorage.getItem('bv_daily_completed_date') === todayStr || localStorage.getItem('bv_daily_quiz_claimed') === todayStr;
         return `
-        <div class="daily-challenge" onclick="AIGuide.startQuiz()">
-          <div class="challenge-badge">${isDailyDone ? '✅ Daily Challenge Completed' : '🏆 Daily Challenge (+50 XP)'}</div>
-          <div class="challenge-title">Heritage Quiz of the Day</div>
-          <div class="challenge-desc">Test your knowledge about ${todaysFestival} and earn bonus explorer points!</div>
-          <button class="challenge-btn">
-            <i class="fas ${isDailyDone ? 'fa-redo' : 'fa-brain'}"></i> ${isDailyDone ? 'Practice Quiz' : 'Start Daily Quiz'}
+        <div class="daily-challenge ${isDailyDone ? 'completed' : ''}" onclick="${isDailyDone ? 'App.showDailyCompletedModal()' : 'AIGuide.startDailyChallenge()'}">
+          <div class="challenge-badge ${isDailyDone ? 'claimed' : ''}">${isDailyDone ? '✅ Daily Challenge Completed' : '🏆 Daily Challenge (+50 XP)'}</div>
+          <div class="challenge-title">${isDailyDone ? 'Challenge Conquered for Today!' : 'Heritage Quiz of the Day'}</div>
+          <div class="challenge-desc">${isDailyDone ? 'You earned your +50 XP bonus today. Tomorrow brings a fresh new heritage challenge!' : `Test your knowledge about ${todaysFestival} & Indian traditions to earn +50 XP!`}</div>
+          <button class="challenge-btn ${isDailyDone ? 'btn-claimed' : ''}">
+            <i class="fas ${isDailyDone ? 'fa-check-circle' : 'fa-brain'}"></i> ${isDailyDone ? 'Completed Today (+50 XP Claimed)' : 'Start Daily Quiz'}
           </button>
         </div>`;
       })()}
@@ -360,6 +361,31 @@ const App = {
     toast.classList.remove('hidden');
     clearTimeout(App._toastTimer);
     App._toastTimer = setTimeout(() => toast.classList.add('hidden'), 3000);
+  },
+
+  // ─── Daily Challenge Completion Info Modal ───────────────────────────────
+  showDailyCompletedModal() {
+    App.showModal(`
+      <div style="text-align:center;padding:1rem 0.5rem">
+        <div style="font-size:3.5rem;margin-bottom:0.75rem">🌟</div>
+        <h3 style="margin-bottom:0.5rem;font-size:1.25rem">Daily Challenge Completed!</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.6;margin-bottom:1.25rem">
+          You have already completed today's challenge and claimed your <b>+50 XP bonus</b>.
+        </p>
+        <div style="background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.3);border-radius:var(--radius-md);padding:0.875rem;margin-bottom:1.25rem">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.25rem">Next Daily Challenge unlocks at:</div>
+          <div style="font-size:1.05rem;font-weight:800;color:var(--gold)"><i class="fas fa-clock"></i> Tomorrow 12:00 AM</div>
+        </div>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:1.5rem">
+          Want more questions? You can practice unlimited heritage quizzes anytime in the AI Guide!
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+          <button class="btn-secondary" onclick="App.closeModal()">Close</button>
+          <button class="btn-primary" onclick="App.closeModal();App.navigate('ai')">
+            <i class="fas fa-robot"></i> <span>AI Quizzes</span>
+          </button>
+        </div>
+      </div>`);
   },
 
   // ─── About ────────────────────────────────────────────────────────────────

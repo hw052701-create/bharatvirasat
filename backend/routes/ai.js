@@ -230,16 +230,49 @@ router.post('/monument-info', async (req, res) => {
 // ─── POST /api/ai/quiz ────────────────────────────────────────────────────────
 router.post('/quiz', async (req, res) => {
   try {
-    const { topic } = req.body;
-    const defaultQuiz = [
+    const { topic, difficulty = 'medium' } = req.body;
+
+    if (process.env.GEMINI_API_KEY) {
+      try {
+        const genAIInstance = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        const model = genAIInstance.getGenerativeModel({ model: 'gemini-3.6-flash' });
+        const prompt = `Generate a 5-question multiple choice quiz on Indian heritage ${topic ? `about "${topic}"` : 'covering famous monuments, empires, temples, and traditions'} at difficulty level: ${difficulty}.
+Return ONLY a valid JSON array of objects with format:
+[
+  {
+    "question": "Question text?",
+    "options": ["Option A", "Option B", "Option C", "Option D"],
+    "correct": 0,
+    "explanation": "Brief explanation"
+  }
+]
+Do not include backticks, markdown, or any surrounding text.`;
+
+        const result = await model.generateContent(prompt);
+        const text = result.response.text();
+        const cleaned = text.replace(/```json/gi, '').replace(/```/g, '').trim();
+        const parsed = JSON.parse(cleaned);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return res.json({ success: true, questions: parsed, source: 'gemini_live' });
+        }
+      } catch (geminiErr) {
+        console.warn('Gemini quiz generation failed, using randomized pool:', geminiErr.message);
+      }
+    }
+
+    const questionPool = [
       { question: 'Which emperor built the Taj Mahal in memory of his wife?', options: ['Akbar', 'Shah Jahan', 'Babur', 'Humayun'], correct: 1, explanation: 'Shah Jahan built the Taj Mahal between 1631 and 1653.' },
-      { question: 'Hampi was the ancient capital of which empire?', options: ['Chola', 'Maurya', 'Vijayanagara', 'Maratha'], correct: 2, explanation: 'Hampi was the capital of the Vijayanagara Empire in the 14th century.' },
+      { question: 'Hampi was the ancient capital of which empire?', options: ['Chola', 'Vijayanagara', 'Maurya', 'Maratha'], correct: 1, explanation: 'Hampi was the capital of the Vijayanagara Empire in the 14th century.' },
       { question: 'Which temple is designed as a colossal chariot of the Sun God with 24 wheels?', options: ['Meenakshi Temple', 'Konark Sun Temple', 'Khajuraho', 'Brihadeeswara'], correct: 1, explanation: 'Konark Sun Temple in Odisha was built in the 13th century.' },
       { question: 'Where are the rock-cut cave paintings of Ajanta located?', options: ['Madhya Pradesh', 'Maharashtra', 'Karnataka', 'Rajasthan'], correct: 1, explanation: 'Ajanta Caves are located in the Aurangabad district of Maharashtra.' },
-      { question: 'Which dance form originated in the temples of Tamil Nadu?', options: ['Kathak', 'Bharatnatyam', 'Kathakali', 'Odissi'], correct: 1, explanation: 'Bharatnatyam is an ancient classical dance from Tamil Nadu.' }
+      { question: 'Which dance form originated in the temples of Tamil Nadu?', options: ['Kathak', 'Bharatnatyam', 'Kathakali', 'Odissi'], correct: 1, explanation: 'Bharatnatyam is an ancient classical dance from Tamil Nadu.' },
+      { question: 'Who commissioned the Great Stupa at Sanchi in the 3rd century BCE?', options: ['Chandragupta Maurya', 'Emperor Ashoka', 'Kanishka', 'Harsha'], correct: 1, explanation: 'Emperor Ashoka built the Great Stupa at Sanchi.' },
+      { question: 'What primary material gives Delhi’s Red Fort its distinctive color?', options: ['White Marble', 'Red Sandstone', 'Granite', 'Basalt'], correct: 1, explanation: 'Shah Jahan built the Red Fort with red sandstone quarried from Rajasthan.' },
+      { question: 'The Brihadeeswara Temple in Thanjavur was built by which emperor?', options: ['Raja Raja Chola I', 'Rajendra Chola', 'Karikala', 'Kulothunga'], correct: 0, explanation: 'Raja Raja Chola I built the Brihadeeswara temple in 1010 CE.' }
     ];
 
-    res.json({ success: true, questions: defaultQuiz });
+    const shuffled = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, 5);
+    res.json({ success: true, questions: shuffled, source: 'offline_pool' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to generate quiz', message: error.message });
   }
@@ -249,8 +282,24 @@ router.post('/quiz', async (req, res) => {
 router.post('/story', async (req, res) => {
   try {
     const { site } = req.body;
+
+    if (process.env.GEMINI_API_KEY) {
+      try {
+        const genAIInstance = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        const model = genAIInstance.getGenerativeModel({ model: 'gemini-3.6-flash' });
+        const prompt = `Write an engaging, poetic, and historically rich short story (under 200 words) about the Indian heritage site: "${site || 'an ancient Indian monument'}". Bring its history, artisans, and legends alive.`;
+        const result = await model.generateContent(prompt);
+        const text = result.response.text();
+        if (text && text.trim().length > 0) {
+          return res.json({ success: true, story: text, source: 'gemini_live' });
+        }
+      } catch (geminiErr) {
+        console.warn('Gemini story generation failed, using fallback:', geminiErr.message);
+      }
+    }
+
     const story = `Centuries ago in the golden heart of India, master architects and thousands of devoted artisans gathered to create ${site || 'this timeless monument'}. Every stone was carved with devotion, echoing legends of royal splendor, divine inspiration, and architectural genius that continues to leave travelers spellbound to this day.`;
-    res.json({ success: true, story });
+    res.json({ success: true, story, source: 'knowledge_engine' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to generate story', message: error.message });
   }

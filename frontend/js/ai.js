@@ -317,34 +317,95 @@ const AIGuide = {
   },
 
   // ─── Built-in Quiz Bank ────────────────────────────────────────────────────
+  // ─── Built-in Diverse Quiz Bank ──────────────────────────────────────────
   quizBank: [
     {
-      topic: 'general',
+      topic: 'architecture',
+      keywords: ['architecture', 'monument', 'building', 'fort', 'palace'],
       questions: [
-        { question: 'Which emperor built the Taj Mahal in memory of his beloved wife?', options: ['Akbar', 'Shah Jahan', 'Babur', 'Humayun'], correct: 1 },
-        { question: 'Hampi was the ancient capital of which legendary South Indian empire?', options: ['Chola', 'Maurya', 'Vijayanagara', 'Maratha'], correct: 2 },
-        { question: 'Which Sun Temple is shaped like a colossal stone chariot with 24 carved wheels?', options: ['Meenakshi Temple', 'Konark Sun Temple', 'Khajuraho', 'Brihadeeswara'], correct: 1 },
-        { question: 'Where are the 2,000-year-old rock-cut Buddhist murals of Ajanta located?', options: ['Madhya Pradesh', 'Maharashtra', 'Karnataka', 'Rajasthan'], correct: 1 },
-        { question: 'Which classical dance originated in the sacred temples of Tamil Nadu?', options: ['Kathak', 'Bharatnatyam', 'Kathakali', 'Odissi'], correct: 1 }
+        { question: 'Which emperor built the Taj Mahal in memory of his beloved wife Mumtaz Mahal?', options: ['Akbar', 'Shah Jahan', 'Babur', 'Humayun'], correct: 1 },
+        { question: 'What primary building material gives Delhi’s Red Fort its distinctive hue?', options: ['White Makrana Marble', 'Red Sandstone', 'Granite', 'Basalt'], correct: 1 },
+        { question: 'Which Sun Temple is sculpted in the shape of a colossal chariot with 24 carved wheels?', options: ['Brihadeeswara Temple', 'Konark Sun Temple', 'Meenakshi Temple', 'Khajuraho'], correct: 1 },
+        { question: 'The Buland Darwaza at Fatehpur Sikri was built by Akbar to commemorate his victory over which region?', options: ['Bengal', 'Gujarat', 'Deccan', 'Kashmir'], correct: 1 },
+        { question: 'Which iconic stepwell in Gujarat features intricate subterranean carvings and UNESCO status?', options: ['Chand Baori', 'Rani ki Vav', 'Agrasen ki Baoli', 'Adalaj Stepwell'], correct: 1 }
       ]
     },
     {
-      topic: 'mughal',
+      topic: 'south_heritage',
+      keywords: ['south', 'chola', 'hampi', 'vijayanagara', 'dravidian', 'tamil', 'karnataka', 'kerala'],
       questions: [
-        { question: 'Who founded the Mughal Empire in India in 1526?', options: ['Akbar', 'Babur', 'Humayun', 'Shah Jahan'], correct: 1 },
-        { question: 'Which Mughal Emperor built the Buland Darwaza at Fatehpur Sikri?', options: ['Babur', 'Akbar', 'Jahangir', 'Aurangzeb'], correct: 1 },
-        { question: 'What primary material was used to build the Red Fort in Delhi?', options: ['White Marble', 'Red Sandstone', 'Granite', 'Basalt'], correct: 1 }
+        { question: 'Hampi on the banks of the Tungabhadra River was the capital of which great empire?', options: ['Chola Empire', 'Vijayanagara Empire', 'Maratha Empire', 'Pallava Empire'], correct: 1 },
+        { question: 'The Brihadeeswara Temple in Thanjavur is a masterpiece built by which Chola ruler?', options: ['Raja Raja Chola I', 'Rajendra Chola', 'Karikala Chola', 'Kulothunga I'], correct: 0 },
+        { question: 'Which world-renowned rock relief at Mahabalipuram depicts the Descent of the Ganges?', options: ['Arjuna’s Penance', 'Kailashnath Relief', 'Elephanta Trimurti', 'Gommateshwara'], correct: 0 },
+        { question: 'The iconic Shore Temple at Mahabalipuram was constructed by which dynasty?', options: ['Cholas', 'Pallavas', 'Cheras', 'Pandyas'], correct: 1 },
+        { question: 'Which classical dance drama from Kerala is famous for vibrant face makeup and elaborate headgear?', options: ['Kathak', 'Kathakali', 'Mohiniyattam', 'Yakshagana'], correct: 1 }
       ]
     },
     {
-      topic: 'buddhism',
+      topic: 'ancient_history',
+      keywords: ['history', 'maurya', 'ashoka', 'gupta', 'buddhism', 'nalanda', 'sanchi'],
       questions: [
-        { question: 'Who commissioned the Great Stupa at Sanchi in the 3rd century BCE?', options: ['Chandragupta Maurya', 'Emperor Ashoka', 'Kanishka', 'Harsha'], correct: 1 },
-        { question: 'Which ancient residential university in Bihar was the epicenter of Buddhist learning?', options: ['Taxila', 'Nalanda', 'Vikramashila', 'Valabhi'], correct: 1 },
-        { question: 'What do the murals at Ajanta Caves primarily depict?', options: ['Court Battles', 'Jataka Tales of Buddha', 'Mughal Hunts', 'Solar Calendars'], correct: 1 }
+        { question: 'Who founded the Mauryan Empire in 322 BCE with guidance from Chanakya?', options: ['Ashoka the Great', 'Chandragupta Maurya', 'Bindusara', 'Samudragupta'], correct: 1 },
+        { question: 'Where did Gautama Buddha deliver his first sermon (Dharmachakra Pravartana)?', options: ['Bodh Gaya', 'Sarnath', 'Kushinagar', 'Lumbini'], correct: 1 },
+        { question: 'The Great Stupa with magnificent toranas (gateways) was commissioned by Ashoka at:', options: ['Sanchi', 'Nalanda', 'Amaravati', 'Sarnath'], correct: 0 },
+        { question: 'Which ancient residential university in modern-day Bihar attracted scholars from across Asia?', options: ['Taxila', 'Nalanda', 'Vikramashila', 'Vallabhi'], correct: 1 },
+        { question: 'The Lion Capital of Ashoka that forms India’s National Emblem was discovered at:', options: ['Sanchi', 'Sarnath', 'Patliputra', 'Ujjain'], correct: 1 }
+      ]
+    },
+    {
+      topic: 'caves_sculpture',
+      keywords: ['cave', 'ajanta', 'ellora', 'elephanta', 'rock-cut', 'sculpture'],
+      questions: [
+        { question: 'The single-rock monolithic Kailasa Temple (Cave 16) is the centerpiece of which cave complex?', options: ['Ajanta', 'Ellora', 'Elephanta', 'Badami'], correct: 1 },
+        { question: 'What primary themes are depicted in the 2nd-century BCE murals of Ajanta Caves?', options: ['Mughal Court Battles', 'Jataka Tales of Buddha', 'Astronomy Charts', 'Temple Rituals'], correct: 1 },
+        { question: 'The colossal three-headed Trimurti sculpture of Lord Shiva is located in:', options: ['Ajanta Caves', 'Elephanta Caves', 'Badami Caves', 'Udayagiri Caves'], correct: 1 },
+        { question: 'In which state are the ancient Bhimbetka rock shelters with prehistoric cave paintings located?', options: ['Rajasthan', 'Madhya Pradesh', 'Maharashtra', 'Odisha'], correct: 1 }
+      ]
+    },
+    {
+      topic: 'culture_festivals',
+      keywords: ['culture', 'festival', 'dance', 'music', 'art', 'tradition'],
+      questions: [
+        { question: 'Which classical dance originated in the sacred temples of Tamil Nadu as a spiritual expression?', options: ['Kathak', 'Bharatnatyam', 'Odissi', 'Manipuri'], correct: 1 },
+        { question: 'Which grand 10-day festival in Mysore culminates in a royal Jumbo Savari procession?', options: ['Pongal', 'Mysuru Dasara', 'Onam', 'Ugadi'], correct: 1 },
+        { question: 'Which Indian textile art from Andhra Pradesh uses kalam (bamboo pen) and natural vegetable dyes?', options: ['Bandhani', 'Kalamkari', 'Chikankari', 'Pashmina'], correct: 1 },
+        { question: 'The living root bridges of Cherrapunji are engineered by which indigenous tribe?', options: ['Khasi & Jaintia', 'Garo', 'Naga', 'Mizo'], correct: 0 }
       ]
     }
   ],
+
+  // ─── Daily Challenge Flow ──────────────────────────────────────────────────
+  startDailyChallenge() {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const isDone = localStorage.getItem('bv_daily_completed_date') === todayStr || localStorage.getItem('bv_daily_quiz_claimed') === todayStr;
+
+    if (isDone) {
+      App.showDailyCompletedModal();
+      return;
+    }
+
+    // Pick a curated challenge from question banks based on day of year
+    const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    const bankIdx = dayOfYear % AIGuide.quizBank.length;
+    const pool = AIGuide.quizBank[bankIdx].questions;
+    const shuffled = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
+
+    App.showModal(`
+      <div style="text-align:center;padding:1rem 0.5rem">
+        <div style="font-size:3rem;margin-bottom:0.5rem">🏆</div>
+        <h3 style="margin-bottom:0.35rem">Heritage Daily Challenge</h3>
+        <p style="color:var(--gold);font-weight:700;font-size:0.95rem;margin-bottom:0.75rem">+50 Explorer XP Reward</p>
+        <p style="color:var(--text-secondary);font-size:0.88rem;line-height:1.5;margin-bottom:1.5rem">
+          Answer at least 60% correctly to claim your daily bonus. You can only complete this challenge once per day!
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+          <button class="btn-secondary" onclick="App.closeModal()">Later</button>
+          <button class="btn-primary" onclick="AIGuide.runQuiz(${JSON.stringify(shuffled).replace(/"/g, '&quot;')}, true)">
+            <i class="fas fa-play"></i> <span>Begin Challenge</span>
+          </button>
+        </div>
+      </div>`);
+  },
 
   async getMonumentInfo() {
     const name = document.getElementById('monument-input')?.value.trim();
@@ -385,8 +446,8 @@ const AIGuide = {
 
   startQuiz() {
     App.showModal(`
-      <h3 style="margin-bottom:1rem">🧠 Heritage Quiz</h3>
-      <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.9rem">Test your knowledge about Indian heritage!</p>
+      <h3 style="margin-bottom:1rem">🧠 Heritage Quiz Challenge</h3>
+      <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.9rem">Test your knowledge across ancient history, architecture, and living traditions!</p>
       <div class="post-type-selector" id="quiz-difficulty-selector">
         ${['easy', 'medium', 'hard'].map(d => `
           <div class="post-type-chip ${d === 'medium' ? 'active' : ''}"
@@ -396,7 +457,7 @@ const AIGuide = {
       </div>
       <div class="input-group" style="margin-top:0.75rem">
         <i class="fas fa-filter"></i>
-        <input type="text" id="quiz-topic-input" placeholder="Topic (optional): Mughal, Buddhism, Tamil Nadu..." />
+        <input type="text" id="quiz-topic-input" placeholder="Topic: Mughal, Chola, Buddhism, Temples, Caves..." />
       </div>
       <button class="btn-primary" style="margin-top:1rem" onclick="AIGuide.fetchAndStartQuiz()">
         <i class="fas fa-play"></i><span>Start Quiz</span>
@@ -413,35 +474,48 @@ const AIGuide = {
         <div class="typing-indicator" style="justify-content:center">
           <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
         </div>
-        <p style="color:var(--text-secondary);margin-top:1rem">Generating ${difficulty} quiz${topic ? ` about ${topic}` : ''}...</p>
+        <p style="color:var(--text-secondary);margin-top:1rem">Generating ${difficulty} quiz${topic ? ` about "${topic}"` : ''}...</p>
       </div>`;
 
     try {
       const res = await API.generateQuiz(topic, difficulty);
       if (res && res.questions && res.questions.length > 0) {
-        AIGuide.runQuiz(res.questions);
+        AIGuide.runQuiz(res.questions, false);
         return;
       }
       throw new Error('Fallback needed');
     } catch {
-      // Pick best matching quiz from built-in pool
-      let selected = AIGuide.quizBank[0].questions;
+      // Pick best matching or randomized quiz from built-in pool
+      let questionsPool = [];
       if (topic) {
         const topLower = topic.toLowerCase();
-        const found = AIGuide.quizBank.find(qb => topLower.includes(qb.topic));
-        if (found) selected = found.questions;
+        const found = AIGuide.quizBank.find(qb => 
+          topLower.includes(qb.topic) || (qb.keywords && qb.keywords.some(k => topLower.includes(k)))
+        );
+        if (found) questionsPool = found.questions;
       }
-      setTimeout(() => AIGuide.runQuiz(selected), 400);
+
+      if (questionsPool.length === 0) {
+        // Collect all questions across banks and sample 5 randomly
+        const allQuestions = AIGuide.quizBank.flatMap(qb => qb.questions);
+        questionsPool = [...allQuestions].sort(() => 0.5 - Math.random()).slice(0, 5);
+      }
+
+      setTimeout(() => AIGuide.runQuiz(questionsPool, false), 400);
     }
   },
 
-  runQuiz(questions) {
+  runQuiz(questions, isDaily = false) {
     if (!questions || !questions.length) return;
 
+    // Shuffle questions slightly for variety if general quiz
+    const preparedQuestions = isDaily ? questions : [...questions].sort(() => 0.5 - Math.random());
+
     AIGuide._quizState = {
-      questions,
+      questions: preparedQuestions,
       currentQ: 0,
-      score: 0
+      score: 0,
+      isDaily
     };
 
     AIGuide.renderQuizQuestion();
@@ -451,12 +525,14 @@ const AIGuide = {
     const state = AIGuide._quizState;
     if (!state) return;
 
-    const { questions, currentQ, score } = state;
+    const { questions, currentQ, score, isDaily } = state;
     const q = questions[currentQ];
 
     document.getElementById('modal-content').innerHTML = `
       <div class="quiz-progress" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
-        <span style="font-size:0.85rem;color:var(--gold);font-weight:700">Question ${currentQ + 1} of ${questions.length}</span>
+        <span style="font-size:0.85rem;color:var(--gold);font-weight:700">
+          ${isDaily ? '🏆 Daily Challenge • ' : ''}Question ${currentQ + 1} of ${questions.length}
+        </span>
         <span style="font-size:0.85rem;color:var(--text-muted)">Score: ${score}</span>
       </div>
       <div style="height:6px;background:var(--border);border-radius:3px;margin-bottom:1.25rem;overflow:hidden">
@@ -477,7 +553,7 @@ const AIGuide = {
     const state = AIGuide._quizState;
     if (!state) return;
 
-    const { questions, currentQ } = state;
+    const { questions, currentQ, isDaily } = state;
     const q = questions[currentQ];
 
     document.querySelectorAll('.quiz-opt-btn').forEach(b => b.disabled = true);
@@ -511,14 +587,14 @@ const AIGuide = {
         const passed = pct >= 60;
         const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '🎉' : '💪';
 
-        // Daily bonus logic
         const todayStr = new Date().toISOString().slice(0, 10);
-        const lastClaimed = localStorage.getItem('bv_daily_quiz_claimed');
         let bonusAwarded = 0;
 
-        if (passed && lastClaimed !== todayStr) {
-          bonusAwarded = 50;
+        if (isDaily && passed) {
+          localStorage.setItem('bv_daily_completed_date', todayStr);
           localStorage.setItem('bv_daily_quiz_claimed', todayStr);
+          bonusAwarded = 50;
+
           if (Auth.currentUser) {
             Auth.currentUser.points = (Auth.currentUser.points || 0) + bonusAwarded;
             localStorage.setItem('bv_user', JSON.stringify(Auth.currentUser));
@@ -528,25 +604,40 @@ const AIGuide = {
         }
 
         document.getElementById('modal-content').innerHTML = `
-          <div style="text-align:center;padding:1rem">
+          <div style="text-align:center;padding:1rem 0.5rem">
             <div style="font-size:3.5rem">${emoji}</div>
-            <h3 style="margin:1rem 0 0.25rem">${passed ? 'Quiz Passed!' : 'Quiz Complete!'}</h3>
+            <h3 style="margin:0.75rem 0 0.25rem">${isDaily ? (passed ? 'Daily Challenge Conquered!' : 'Challenge Incomplete') : (passed ? 'Quiz Passed!' : 'Quiz Complete!')}</h3>
             <p style="font-size:2.2rem;font-weight:800;color:var(--gold);margin:0.5rem 0">${pct}%</p>
             <p style="color:var(--text-secondary);margin-bottom:1rem">${finalScore} of ${total} questions correct</p>
             
-            ${bonusAwarded > 0 
-              ? `<div class="daily-challenge" style="margin:0 0 1.25rem;padding:0.75rem;background:rgba(212,175,55,0.15);border:1px solid var(--gold)">
-                  <div class="challenge-title" style="color:var(--gold);font-size:0.95rem">🌟 +${bonusAwarded} XP Daily Bonus Claimed!</div>
-                </div>` 
-              : (passed && lastClaimed === todayStr ? `<p style="color:var(--text-muted);font-size:0.8rem;margin-bottom:1rem">✨ Today's daily quiz bonus has already been claimed.</p>` : '')}
+            ${isDaily && passed
+              ? `<div class="daily-challenge completed" style="margin:0 0 1.25rem;padding:0.875rem;border:1px solid #4caf50">
+                  <div class="challenge-title" style="color:#81c784;font-size:1rem;margin:0">🌟 +50 XP Daily Challenge Bonus Claimed!</div>
+                  <p style="color:var(--text-muted);font-size:0.8rem;margin-top:0.25rem">Recorded for today (${todayStr}). Come back tomorrow for a new challenge!</p>
+                </div>`
+              : (isDaily && !passed
+                ? `<p style="color:#e57373;font-size:0.85rem;margin-bottom:1rem">Score at least 60% to claim today's +50 XP bonus.</p>`
+                : '')}
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
-              <button class="btn-secondary" onclick="AIGuide.startQuiz()">
-                <i class="fas fa-redo"></i> Play Again
-              </button>
-              <button class="btn-primary" onclick="App.closeModal()">
-                <span>Done</span>
-              </button>
+              ${isDaily && passed
+                ? `<button class="btn-secondary" onclick="App.closeModal();App.navigate('home')">
+                    <i class="fas fa-home"></i> Home
+                  </button>
+                  <button class="btn-primary" onclick="App.closeModal();App.navigate('ai')">
+                    <i class="fas fa-robot"></i> AI Quizzes
+                  </button>`
+                : (isDaily && !passed
+                  ? `<button class="btn-secondary" onclick="App.closeModal()">Cancel</button>
+                     <button class="btn-primary" onclick="AIGuide.startDailyChallenge()">
+                       <i class="fas fa-redo"></i> Retry
+                     </button>`
+                  : `<button class="btn-secondary" onclick="AIGuide.startQuiz()">
+                       <i class="fas fa-redo"></i> Play Another
+                     </button>
+                     <button class="btn-primary" onclick="App.closeModal()">
+                       <span>Done</span>
+                     </button>`)}
             </div>
           </div>`;
         AIGuide._quizState = null;

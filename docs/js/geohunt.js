@@ -15,16 +15,22 @@ const GeoHunt = {
         <p>Complete missions at real heritage sites to earn points & badges!</p>
       </div>
 
-      <div style="display:flex;border-bottom:1px solid var(--border)">
-        <button class="tab-btn ${GeoHunt.activeTab === 'missions' ? 'active' : ''}"
-          style="border-radius:0;border:none;border-bottom:2px solid ${GeoHunt.activeTab === 'missions' ? 'var(--gold)' : 'transparent'};flex:1"
-          onclick="GeoHunt.switchTab('missions')">Missions</button>
-        <button class="tab-btn ${GeoHunt.activeTab === 'map' ? 'active' : ''}"
-          style="border-radius:0;border:none;border-bottom:2px solid ${GeoHunt.activeTab === 'map' ? 'var(--gold)' : 'transparent'};flex:1"
-          onclick="GeoHunt.switchTab('map')">Map</button>
-        <button class="tab-btn ${GeoHunt.activeTab === 'leaderboard' ? 'active' : ''}"
-          style="border-radius:0;border:none;border-bottom:2px solid ${GeoHunt.activeTab === 'leaderboard' ? 'var(--gold)' : 'transparent'};flex:1"
-          onclick="GeoHunt.switchTab('leaderboard')">Board</button>
+      <div class="geohunt-tabs" id="geohunt-tabs">
+        <button class="geohunt-tab-btn ${GeoHunt.activeTab === 'missions' ? 'active' : ''}"
+          id="geohunt-tab-missions" data-tab="missions"
+          onclick="GeoHunt.switchTab('missions')">
+          <i class="fas fa-tasks"></i> Missions
+        </button>
+        <button class="geohunt-tab-btn ${GeoHunt.activeTab === 'map' ? 'active' : ''}"
+          id="geohunt-tab-map" data-tab="map"
+          onclick="GeoHunt.switchTab('map')">
+          <i class="fas fa-map-marked-alt"></i> Map
+        </button>
+        <button class="geohunt-tab-btn ${GeoHunt.activeTab === 'leaderboard' ? 'active' : ''}"
+          id="geohunt-tab-leaderboard" data-tab="leaderboard"
+          onclick="GeoHunt.switchTab('leaderboard')">
+          <i class="fas fa-trophy"></i> Leaderboard
+        </button>
       </div>
 
       <div id="geohunt-tab-content"></div>`;
@@ -36,6 +42,21 @@ const GeoHunt = {
   // ─── Switch Tab ───────────────────────────────────────────────────────────
   switchTab(tab) {
     GeoHunt.activeTab = tab;
+
+    // Update active state on all tab buttons
+    document.querySelectorAll('.geohunt-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tab);
+    });
+
+    // Cleanup map if switching away from map tab
+    if (tab !== 'map' && GeoHunt.map) {
+      try {
+        GeoHunt.map.remove();
+      } catch (e) {}
+      GeoHunt.map = null;
+      GeoHunt.userMarker = null;
+    }
+
     const content = document.getElementById('geohunt-tab-content');
     if (!content) return;
 
@@ -330,11 +351,22 @@ const GeoHunt = {
       GeoHunt.userMarker = null;
     }
 
-    container.innerHTML = '<div id="map-container" style="height:calc(100vh - 220px);border-radius:var(--radius-lg);overflow:hidden;margin:0.75rem 0.5rem;box-shadow:0 8px 30px rgba(0,0,0,0.3)"></div>';
+    container.innerHTML = `
+      <div style="padding:0.75rem 0.5rem 0.25rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:0.85rem;color:var(--text-secondary)"><i class="fas fa-map-pin" style="color:var(--gold);margin-right:4px"></i> Interactive Heritage Map</span>
+        <button class="btn-secondary" style="padding:4px 10px;font-size:0.75rem;border-radius:12px" onclick="GeoHunt.getUserLocation()">
+          <i class="fas fa-crosshairs"></i> Recenter
+        </button>
+      </div>
+      <div id="map-container" style="height:calc(100vh - 240px);min-height:380px;border-radius:var(--radius-lg);overflow:hidden;margin:0.5rem;box-shadow:0 8px 30px rgba(0,0,0,0.35);border:1px solid var(--border)"></div>`;
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const mapEl = document.getElementById('map-container');
       if (!mapEl) return;
+
+      if (!GeoHunt.missions || GeoHunt.missions.length === 0) {
+        await GeoHunt.loadMissions();
+      }
 
       const lat = GeoHunt.userLat || 20.5937;
       const lng = GeoHunt.userLng || 78.9629;
@@ -350,7 +382,7 @@ const GeoHunt = {
       // User location marker
       if (GeoHunt.userLat && GeoHunt.userLng) {
         const userIcon = L.divIcon({
-          html: '<div style="width:18px;height:18px;background:#D4AF37;border-radius:50%;border:3px solid white;box-shadow:0 0 12px rgba(212,175,55,0.8)"></div>',
+          html: '<div style="width:18px;height:18px;background:#D4AF37;border-radius:50%;border:3px solid white;box-shadow:0 0 14px rgba(212,175,55,0.9)"></div>',
           iconSize: [18, 18], className: ''
         });
         GeoHunt.userMarker = L.marker([lat, lng], { icon: userIcon }).addTo(GeoHunt.map)
@@ -363,15 +395,15 @@ const GeoHunt = {
           if (!m.location || !m.location.lat || !m.location.lng) return;
           const isDone = m.completed;
           const missionIcon = L.divIcon({
-            html: `<div style="background:${isDone ? '#4caf50' : 'var(--saffron)'};width:32px;height:32px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 3px 10px rgba(0,0,0,0.4)">
-              <span style="transform:rotate(45deg);font-size:14px">${isDone ? '✅' : '🗺️'}</span>
+            html: `<div style="background:${isDone ? '#4caf50' : '#ff6b35'};width:32px;height:32px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 3px 10px rgba(0,0,0,0.4)">
+              <span style="transform:rotate(45deg);font-size:14px">${isDone ? '✅' : '🏛️'}</span>
             </div>`,
             iconSize: [32, 32], className: ''
           });
           const marker = L.marker([m.location.lat, m.location.lng], { icon: missionIcon }).addTo(GeoHunt.map);
           marker.bindPopup(`
-            <div style="font-family:var(--font-sans);min-width:140px">
-              <b style="color:#111;font-size:0.92rem">${m.title}</b>
+            <div style="font-family:var(--font-sans);min-width:150px;padding:4px">
+              <b style="color:#111;font-size:0.92rem;display:block;margin-bottom:2px">${m.title}</b>
               <div style="color:#b8860b;font-weight:700;font-size:0.8rem;margin:4px 0">${m.rewardPoints} XP • ${m.difficulty || 'easy'}</div>
               <button style="width:100%;margin-top:6px;padding:6px 10px;background:#ff6b35;color:white;border:none;border-radius:6px;font-size:0.8rem;cursor:pointer;font-weight:600"
                 onclick="GeoHunt.openMission('${m._id}')">
@@ -382,10 +414,13 @@ const GeoHunt = {
         });
       }
 
-      // Force Leaflet to recalculate container dimensions immediately and after 200ms
+      // Invalidate size on animation frame and timeouts
+      requestAnimationFrame(() => {
+        if (GeoHunt.map) GeoHunt.map.invalidateSize();
+      });
       setTimeout(() => {
         if (GeoHunt.map) GeoHunt.map.invalidateSize();
-      }, 200);
+      }, 250);
     }, 100);
   },
 

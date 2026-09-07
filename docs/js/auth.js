@@ -9,8 +9,16 @@ const Auth = {
       try {
         const res = await API.getMe();
         Auth.currentUser = res.user;
+        localStorage.setItem('bv_user', JSON.stringify(res.user));
         return true;
       } catch {
+        const cachedUser = localStorage.getItem('bv_user');
+        if (cachedUser) {
+          try {
+            Auth.currentUser = JSON.parse(cachedUser);
+            return true;
+          } catch {}
+        }
         localStorage.removeItem('bv_token');
         localStorage.removeItem('bv_user');
         return false;

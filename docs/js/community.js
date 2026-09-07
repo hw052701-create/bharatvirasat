@@ -80,7 +80,8 @@ const Community = {
     const typeColors = { story: '#D4AF37', photo: '#C85A2A', discovery: '#2E7D5B', tip: '#2B6CB0' };
     const timeAgo = Community.timeAgo(post.createdAt);
     const authorName = post.author?.name || 'Explorer';
-    const liked = false; // Would need user ID check
+    const currentUserId = Auth.currentUser?._id || Auth.currentUser?.id;
+    const liked = post.likes && currentUserId && (post.likes.includes(currentUserId) || post.likes.some(l => (l._id || l) === currentUserId));
 
     return `
       <div class="post-card" id="post-${post._id}">
@@ -114,7 +115,7 @@ const Community = {
         </div>
 
         <div class="post-actions">
-          <button class="post-action-btn" id="like-btn-${post._id}"
+          <button class="post-action-btn ${liked ? 'liked' : ''}" id="like-btn-${post._id}"
             onclick="Community.toggleLike('${post._id}')">
             <i class="fas fa-heart"></i>
             <span id="like-count-${post._id}">${post.likes?.length || 0}</span>

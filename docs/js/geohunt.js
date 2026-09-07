@@ -346,12 +346,20 @@ const GeoHunt = {
       GeoHunt.missions = GeoHunt.missions.map(m => m._id === mission._id ? { ...m, completed: true } : m);
 
       if (ptsEarned > 0 && Auth.currentUser) {
-        Auth.currentUser.points = (Auth.currentUser.points || 0) + ptsEarned;
+        if (res && res.newTotal !== undefined) {
+          Auth.currentUser.points = res.newTotal;
+        } else {
+          Auth.currentUser.points = (Auth.currentUser.points || 0) + ptsEarned;
+          API.awardPoints(ptsEarned, `mission_${mission._id}`).catch(() => {});
+        }
         Auth.currentUser.level = Math.floor(Auth.currentUser.points / 500) + 1;
+        if (!Auth.currentUser.completedMissions) Auth.currentUser.completedMissions = [];
+        if (!Auth.currentUser.completedMissions.includes(mission._id)) {
+          Auth.currentUser.completedMissions.push(mission._id);
+        }
         localStorage.setItem('bv_user', JSON.stringify(Auth.currentUser));
         const ptsDisplay = document.getElementById('user-points-display');
         if (ptsDisplay) ptsDisplay.textContent = Auth.currentUser.points;
-        API.awardPoints(ptsEarned, `mission_${mission._id}`).catch(() => {});
       }
     }
 

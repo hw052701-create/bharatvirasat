@@ -179,31 +179,56 @@ const Explorer = {
         <p class="detail-desc">${site.description}</p>
 
         ${site.significance ? `
-          <div class="daily-challenge" style="margin:0 0 1rem">
-            <div class="challenge-badge">Significance</div>
-            <p class="challenge-desc" style="margin:0">${site.significance}</p>
+          <div class="daily-challenge" style="margin:0 0 1rem;background:var(--card-bg2)">
+            <div class="challenge-badge" style="background:var(--grad-gold);color:var(--deep-blue)">Significance & Heritage</div>
+            <p class="challenge-desc" style="margin:0;color:var(--text-primary);line-height:1.6">${site.significance}</p>
           </div>` : ''}
 
+        <!-- Embedded Historical Chronicle & Backstory -->
+        ${(() => {
+          const chronicleText = typeof AIGuide !== 'undefined' ? AIGuide.getStoryFallback(site.name) : '';
+          if (chronicleText) {
+            const firstPara = chronicleText.split('\n\n')[0] || chronicleText;
+            return `
+              <div style="background:linear-gradient(145deg, var(--card-bg2), var(--card-bg));border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.15rem;margin:1rem 0;box-shadow:var(--shadow-card)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem">
+                  <div style="display:flex;align-items:center;gap:6px;color:var(--gold);font-weight:700;font-size:0.95rem">
+                    <i class="fas fa-scroll"></i> Historical Chronicle & Lore
+                  </div>
+                  <span style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.5px">ANCIENT CHRONICLES</span>
+                </div>
+                <p style="font-size:0.86rem;line-height:1.7;color:var(--text-primary);margin-bottom:0.75rem">
+                  ${typeof AIGuide !== 'undefined' ? AIGuide.formatMarkdown(firstPara) : firstPara}
+                </p>
+                <button onclick="AIGuide.fetchChronicle('${site.name.replace(/'/g, "\\'")}')"
+                  style="background:none;border:none;color:var(--gold);font-weight:700;font-size:0.82rem;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:4px">
+                  <span>Read Full Historical Chronicle</span> <i class="fas fa-arrow-right" style="font-size:0.75rem"></i>
+                </button>
+              </div>`;
+          }
+          return '';
+        })()}
+
         ${site.tags && site.tags.length ? `
-          <div class="detail-tags">
+          <div class="detail-tags" style="margin-bottom:1.25rem">
             ${site.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
           </div>` : ''}
 
-        <div class="detail-actions">
-          <button class="btn-secondary" onclick="AIGuide.askAbout('${site.name.replace(/'/g, "\\'")}')">
-            <i class="fas fa-robot"></i> AI Guide
+        <div class="detail-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+          <button class="btn-primary" onclick="AIGuide.askAbout('${site.name.replace(/'/g, "\\'")}')">
+            <i class="fas fa-comments"></i> Ask Virasat AI
           </button>
-          <button class="btn-accent" onclick="Explorer.generateStory('${site.name.replace(/'/g, "\\'")}')">
-            <i class="fas fa-book-open"></i> Story
+          <button class="btn-secondary" onclick="AIGuide.fetchChronicle('${site.name.replace(/'/g, "\\'")}')">
+            <i class="fas fa-scroll"></i> Chronicle & Lore
           </button>
         </div>
 
-        <div class="detail-actions" style="margin-top:0.75rem">
-          <button class="btn-secondary" onclick="Explorer.shareStory('${site.name.replace(/'/g, "\\'")}')">
-            <i class="fas fa-share-alt"></i> Share
-          </button>
+        <div class="detail-actions" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:0.75rem">
           <button class="btn-secondary" onclick="Community.openCreatePost('${site._id}', '${site.name.replace(/'/g, "\\'")}')">
-            <i class="fas fa-pen"></i> Write Story
+            <i class="fas fa-feather-alt"></i> Share Experience
+          </button>
+          <button class="btn-secondary" onclick="Explorer.shareStory('${site.name.replace(/'/g, "\\'")}')">
+            <i class="fas fa-share-alt"></i> Share Site
           </button>
         </div>
       </div>`;

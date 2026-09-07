@@ -77,7 +77,7 @@ const Community = {
 
   // ─── Render Post ──────────────────────────────────────────────────────────
   renderPost(post) {
-    const typeColors = { story: '#D4AF37', photo: '#f093fb', discovery: '#43e97b', tip: '#4facfe' };
+    const typeColors = { story: '#D4AF37', photo: '#C85A2A', discovery: '#2E7D5B', tip: '#2B6CB0' };
     const timeAgo = Community.timeAgo(post.createdAt);
     const authorName = post.author?.name || 'Explorer';
     const liked = false; // Would need user ID check

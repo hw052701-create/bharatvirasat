@@ -25,9 +25,9 @@ const AIGuide = {
           <i class="fas fa-brain"></i>
           <span>Heritage Quiz</span>
         </div>
-        <div class="ai-feature" onclick="AIGuide.startStory()">
-          <i class="fas fa-book-open"></i>
-          <span>AI Story</span>
+        <div class="ai-feature" onclick="AIGuide.startChronicles()">
+          <i class="fas fa-scroll"></i>
+          <span>Historical Chronicles</span>
         </div>
       </div>
 
@@ -1069,18 +1069,49 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
 
   // ─── Quick Actions ────────────────────────────────────────────────────────
   startMonumentInfo() {
+    const featured = [
+      { name: 'Konark Sun Temple', era: '1250 CE • Eastern Ganga', style: 'Kalinga Chariot', icon: '☀️', highlight: '24 astronomical sundial wheels & 7 galloping horses' },
+      { name: 'Brihadeeswara Temple', era: '1010 CE • Chola Empire', style: 'Dravidian Vimana', icon: '🛕', highlight: '66m tower crowned by an 80-tonne monolithic capstone' },
+      { name: 'Kailasa Temple, Ellora', era: '8th c. CE • Rashtrakuta', style: 'Monolithic Rock-Cut', icon: '🏔️', highlight: '200,000 tonnes carved top-down from a single basalt cliff' },
+      { name: 'Rani ki Vav', era: '1063 CE • Solanki Dynasty', style: 'Subterranean Stepped', icon: '💧', highlight: '7-level inverted stepwell with 800+ intricate sculptures' }
+    ];
+
     App.showModal(`
-      <h3 style="margin-bottom:1rem">🏛️ Monument Info</h3>
-      <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.9rem">
-        Enter any Indian monument or heritage site name to get instant AI-powered information.
-      </p>
-      <div class="input-group">
-        <i class="fas fa-landmark"></i>
-        <input type="text" id="monument-input" placeholder="e.g., Taj Mahal, Hampi, Ajanta Caves" />
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.4rem">
+        <h3 style="margin:0;font-size:1.15rem;color:var(--gold)">🏛️ Monument Dossier & Research</h3>
       </div>
-      <button class="btn-primary" style="margin-top:1rem" onclick="AIGuide.getMonumentInfo()">
-        <i class="fas fa-search"></i><span>Get Information</span>
-      </button>`);
+      <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.84rem;line-height:1.4">
+        Explore in-depth architectural analysis, dynasties, epigraphs, and visiting dossiers across India's 3,600+ heritage sites.
+      </p>
+
+      <div class="input-group" style="margin-bottom:0.85rem">
+        <i class="fas fa-search" style="color:var(--gold)"></i>
+        <input type="text" id="monument-input" placeholder="Search any monument (e.g. Khajuraho, Hampi, Sanchi)..." />
+        <button onclick="AIGuide.getMonumentInfo()" style="background:var(--grad-gold);color:var(--deep-blue);border:none;border-radius:6px;padding:0.4rem 0.8rem;font-weight:700;font-size:0.8rem;cursor:pointer">Explore</button>
+      </div>
+
+      <div style="margin-bottom:0.5rem;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:0.75rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px">Featured Heritage Dossiers</span>
+        <span style="font-size:0.7rem;color:var(--gold)">Click to open dossier</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.5rem;max-height:240px;overflow-y:auto;padding-right:4px">
+        ${featured.map(f => `
+          <div style="background:var(--card-bg2);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.65rem 0.85rem;cursor:pointer;transition:all 0.2s"
+            onmouseover="this.style.borderColor='var(--gold)';this.style.background='rgba(212,175,55,0.08)'"
+            onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--card-bg2)'"
+            onclick="document.getElementById('monument-input').value='${f.name}';AIGuide.getMonumentInfo()">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+              <span style="font-weight:700;font-size:0.9rem;color:var(--text-primary)">${f.icon} ${f.name}</span>
+              <span style="font-size:0.7rem;color:var(--gold);font-weight:600">${f.style}</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:0.75rem;color:var(--text-muted)">
+              <span>${f.era}</span>
+              <span style="color:var(--text-secondary);font-style:italic">${f.highlight}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>`);
     setTimeout(() => document.getElementById('monument-input')?.focus(), 300);
   },
 
@@ -1413,30 +1444,57 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
     }, 750);
   },
 
-  startStory(defaultSite = '') {
+  startChronicles(defaultSite = '') {
+    const featuredChronicles = [
+      { site: 'Konark Sun Temple', era: '1250 CE • Eastern Ganga', hook: 'The 12-year-old architectural prodigy Dharmapada & the 24 sundial chariot wheels.', icon: '☀️' },
+      { site: 'Kailasa Temple, Ellora', era: '8th c. CE • Rashtrakuta', hook: '200,000 tonnes of solid basalt cliff carved top-down without scaffolding or mortar.', icon: '🏔️' },
+      { site: 'Hampi', era: '1336–1565 CE • Vijayanagara', hook: 'The jewel bazaars, monolithic stone chariot & the resonant SaReGaMa musical pillars.', icon: '💎' },
+      { site: 'Brihadeeswara Temple', era: '1010 CE • Chola Empire', hook: 'An 80-tonne monolithic granite capstone hauled 6 km atop a 66-meter sky tower.', icon: '🛕' },
+      { site: 'Ajanta Caves', era: '2nd c. BCE • Vakataka', hook: 'Monks painting Bodhisattva Padmapani inside dark caves using sunlight from brass mirrors.', icon: '🎨' },
+      { site: 'Rani ki Vav', era: '1063 CE • Solanki Dynasty', hook: 'Queen Udayamati\'s 7-level subterranean inverted temple celebrating life-giving water.', icon: '💧' }
+    ];
+
     App.showModal(`
-      <h3 style="margin-bottom:0.75rem">📖 Heritage AI Storyteller</h3>
-      <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.88rem">
-        Step into the past with epic historical narratives and ancient legends crafted by Virasat AI.
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.4rem">
+        <h3 style="margin:0;font-size:1.15rem;color:var(--gold)">📜 Historical Chronicles & Legends</h3>
+      </div>
+      <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.84rem;line-height:1.4">
+        Immerse yourself in recorded epigraphs, royal builder lore, and historical chronicles from India's ancient civilizations.
       </p>
-      <div class="input-group">
-        <i class="fas fa-feather-alt"></i>
-        <input type="text" id="story-site-input" value="${defaultSite}" placeholder="Enter monument or site (e.g. Ajanta Caves, Taj Mahal, Hampi)" />
+
+      <div class="input-group" style="margin-bottom:0.85rem">
+        <i class="fas fa-scroll" style="color:var(--gold)"></i>
+        <input type="text" id="story-site-input" value="${defaultSite}" placeholder="Enter any monument (e.g. Konark, Hampi, Ajanta, Khajuraho)..." />
+        <button onclick="AIGuide.fetchChronicle()" style="background:var(--grad-gold);color:var(--deep-blue);border:none;border-radius:6px;padding:0.4rem 0.8rem;font-weight:700;font-size:0.8rem;cursor:pointer">Read Chronicle</button>
       </div>
-      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin:0.85rem 0">
-        ${['Ajanta Caves', 'Konark Sun Temple', 'Hampi', 'Rani ki Vav', 'Ellora Caves', 'Taj Mahal', 'Sanchi Stupa'].map(s => `
-          <span style="font-size:0.75rem;padding:0.3rem 0.65rem;border-radius:12px;background:var(--card-bg2);border:1px solid var(--border);cursor:pointer;color:var(--gold)"
-            onclick="document.getElementById('story-site-input').value='${s}'">
-            ${s}
-          </span>`).join('')}
+
+      <div style="margin-bottom:0.5rem;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:0.75rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px">Featured Historical Chronicles</span>
+        <span style="font-size:0.7rem;color:var(--gold)">Click to read</span>
       </div>
-      <button class="btn-primary" style="margin-top:0.5rem" onclick="AIGuide.fetchStory()">
-        <i class="fas fa-magic"></i><span>Generate Legend & Story</span>
-      </button>`);
+
+      <div style="display:flex;flex-direction:column;gap:0.5rem;max-height:250px;overflow-y:auto;padding-right:4px">
+        ${featuredChronicles.map(c => `
+          <div style="background:var(--card-bg2);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.65rem 0.85rem;cursor:pointer;transition:all 0.2s"
+            onmouseover="this.style.borderColor='var(--gold)';this.style.background='rgba(212,175,55,0.08)'"
+            onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--card-bg2)'"
+            onclick="AIGuide.fetchChronicle('${c.site.replace(/'/g, "\\'")}')">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
+              <span style="font-weight:700;font-size:0.9rem;color:var(--text-primary)">${c.icon} ${c.site}</span>
+              <span style="font-size:0.7rem;color:var(--gold);font-weight:600">${c.era}</span>
+            </div>
+            <p style="font-size:0.78rem;color:var(--text-secondary);line-height:1.4;margin:0">${c.hook}</p>
+          </div>
+        `).join('')}
+      </div>`);
     setTimeout(() => {
       const input = document.getElementById('story-site-input');
       if (input && !defaultSite) input.focus();
     }, 300);
+  },
+
+  startStory(defaultSite = '') {
+    return AIGuide.startChronicles(defaultSite);
   },
 
   getStoryFallback(site) {
@@ -1486,18 +1544,17 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
     }).join('');
   },
 
-  async fetchStory() {
+  async fetchChronicle(explicitSite = '') {
     const siteInput = document.getElementById('story-site-input');
-    const site = siteInput ? siteInput.value.trim() : 'Ajanta Caves';
-    if (!site) return;
+    const site = explicitSite || (siteInput ? siteInput.value.trim() : '') || 'Konark Sun Temple';
 
     document.getElementById('modal-content').innerHTML = `
       <div style="text-align:center;padding:2.5rem 1rem">
         <div class="typing-indicator" style="justify-content:center">
           <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
         </div>
-        <p style="color:var(--gold);margin-top:1.25rem;font-weight:600;font-size:1rem">Summoning ancient legends for ${site}...</p>
-        <p style="color:var(--text-muted);font-size:0.82rem;margin-top:0.3rem">Weaving historical chronicles, architecture & artisan lore</p>
+        <p style="color:var(--gold);margin-top:1.25rem;font-weight:600;font-size:1rem">Summoning Historical Chronicle for ${site}...</p>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-top:0.3rem">Retrieving royal epigraphs, builder chronicles & ancient folklore</p>
       </div>`;
 
     try {
@@ -1508,20 +1565,20 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
       document.getElementById('modal-content').innerHTML = `
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)">
           <div>
-            <h3 style="margin:0;font-size:1.2rem;color:var(--gold)">📖 The Legend of ${site}</h3>
-            <span style="font-size:0.78rem;color:var(--text-muted)"><i class="fas fa-scroll" style="margin-right:4px"></i> Historical Epic • ~2 min read</span>
+            <h3 style="margin:0;font-size:1.15rem;color:var(--gold)">📜 Chronicle of ${site}</h3>
+            <span style="font-size:0.76rem;color:var(--text-muted)"><i class="fas fa-scroll" style="margin-right:4px"></i> Epigraph & Historical Chronicle • ~2 min read</span>
           </div>
-          <span style="background:rgba(212,160,23,0.15);color:var(--gold);border:1px solid rgba(212,160,23,0.3);padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600">VIRASAT TALES</span>
+          <span style="background:rgba(212,175,55,0.15);color:var(--gold);border:1px solid rgba(212,175,55,0.3);padding:4px 10px;border-radius:12px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px">VIRASAT CHRONICLE</span>
         </div>
         <div style="max-height:60vh;overflow-y:auto;padding-right:6px;margin:1rem 0">
           ${formattedStory}
         </div>
-        <div style="display:flex;gap:0.75rem;margin-top:1.25rem;padding-top:0.75rem;border-top:1px solid var(--border)">
-          <button class="btn-secondary" style="flex:1" onclick="AIGuide.startStory('${site.replace(/'/g, "\\'")}')">
-            <i class="fas fa-redo"></i> Another Legend
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.25rem;padding-top:0.75rem;border-top:1px solid var(--border)">
+          <button class="btn-secondary" onclick="AIGuide.startChronicles('${site.replace(/'/g, "\\'")}')">
+            <i class="fas fa-search"></i> Other Chronicles
           </button>
-          <button class="btn-primary" style="flex:1" onclick="App.closeModal()">
-            <span>Close Chronicle</span>
+          <button class="btn-accent" onclick="AIGuide.askAbout('${site.replace(/'/g, "\\'")}');App.closeModal()">
+            <i class="fas fa-comments"></i> Chat About This
           </button>
         </div>`;
     } catch {
@@ -1530,23 +1587,27 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
       document.getElementById('modal-content').innerHTML = `
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)">
           <div>
-            <h3 style="margin:0;font-size:1.2rem;color:var(--gold)">📖 The Legend of ${site}</h3>
-            <span style="font-size:0.78rem;color:var(--text-muted)"><i class="fas fa-scroll" style="margin-right:4px"></i> Historical Epic • ~2 min read</span>
+            <h3 style="margin:0;font-size:1.15rem;color:var(--gold)">📜 Chronicle of ${site}</h3>
+            <span style="font-size:0.76rem;color:var(--text-muted)"><i class="fas fa-scroll" style="margin-right:4px"></i> Epigraph & Historical Chronicle • ~2 min read</span>
           </div>
-          <span style="background:rgba(212,160,23,0.15);color:var(--gold);border:1px solid rgba(212,160,23,0.3);padding:4px 10px;border-radius:12px;font-size:0.75rem;font-weight:600">VIRASAT TALES</span>
+          <span style="background:rgba(212,175,55,0.15);color:var(--gold);border:1px solid rgba(212,175,55,0.3);padding:4px 10px;border-radius:12px;font-size:0.72rem;font-weight:700;letter-spacing:0.5px">VIRASAT CHRONICLE</span>
         </div>
         <div style="max-height:60vh;overflow-y:auto;padding-right:6px;margin:1rem 0">
           ${formattedStory}
         </div>
-        <div style="display:flex;gap:0.75rem;margin-top:1.25rem;padding-top:0.75rem;border-top:1px solid var(--border)">
-          <button class="btn-secondary" style="flex:1" onclick="AIGuide.startStory('${site.replace(/'/g, "\\'")}')">
-            <i class="fas fa-redo"></i> Try Another
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.25rem;padding-top:0.75rem;border-top:1px solid var(--border)">
+          <button class="btn-secondary" onclick="AIGuide.startChronicles('${site.replace(/'/g, "\\'")}')">
+            <i class="fas fa-search"></i> Other Chronicles
           </button>
-          <button class="btn-primary" style="flex:1" onclick="App.closeModal()">
-            <span>Close Chronicle</span>
+          <button class="btn-accent" onclick="AIGuide.askAbout('${site.replace(/'/g, "\\'")}');App.closeModal()">
+            <i class="fas fa-comments"></i> Chat About This
           </button>
         </div>`;
     }
+  },
+
+  fetchStory() {
+    return AIGuide.fetchChronicle();
   },
 
   // ─── Ask About (from Explorer) ────────────────────────────────────────────

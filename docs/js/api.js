@@ -147,6 +147,12 @@ const API = {
   async updateProfile(data) {
     return await API.put('/user/profile', data);
   },
+  async awardPoints(points, reason = '') {
+    return await API.post('/user/award-points', { points, reason });
+  },
+  async syncPoints(points) {
+    return await API.post('/user/sync-points', { points });
+  },
   async saveSite(siteId) {
     return await API.post('/user/save-site', { siteId });
   },

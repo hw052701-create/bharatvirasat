@@ -54,6 +54,51 @@ router.post('/save-site', authMiddleware, async (req, res) => {
   }
 });
 
+// ─── POST /api/user/award-points ──────────────────────────────────────────────
+router.post('/award-points', authMiddleware, async (req, res) => {
+  try {
+    const { points, reason } = req.body;
+    const pts = parseInt(points, 10) || 0;
+    if (pts <= 0) return res.status(400).json({ error: 'Invalid points' });
+
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    user.addPoints(pts);
+    await user.save();
+
+    res.json({
+      success: true,
+      points: user.points,
+      level: user.level,
+      message: `Awarded +${pts} points`
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to award points' });
+  }
+});
+
+// ─── POST /api/user/sync-points ───────────────────────────────────────────────
+router.post('/sync-points', authMiddleware, async (req, res) => {
+  try {
+    const { points } = req.body;
+    const clientPoints = parseInt(points, 10) || 0;
+
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    if (clientPoints > user.points) {
+      user.points = clientPoints;
+      user.level = Math.floor(user.points / 500) + 1;
+      await user.save();
+    }
+
+    res.json({ success: true, points: user.points, level: user.level });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to sync points' });
+  }
+});
+
 // ─── GET /api/user/leaderboard ────────────────────────────────────────────────
 router.get('/leaderboard', async (req, res) => {
   try {

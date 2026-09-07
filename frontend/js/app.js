@@ -294,7 +294,7 @@ const App = {
           <div class="profile-stat-label">Missions Done</div>
         </div>
         <div class="profile-stat">
-          <div class="profile-stat-num">${user?.badges?.length || 0}</div>
+          <div class="profile-stat-num">${badges.length}</div>
           <div class="profile-stat-label">Badges</div>
         </div>
       </div>

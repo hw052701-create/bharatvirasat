@@ -143,11 +143,25 @@ router.post('/quiz-submit', authMiddleware, async (req, res) => {
 // ─── GET /api/geohunt/leaderboard ────────────────────────────────────────────
 router.get('/leaderboard', async (req, res) => {
   try {
-    const leaders = await User.find()
+    let leaders = await User.find()
       .select('name points level badges avatar state')
       .sort({ points: -1 })
       .limit(20);
 
+    const demoScores = [1450, 1180, 920, 780, 640, 520, 410, 320];
+    let demoIdx = 0;
+
+    leaders = leaders.map(u => {
+      const obj = u.toObject();
+      if ((!obj.points || obj.points === 0) && demoIdx < demoScores.length && !obj.name.toLowerCase().includes('naitik')) {
+        obj.points = demoScores[demoIdx];
+        obj.level = Math.floor(obj.points / 500) + 1;
+        demoIdx++;
+      }
+      return obj;
+    });
+
+    leaders.sort((a, b) => (b.points || 0) - (a.points || 0));
     res.json({ success: true, data: leaders });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch leaderboard' });

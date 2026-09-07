@@ -430,21 +430,64 @@ const GeoHunt = {
     try {
       const res = await API.getLeaderboard();
       const medals = ['🥇', '🥈', '🥉'];
+      let leaders = (res && res.data && Array.isArray(res.data)) ? res.data : [];
+
+      // Sync active logged-in user points and ensure correct rank placement
+      const current = (typeof Auth !== 'undefined' && Auth.currentUser) ? Auth.currentUser : null;
+      if (current) {
+        // Sync local points with backend asynchronously
+        if (current.points > 0) {
+          API.syncPoints(current.points).catch(() => {});
+        }
+
+        const foundIdx = leaders.findIndex(u => 
+          (u._id && current._id && u._id.toString() === current._id.toString()) || 
+          (u.name && current.name && u.name.toLowerCase() === current.name.toLowerCase())
+        );
+
+        if (foundIdx !== -1) {
+          leaders[foundIdx].points = Math.max(leaders[foundIdx].points || 0, current.points || 0);
+          leaders[foundIdx].level = Math.floor((leaders[foundIdx].points || 0) / 500) + 1;
+        } else if (current.name) {
+          leaders.push({
+            _id: current._id,
+            name: current.name,
+            points: current.points || 0,
+            level: current.level || Math.floor((current.points || 0) / 500) + 1,
+            state: current.state || 'Explorer'
+          });
+        }
+
+        leaders.sort((a, b) => (b.points || 0) - (a.points || 0));
+      }
+
       container.innerHTML = `
         <div class="leaderboard">
-          <h3 style="margin-bottom:1rem;padding:0 0.5rem">🏆 Top Heritage Explorers</h3>
-          ${res.data.map((user, i) => `
-            <div class="leader-item ${i < 3 ? 'top3' : ''}">
-              <div class="leader-rank ${i < 3 ? 'rank-' + (i + 1) : ''}">
-                ${i < 3 ? medals[i] : i + 1}
-              </div>
-              <div class="leader-avatar">${Auth.getInitials(user.name)}</div>
-              <div class="leader-info">
-                <div class="leader-name">${user.name}</div>
-                <div class="leader-state">${user.state || 'Explorer'} • Lvl ${user.level}</div>
-              </div>
-              <div class="leader-pts">${user.points.toLocaleString()}</div>
-            </div>`).join('')}
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding:0 0.5rem">
+            <h3 style="margin:0;font-size:1.1rem;color:var(--gold)">🏆 Top Heritage Explorers</h3>
+            <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:600">Global Ranks</span>
+          </div>
+          ${leaders.map((user, i) => {
+            const isMe = current && (
+              (user._id && current._id && user._id.toString() === current._id.toString()) ||
+              (user.name && current.name && user.name.toLowerCase() === current.name.toLowerCase())
+            );
+            return `
+              <div class="leader-item ${i < 3 ? 'top3' : ''}" style="${isMe ? 'border-color:var(--gold);background:rgba(212,175,55,0.12);box-shadow:var(--shadow-gold)' : ''}">
+                <div class="leader-rank ${i < 3 ? 'rank-' + (i + 1) : ''}">
+                  ${i < 3 ? medals[i] : (i + 1)}
+                </div>
+                <div class="leader-avatar">${Auth.getInitials(user.name)}</div>
+                <div class="leader-info">
+                  <div class="leader-name" style="display:flex;align-items:center;gap:6px">
+                    <span>${user.name}</span>
+                    ${isMe ? '<span style="background:var(--grad-gold);color:var(--deep-blue);font-size:0.58rem;font-weight:800;padding:2px 6px;border-radius:10px">YOU</span>' : ''}
+                  </div>
+                  <div class="leader-state">${user.state || 'Explorer'} • Level ${user.level || 1}</div>
+                </div>
+                <div class="leader-pts">${(user.points || 0).toLocaleString()} pts</div>
+              </div>`;
+          }).join('')}
         </div>`;
     } catch {
       container.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><h3>No data yet</h3></div>';

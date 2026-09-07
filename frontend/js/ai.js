@@ -1396,9 +1396,11 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
 
           if (Auth.currentUser) {
             Auth.currentUser.points = (Auth.currentUser.points || 0) + bonusAwarded;
+            Auth.currentUser.level = Math.floor(Auth.currentUser.points / 500) + 1;
             localStorage.setItem('bv_user', JSON.stringify(Auth.currentUser));
             const ptsDisplay = document.getElementById('user-points-display');
             if (ptsDisplay) ptsDisplay.textContent = Auth.currentUser.points;
+            API.awardPoints(bonusAwarded, 'daily_challenge').catch(() => {});
           }
         }
 

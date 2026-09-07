@@ -184,12 +184,11 @@ const App = {
 
       <!-- AI Promo -->
       <div style="margin:0 1rem 0">
-        <div class="daily-challenge" style="background:linear-gradient(135deg, rgba(34, 45, 62, 0.9), rgba(19, 25, 35, 0.95)); border-color: rgba(212, 175, 55, 0.4)"
-          onclick="App.navigate('ai')">
+        <div class="daily-challenge" onclick="App.navigate('ai')">
           <div class="challenge-badge" style="background:var(--grad-saffron); color:#fff">🪷 AI Heritage Guide</div>
           <div class="challenge-title">Virasat AI Guide</div>
           <div class="challenge-desc">Ask anything about India's heritage, get AI-generated stories, and take dynamic quizzes!</div>
-          <button class="challenge-btn" style="background:var(--grad-gold); color:var(--deep-blue)">
+          <button class="challenge-btn">
             <i class="fas fa-comment-dots"></i> Chat with Virasat AI
           </button>
         </div>

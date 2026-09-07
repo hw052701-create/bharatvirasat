@@ -420,7 +420,7 @@ input, select, textarea { font-family: inherit; }
 /* ── Home Page ──────────────────────────────────────────────── */
 .hero-banner {
   position: relative; height: 280px;
-  background: linear-gradient(135deg, #18202E 0%, #201812 50%, #101620 100%);
+  background: var(--grad-hero);
   overflow: hidden;
   display: flex; align-items: flex-end;
   padding: 1.5rem;
@@ -429,11 +429,15 @@ input, select, textarea { font-family: inherit; }
   content: '';
   position: absolute; inset: 0;
   background: url('https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80') center/cover;
-  opacity: 0.35;
+  opacity: 0.28;
+}
+[data-theme="light"] .hero-banner::before {
+  opacity: 0.14;
+  mix-blend-mode: multiply;
 }
 .hero-gradient {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(12, 16, 23, 0.96) 0%, rgba(12, 16, 23, 0.25) 100%);
+  background: linear-gradient(to top, var(--deep-blue) 0%, transparent 100%);
 }
 .hero-content { position: relative; z-index: 1; }
 .hero-greeting {
@@ -441,7 +445,7 @@ input, select, textarea { font-family: inherit; }
   font-weight: 600; letter-spacing: 1px;
   text-transform: uppercase; margin-bottom: 0.25rem;
 }
-.hero-title { font-size: 1.8rem; font-weight: 800; line-height: 1.2; }
+.hero-title { font-size: 1.8rem; font-weight: 800; line-height: 1.2; color: var(--text-primary); }
 .hero-title span {
   background: var(--grad-gold);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -453,7 +457,7 @@ input, select, textarea { font-family: inherit; }
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 1rem;
 }
-.section-title { font-size: 1.1rem; font-weight: 700; }
+.section-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
 .section-link { font-size: 0.8rem; color: var(--gold); font-weight: 600; }
 
 .scroll-row {
@@ -485,7 +489,7 @@ input, select, textarea { font-family: inherit; }
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: 1.2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 .qa-icon.arch { background: linear-gradient(135deg, #A85A2A, #7A3512); color: #FFF; }
 .qa-icon.cult { background: linear-gradient(135deg, #9E2A2B, #6A040F); color: #FFF; }
@@ -515,8 +519,8 @@ input, select, textarea { font-family: inherit; }
 /* Daily Challenge */
 .daily-challenge {
   margin: 0 1rem 1rem;
-  background: linear-gradient(135deg, #1A2230 0%, #151820 100%);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: var(--grad-card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
   position: relative; overflow: hidden;
@@ -527,10 +531,10 @@ input, select, textarea { font-family: inherit; }
   content: '🏆';
   position: absolute; right: 1rem; top: 50%;
   transform: translateY(-50%);
-  font-size: 3.5rem; opacity: 0.15;
+  font-size: 3.5rem; opacity: 0.12;
 }
 .daily-challenge.completed {
-  background: linear-gradient(135deg, rgba(26, 42, 34, 0.9), rgba(15, 28, 20, 0.9));
+  background: linear-gradient(135deg, rgba(46, 125, 91, 0.15), rgba(46, 125, 91, 0.08));
   border-color: rgba(46, 125, 91, 0.5);
 }
 .daily-challenge.completed::before {
@@ -611,19 +615,21 @@ input, select, textarea { font-family: inherit; }
 .detail-back {
   position: absolute; top: 1rem; left: 1rem;
   width: 40px; height: 40px;
-  background: rgba(10, 10, 26, 0.8);
+  background: rgba(0, 0, 0, 0.55);
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   color: white; font-size: 1rem;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 1;
 }
 .detail-save {
   position: absolute; top: 1rem; right: 1rem;
   width: 40px; height: 40px;
-  background: rgba(10, 10, 26, 0.8);
+  background: rgba(0, 0, 0, 0.55);
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   color: white; font-size: 1rem;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 1; transition: color 0.2s;
 }
 .detail-save.saved { color: var(--gold); }

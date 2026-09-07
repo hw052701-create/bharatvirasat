@@ -137,78 +137,60 @@ const Explorer = {
     Explorer.isLoadingMore = false;
   },
 
-  // Canonical high-res imagery for verified monuments across UP, Gujarat & Punjab
+  // Canonical imagery & custom user links from site_images.txt
   siteImageMap: {
-    // Uttar Pradesh & Lucknow
-    'Taj Mahal': 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&auto=format&fit=crop&q=80',
+    // Custom user links
+    'Jallianwala Bagh': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Jallianwala_Bagh.jpg',
+    'Ram Tirath Temple Complex': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Ramtirath.jpg',
+    'Moorish Mosque': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Moorish_Mosque_of_Kapurthala_in_the_state_of_Punjab_02.jpg',
+    'Baradari Gardens heritage structures': 'https://wanderon-images.gumlet.io/blogs/new/2024/04/baradari-garden-min.jpg',
+    'Gurudwara Nanaksar, Jagraon historical complex': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Photograph_of_the_main_entrance-gate_to_Gurdwara_Nanaksar_Sahib%2C_located_in_Kaleran%2C_near_Jagraon_in_the_Ludhiana_district_of_Punjab%2C_India%2C_9_April_2023.jpg',
+    'Pushpa Gujral Science City heritage museum area': 'https://ptcnews-wp.s3.ap-south-1.amazonaws.com/wp-content/uploads/2020/10/unnamed-1.jpg',
+    'Baba Bakala Sahib historical gurdwara': 'https://newz24india.com/wp-content/uploads/2025/07/baba-baakala-780x470.jpg',
+    'Sanghol Archaeological Site': 'https://mindtrip.ai/cdn-cgi/image/format%3Dwebp%2Cw%3D1200/https%3A/images.mindtrip.ai/locations/67da/7dc6/bd4f/0f4f/9d92/5745/fd6c/805b',
+    'Mubarak Manzil': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Mubarak_Manzil_Palace%2C_Malerkotla_01.jpg',
+    'Panch Mandir': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Photograph_of_the_Panch_Mandir%2C_Kapurthala%2C_Kapurthala_State%2C_published_in_%27Indian_States%2C_A_Biographical%2C_Historical%2C_and_Administrative_Survey%27_%281922%29_%28cropped%29.jpg',
+    'Virasat-e-Khalsa heritage complex': 'https://topplacesindia.com/img/attractions/punjab/virasat-e-khalsa/virasat-e-khalsa-hero.jpg',
+    'Khalsa College Main Building': 'https://amritsar.guide/assets/static/locations/gallery/1617096936_45_2.jpg',
+    'Akal Takht Sahib': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Akal_takht.jpg',
+    'Gurudwara Sri Fatehgarh Sahib': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Original_Gurdwara_Sri_Fatehgarh_Sahib.jpg',
+    'Bathinda Fort (Qila Mubarak)': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Qila_Mubarak_in_Bathinda.jpg',
+    'Durgiana Temple': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Durgiana_Temple%2C_Amritsar.jpg',
+    'Phillaur Fort (Maharaja Ranjit Singh Fort)': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Phillaur-fort.jpg',
+    'Pul Kanjri': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Pul_Kanjari.JPG',
+    'Mahabat Khan Maqbara': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Mahabat_ka_Makbara_Junagadh_India.jpg',
+    'Aina Mahal': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Aina_mahal.jpg_01.jpg',
+    'Prag Mahal': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Prag_Mahal_Bhuj.jpg',
+    'Adalaj Ni Vav': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Adalaj_ki_Vav_Gujarat_240A1370_72.jpg',
+    'Vijay Vilas Palace': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Vijay_Vilas_Palace_Mandvi_02.jpg',
+    'Adi Kadi Vav': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Adi_kadi_vav_-_Junagadh_-Gujrat-DSC0002.jpg',
+    'Sarkhej Roza': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sarkhej_Roza.jpg',
+    'Rani-ki-Vav': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Rani_ki_vav7%2C_patan%2C_gujarat.jpg',
+    'Rani ki Vav': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Rani_ki_vav7%2C_patan%2C_gujarat.jpg',
+    'Modhera Sun Temple': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Modhera_sun_temple_Gujarat.jpg',
+    'Sun Temple, Modhera': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Modhera_sun_temple_Gujarat.jpg',
+    'Uparkot Fort': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Uparkot_fort_of_Junagadh.jpg',
+    'Alamgir Mosque': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Husainabad_Clock_Tower_-_Lucknow.jpg',
+    'Tomb of Salim Chishti': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/TombSalimChisti.jpg',
+    'Akbar\'s Tomb, Sikandra': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Akbar%27s_Tomb.jpg',
+    'Tomb of Saadat Ali Khan': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Tomb_of_Saadat_Ali_Khan_-Lucknow.jpg',
+    'Dhamek Stupa': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/SARNATH_DHAMEK_STUPA.jpg',
+    'Bara Imambara': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Bara_Imambara_Lucknow_Uttar_Pradesh.jpg',
+    'Lucknow Residency': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Lucknow_Residency.jpg',
+    'Rumi Darwaza': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Rumi_Darwaza_in_Lucknow.jpg',
+    'Taj Mahal': 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Taj_Mahal%2C_Agra%2C_India.jpg',
+
+    // Other verified defaults
     'Agra Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
     'Fatehpur Sikri': 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop&q=80',
-    'Bara Imambara': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Bara Imambara (Asafi Imambara)': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Chhota Imambara': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Chhota Imambara (Husainabad Imambara)': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Rumi Darwaza': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Lucknow Residency': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Dilkusha Palace': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Sikandar Bagh': 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&auto=format&fit=crop&q=80',
-    'Kaiserbagh Palace Complex': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Chattar Manzil': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Varanasi Ghats': 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=800&auto=format&fit=crop&q=80',
+    'Sri Harmandir Sahib (Golden Temple)': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
+    'Golden Temple': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
+    'Gobindgarh Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
     'Kashi Vishwanath Temple': 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=800&auto=format&fit=crop&q=80',
-    'Dhamek Stupa': 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
-    'Chaukhandi Stupa': 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
-    'Jhansi Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Kalinjar Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Dashavatara Temple': 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
-    'Allahabad Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Khusro Bagh': 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&auto=format&fit=crop&q=80',
-    'Anand Bhavan': 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&auto=format&fit=crop&q=80',
-    'Govind Dev Temple, Vrindavan': 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
-    'Banke Bihari Temple': 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
-    'Atala Masjid': 'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=800&auto=format&fit=crop&q=80',
-    'Shahi Bridge': 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800&auto=format&fit=crop&q=80',
-
-    // Gujarat
-    'Rani-ki-Vav': 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
-    'Rani ki Vav': 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
-    'Dholavira': 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
-    'Champaner-Pavagadh Archaeological Park': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop&q=80',
-    'Historic City of Ahmedabad': 'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=800&auto=format&fit=crop&q=80',
-    'Adalaj Ni Vav': 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
-    'Adalaj Stepwell': 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
-    'Modhera Sun Temple': 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
-    'Sun Temple, Modhera': 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
-    'Lothal': 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
-    'Uparkot Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Mahabat Khan Maqbara': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop&q=80',
-    'Sarkhej Roza': 'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=800&auto=format&fit=crop&q=80',
-    'Bhadra Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Aina Mahal': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Prag Mahal': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Lakhpat Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Vijay Vilas Palace': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Laxmi Vilas Palace': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
     'Somnath Temple': 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
     'Dwarkadhish Temple': 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
     'Gir National Park': 'https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=800&auto=format&fit=crop&q=80',
     'Rann of Kutch': 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=800&auto=format&fit=crop&q=80',
-
-    // Punjab
-    'Sri Harmandir Sahib (Golden Temple)': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
-    'Golden Temple': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
-    'Gobindgarh Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Jallianwala Bagh': 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&auto=format&fit=crop&q=80',
-    'Qila Mubarak, Patiala': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Qila Mubarak, Bathinda': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Jagatjit Palace': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Moorish Mosque, Kapurthala': 'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=800&auto=format&fit=crop&q=80',
-    'Sheesh Mahal, Patiala': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
-    'Bahadurgarh Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Phillaur Fort': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
-    'Takht Sri Damdama Sahib': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
-    'Gurudwara Tarn Taran Sahib': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
-    'Gurudwara Goindwal Sahib': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
-    'Jandiala Guru Thatheras Heritage Site': 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&auto=format&fit=crop&q=80'
   },
 
   // Category & keyword-based verified images (100% tested HTTP 200)
@@ -338,23 +320,28 @@ const Explorer = {
   getSiteImage(site) {
     if (!site) return 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80';
 
-    // 1. Check verified hardcoded landmark map
+    // 1. Check verified hardcoded landmark & custom map first
     if (Explorer.siteImageMap[site.name]) return Explorer.siteImageMap[site.name];
 
-    // 2. Smart keyword matching on site name and description
+    // 2. Check DB site.images (if present and not old generic placeholder)
+    if (site.images && site.images.length > 0 && site.images[0] && !site.images[0].includes('unsplash.com/photo-1590050752117')) {
+      return site.images[0];
+    }
+
+    // 3. Smart keyword matching on site name and description
     const searchText = (site.name + ' ' + (site.description || '') + ' ' + (site.shortDesc || '') + ' ' + (site.tags ? site.tags.join(' ') : '')).toLowerCase();
     
     for (const [keyword, url] of Object.entries(Explorer.categoryImages)) {
       if (searchText.includes(keyword)) return url;
     }
 
-    // 3. State fallback
+    // 4. State fallback
     if (site.state && Explorer.stateImages[site.state]) return Explorer.stateImages[site.state];
 
-    // 4. Type fallback
+    // 5. Type fallback
     if (site.type && Explorer.typeImages[site.type]) return Explorer.typeImages[site.type];
 
-    // 5. Universal high-res heritage fallback
+    // 6. Universal high-res heritage fallback
     return 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80';
   },
 

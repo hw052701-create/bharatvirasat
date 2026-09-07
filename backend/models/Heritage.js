@@ -38,6 +38,8 @@ const HeritageSchema = new mongoose.Schema({
   tags: [String],
   isASIProtected: { type: Boolean, default: false },
   isUNESCO: { type: Boolean, default: false },
+  sourceUrl: { type: String, default: '' },
+  district: { type: String, default: '' },
   rating: { type: Number, default: 0, min: 0, max: 5 },
   reviewCount: { type: Number, default: 0 },
   views: { type: Number, default: 0 },

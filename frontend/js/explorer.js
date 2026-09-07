@@ -309,8 +309,13 @@ const Explorer = {
     // 1. Check hardcoded verified image map first
     if (Explorer.siteImageMap[site.name]) return Explorer.siteImageMap[site.name];
 
-    // 2. Check database images
-    if (site.images && site.images.length > 0 && site.images[0]) return site.images[0];
+    // 2. Check database images — but only trust Wikimedia/govt URLs, not generic Unsplash fallbacks
+    if (site.images && site.images.length > 0 && site.images[0]) {
+      const dbImg = site.images[0];
+      if (dbImg.includes('wikimedia.org') || dbImg.includes('.gov.in') || dbImg.includes('asi.nic.in')) {
+        return dbImg;
+      }
+    }
 
     // 3. Smart keyword matching — check site name + description for category clues
     const searchText = (site.name + ' ' + (site.description || '')).toLowerCase();

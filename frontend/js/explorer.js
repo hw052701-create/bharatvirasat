@@ -3,6 +3,10 @@ const Explorer = {
   currentType: 'all',
   currentState: 'all',
   currentSite: null,
+  currentPage: 1,
+  totalPages: 1,
+  allLoadedSites: [],
+  isLoadingMore: false,
 
   // ─── Render Explorer Page ─────────────────────────────────────────────────
   render() {
@@ -41,6 +45,8 @@ const Explorer = {
         ${Array(6).fill('<div class="skeleton skeleton-card"></div>').join('')}
       </div>
     `;
+    Explorer.currentPage = 1;
+    Explorer.allLoadedSites = [];
     Explorer.loadSites();
   },
 
@@ -59,7 +65,7 @@ const Explorer = {
   // ─── Load Sites ───────────────────────────────────────────────────────────
   async loadSites(search = '') {
     try {
-      const params = {};
+      const params = { page: Explorer.currentPage, limit: 40 };
       if (Explorer.currentType !== 'all') params.type = Explorer.currentType;
       if (Explorer.currentState !== 'all') params.state = Explorer.currentState;
       if (search) params.search = search;
@@ -68,7 +74,7 @@ const Explorer = {
       const grid = document.getElementById('heritage-grid');
       if (!grid) return;
 
-      if (!res.data || res.data.length === 0) {
+      if (Explorer.currentPage === 1 && (!res.data || res.data.length === 0)) {
         grid.innerHTML = `
           <div class="empty-state" style="grid-column: 1/-1">
             <i class="fas fa-search"></i>
@@ -78,13 +84,57 @@ const Explorer = {
         return;
       }
 
-      grid.innerHTML = res.data.map(site => Explorer.renderCard(site)).join('');
+      // Accumulate sites
+      Explorer.allLoadedSites = Explorer.allLoadedSites.concat(res.data || []);
+      Explorer.totalPages = res.pages || 1;
+
+      // Render all accumulated sites
+      let html = Explorer.allLoadedSites.map(site => Explorer.renderCard(site)).join('');
+
+      // Show total count
+      html = `<div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 0.25rem">
+        <span style="font-size:0.82rem;color:var(--text-muted)"><i class="fas fa-landmark" style="margin-right:4px;color:var(--gold)"></i> Showing <strong style="color:var(--text-primary)">${Explorer.allLoadedSites.length}</strong> of <strong style="color:var(--gold)">${res.total || Explorer.allLoadedSites.length}</strong> sites</span>
+      </div>` + html;
+
+      // Add Load More button if there are more pages
+      if (Explorer.currentPage < Explorer.totalPages) {
+        html += `
+          <div style="grid-column:1/-1;text-align:center;padding:1.5rem 0">
+            <button class="btn-primary" id="load-more-btn" onclick="Explorer.loadMore()" style="padding:10px 32px;font-size:0.9rem;border-radius:12px">
+              <i class="fas fa-plus-circle" style="margin-right:6px"></i>Load More Sites
+              <span style="font-size:0.75rem;opacity:0.7;margin-left:8px">(Page ${Explorer.currentPage} of ${Explorer.totalPages})</span>
+            </button>
+          </div>`;
+      } else if (Explorer.allLoadedSites.length > 0) {
+        html += `
+          <div style="grid-column:1/-1;text-align:center;padding:1rem 0;color:var(--text-muted);font-size:0.82rem">
+            <i class="fas fa-check-circle" style="color:var(--gold);margin-right:4px"></i> All ${Explorer.allLoadedSites.length} heritage sites loaded
+          </div>`;
+      }
+
+      grid.innerHTML = html;
     } catch (err) {
       const grid = document.getElementById('heritage-grid');
-      if (grid) grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-        <i class="fas fa-wifi"></i><h3>Connection Error</h3><p>${err.message}</p>
-      </div>`;
+      if (grid && Explorer.currentPage === 1) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+          <i class="fas fa-wifi"></i><h3>Connection Error</h3><p>${err.message}</p>
+        </div>`;
+      }
     }
+  },
+
+  // ─── Load More (Pagination) ────────────────────────────────────────────────
+  async loadMore() {
+    if (Explorer.isLoadingMore || Explorer.currentPage >= Explorer.totalPages) return;
+    Explorer.isLoadingMore = true;
+    const btn = document.getElementById('load-more-btn');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+    }
+    Explorer.currentPage++;
+    await Explorer.loadSites();
+    Explorer.isLoadingMore = false;
   },
 
   // Canonical high-res imagery for verified monuments across UP, Gujarat & Punjab
@@ -154,10 +204,128 @@ const Explorer = {
     'Jandiala Guru Thatheras Heritage Site': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Thatheras_of_Jandiala_Guru.jpg/960px-Thatheras_of_Jandiala_Guru.jpg'
   },
 
+  // Category-based smart image fallbacks for sites without hardcoded images
+  categoryImages: {
+    // Religious / Temples
+    temple: 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=800&auto=format&fit=crop&q=80',
+    gurudwara: 'https://images.unsplash.com/photo-1609947017136-9daf32a15c38?w=800&auto=format&fit=crop&q=80',
+    mosque: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
+    church: 'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=800&auto=format&fit=crop&q=80',
+    imambara: 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
+    stupa: 'https://images.unsplash.com/photo-1567157577867-05ccb1388e13?w=800&auto=format&fit=crop&q=80',
+    // Forts & Palaces
+    fort: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop&q=80',
+    qila: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop&q=80',
+    palace: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
+    mahal: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
+    haveli: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80',
+    // Archaeological
+    ruins: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
+    excavation: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
+    archaeological: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
+    // Gateways & Monuments
+    darwaza: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop&q=80',
+    gate: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop&q=80',
+    tower: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&auto=format&fit=crop&q=80',
+    minar: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&auto=format&fit=crop&q=80',
+    // Water & Stepwells
+    vav: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
+    stepwell: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
+    ghat: 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=800&auto=format&fit=crop&q=80',
+    lake: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
+    // Tombs & Gardens
+    tomb: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop&q=80',
+    maqbara: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop&q=80',
+    roza: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop&q=80',
+    bagh: 'https://images.unsplash.com/photo-1585136917228-5fa2c1b57e47?w=800&auto=format&fit=crop&q=80',
+    garden: 'https://images.unsplash.com/photo-1585136917228-5fa2c1b57e47?w=800&auto=format&fit=crop&q=80',
+    // Museums
+    museum: 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&auto=format&fit=crop&q=80',
+    // Culture — Food
+    food: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    cuisine: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    sweet: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    khakhra: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    handvo: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    dhokla: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    thepla: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    undhiyu: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    fafda: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    chaat: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    biryani: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    kebab: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    lassi: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    kulfi: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    peda: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    chikki: 'https://images.unsplash.com/photo-1606491956689-2ea866880049?w=800&auto=format&fit=crop&q=80',
+    // Culture — Textiles & Crafts
+    textile: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&auto=format&fit=crop&q=80',
+    saree: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&auto=format&fit=crop&q=80',
+    sari: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&auto=format&fit=crop&q=80',
+    embroidery: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&auto=format&fit=crop&q=80',
+    phulkari: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&auto=format&fit=crop&q=80',
+    weaving: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&auto=format&fit=crop&q=80',
+    pottery: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
+    craft: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
+    metalwork: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=80',
+    // Culture — Dance & Music
+    dance: 'https://images.unsplash.com/photo-1547153760-18fc86c9fda1?w=800&auto=format&fit=crop&q=80',
+    garba: 'https://images.unsplash.com/photo-1547153760-18fc86c9fda1?w=800&auto=format&fit=crop&q=80',
+    bhangra: 'https://images.unsplash.com/photo-1547153760-18fc86c9fda1?w=800&auto=format&fit=crop&q=80',
+    raas: 'https://images.unsplash.com/photo-1547153760-18fc86c9fda1?w=800&auto=format&fit=crop&q=80',
+    music: 'https://images.unsplash.com/photo-1547153760-18fc86c9fda1?w=800&auto=format&fit=crop&q=80',
+    // Culture — Fairs & Festivals
+    fair: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?w=800&auto=format&fit=crop&q=80',
+    festival: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?w=800&auto=format&fit=crop&q=80',
+    mela: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?w=800&auto=format&fit=crop&q=80',
+    utsav: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?w=800&auto=format&fit=crop&q=80',
+    navratri: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?w=800&auto=format&fit=crop&q=80',
+    rann: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?w=800&auto=format&fit=crop&q=80',
+    // Nature & Wildlife
+    wildlife: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=800&auto=format&fit=crop&q=80',
+    sanctuary: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=800&auto=format&fit=crop&q=80',
+    national_park: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=800&auto=format&fit=crop&q=80',
+    forest: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=800&auto=format&fit=crop&q=80',
+    gir: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=800&auto=format&fit=crop&q=80',
+    // Bridge & Infrastructure
+    bridge: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800&auto=format&fit=crop&q=80',
+  },
+
+  // State-level fallback images
+  stateImages: {
+    'Uttar Pradesh': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop&q=80',
+    'Gujarat': 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
+    'Punjab': 'https://images.unsplash.com/photo-1609947017136-9daf32a15c38?w=800&auto=format&fit=crop&q=80',
+  },
+
+  // Type-level fallback images
+  typeImages: {
+    architecture: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80',
+    culture: 'https://images.unsplash.com/photo-1604948501466-4e9c339b9c24?w=800&auto=format&fit=crop&q=80',
+    research: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop&q=80',
+  },
+
   getSiteImage(site) {
+    // 1. Check hardcoded verified image map first
     if (Explorer.siteImageMap[site.name]) return Explorer.siteImageMap[site.name];
+
+    // 2. Check database images
     if (site.images && site.images.length > 0 && site.images[0]) return site.images[0];
-    return 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80';
+
+    // 3. Smart keyword matching — check site name + description for category clues
+    const searchText = (site.name + ' ' + (site.description || '')).toLowerCase();
+    for (const [keyword, url] of Object.entries(Explorer.categoryImages)) {
+      if (searchText.includes(keyword)) return url;
+    }
+
+    // 4. State-based fallback
+    if (site.state && Explorer.stateImages[site.state]) return Explorer.stateImages[site.state];
+
+    // 5. Type-based fallback
+    if (site.type && Explorer.typeImages[site.type]) return Explorer.typeImages[site.type];
+
+    // 6. Generic heritage fallback
+    return 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop&q=80';
   },
 
   // ─── Render Heritage Card ─────────────────────────────────────────────────

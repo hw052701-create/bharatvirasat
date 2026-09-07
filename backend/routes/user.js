@@ -64,6 +64,21 @@ router.post('/award-points', authMiddleware, async (req, res) => {
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
+    const todayStr = new Date().toISOString().slice(0, 10);
+    if (reason === 'daily_challenge' || reason === 'daily_quiz') {
+      if (user.lastDailyChallengeDate === todayStr) {
+        return res.json({
+          success: false,
+          alreadyClaimed: true,
+          points: user.points,
+          level: user.level,
+          lastDailyChallengeDate: user.lastDailyChallengeDate,
+          message: 'Daily challenge points already claimed for today'
+        });
+      }
+      user.lastDailyChallengeDate = todayStr;
+    }
+
     user.addPoints(pts);
     await user.save();
 
@@ -71,6 +86,7 @@ router.post('/award-points', authMiddleware, async (req, res) => {
       success: true,
       points: user.points,
       level: user.level,
+      lastDailyChallengeDate: user.lastDailyChallengeDate || '',
       message: `Awarded +${pts} points`
     });
   } catch (error) {

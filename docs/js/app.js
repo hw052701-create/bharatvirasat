@@ -159,7 +159,7 @@ const App = {
       <!-- Daily Challenge -->
       ${(() => {
         const todayStr = new Date().toISOString().slice(0, 10);
-        const isDailyDone = localStorage.getItem('bv_daily_completed_date') === todayStr || localStorage.getItem('bv_daily_quiz_claimed') === todayStr;
+        const isDailyDone = (Auth.currentUser && Auth.currentUser.lastDailyChallengeDate === todayStr) || localStorage.getItem('bv_daily_completed_date') === todayStr || localStorage.getItem('bv_daily_quiz_claimed') === todayStr;
         return `
         <div class="daily-challenge ${isDailyDone ? 'completed' : ''}" onclick="${isDailyDone ? 'App.showDailyCompletedModal()' : 'AIGuide.startDailyChallenge()'}">
           <div class="challenge-badge ${isDailyDone ? 'claimed' : ''}">${isDailyDone ? '✅ Daily Challenge Completed' : '🏆 Daily Challenge (+50 XP)'}</div>

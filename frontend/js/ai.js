@@ -1176,7 +1176,7 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
   // ─── Daily Challenge Flow ──────────────────────────────────────────────────
   startDailyChallenge() {
     const todayStr = new Date().toISOString().slice(0, 10);
-    const isDone = localStorage.getItem('bv_daily_completed_date') === todayStr || localStorage.getItem('bv_daily_quiz_claimed') === todayStr;
+    const isDone = (Auth.currentUser && Auth.currentUser.lastDailyChallengeDate === todayStr) || localStorage.getItem('bv_daily_completed_date') === todayStr || localStorage.getItem('bv_daily_quiz_claimed') === todayStr;
 
     if (isDone) {
       App.showDailyCompletedModal();
@@ -1395,12 +1395,27 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
           bonusAwarded = 50;
 
           if (Auth.currentUser) {
-            Auth.currentUser.points = (Auth.currentUser.points || 0) + bonusAwarded;
-            Auth.currentUser.level = Math.floor(Auth.currentUser.points / 500) + 1;
+            Auth.currentUser.lastDailyChallengeDate = todayStr;
             localStorage.setItem('bv_user', JSON.stringify(Auth.currentUser));
-            const ptsDisplay = document.getElementById('user-points-display');
-            if (ptsDisplay) ptsDisplay.textContent = Auth.currentUser.points;
-            API.awardPoints(bonusAwarded, 'daily_challenge').catch(() => {});
+            
+            API.awardPoints(bonusAwarded, 'daily_challenge').then(res => {
+              if (res && res.points !== undefined) {
+                Auth.currentUser.points = res.points;
+                Auth.currentUser.level = res.level || (Math.floor(res.points / 500) + 1);
+                if (res.lastDailyChallengeDate) {
+                  Auth.currentUser.lastDailyChallengeDate = res.lastDailyChallengeDate;
+                }
+                localStorage.setItem('bv_user', JSON.stringify(Auth.currentUser));
+                const ptsDisplay = document.getElementById('user-points-display');
+                if (ptsDisplay) ptsDisplay.textContent = Auth.currentUser.points;
+              }
+            }).catch(() => {
+              Auth.currentUser.points = (Auth.currentUser.points || 0) + bonusAwarded;
+              Auth.currentUser.level = Math.floor(Auth.currentUser.points / 500) + 1;
+              localStorage.setItem('bv_user', JSON.stringify(Auth.currentUser));
+              const ptsDisplay = document.getElementById('user-points-display');
+              if (ptsDisplay) ptsDisplay.textContent = Auth.currentUser.points;
+            });
           }
         }
 

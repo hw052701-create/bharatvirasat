@@ -10,6 +10,10 @@ const Auth = {
         const res = await API.getMe();
         Auth.currentUser = res.user;
         localStorage.setItem('bv_user', JSON.stringify(res.user));
+        if (res.user && res.user.lastDailyChallengeDate) {
+          localStorage.setItem('bv_daily_completed_date', res.user.lastDailyChallengeDate);
+          localStorage.setItem('bv_daily_quiz_claimed', res.user.lastDailyChallengeDate);
+        }
         return true;
       } catch {
         const cachedUser = localStorage.getItem('bv_user');
@@ -46,6 +50,10 @@ const Auth = {
       localStorage.setItem('bv_token', res.token);
       localStorage.setItem('bv_user', JSON.stringify(res.user));
       Auth.currentUser = res.user;
+      if (res.user && res.user.lastDailyChallengeDate) {
+        localStorage.setItem('bv_daily_completed_date', res.user.lastDailyChallengeDate);
+        localStorage.setItem('bv_daily_quiz_claimed', res.user.lastDailyChallengeDate);
+      }
       App.start();
     } catch (err) {
       Auth.showError(err.message || 'Login failed. Please try again.');

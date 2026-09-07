@@ -38,7 +38,8 @@ router.post('/register', async (req, res) => {
         level: user.level,
         points: user.points,
         badges: user.badges,
-        state: user.state
+        state: user.state,
+        lastDailyChallengeDate: user.lastDailyChallengeDate || ''
       }
     });
   } catch (error) {
@@ -78,7 +79,8 @@ router.post('/login', async (req, res) => {
         points: user.points,
         badges: user.badges,
         state: user.state,
-        avatar: user.avatar
+        avatar: user.avatar,
+        lastDailyChallengeDate: user.lastDailyChallengeDate || ''
       }
     });
   } catch (error) {

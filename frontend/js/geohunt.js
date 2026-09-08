@@ -404,8 +404,11 @@ const GeoHunt = {
 
   // ─── Open Mission Detail ──────────────────────────────────────────────────
   openMission(missionId) {
-    const mission = GeoHunt.missions.find(m => m._id === missionId);
-    if (!mission) return;
+    const mission = GeoHunt.missions.find(m => String(m._id) === String(missionId));
+    if (!mission) {
+      console.warn('Mission not found for ID:', missionId);
+      return;
+    }
 
     if (mission.completed) {
       App.showToast('Already completed! 🏆', 'success');

@@ -1,5 +1,5 @@
-// BharatVirasat Service Worker v24.0
-const CACHE_NAME = 'bharatvirasat-v24';
+// BharatVirasat Service Worker v25.0
+const CACHE_NAME = 'bharatvirasat-v25';
 const STATIC_ASSETS = [
   './',
   './index.html',

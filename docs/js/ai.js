@@ -1565,14 +1565,14 @@ Would you like to explore the ASI archaeological excavations or the epigraphical
     const siteInput = document.getElementById('story-site-input');
     const site = explicitSite || (siteInput ? siteInput.value.trim() : '') || 'Konark Sun Temple';
 
-    document.getElementById('modal-content').innerHTML = `
+    App.showModal(`
       <div style="text-align:center;padding:2.5rem 1rem">
         <div class="typing-indicator" style="justify-content:center">
           <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
         </div>
         <p style="color:var(--gold);margin-top:1.25rem;font-weight:600;font-size:1rem">Summoning Historical Chronicle for ${site}...</p>
         <p style="color:var(--text-muted);font-size:0.82rem;margin-top:0.3rem">Retrieving royal epigraphs, builder chronicles & ancient folklore</p>
-      </div>`;
+      </div>`);
 
     try {
       const res = await API.generateStory(site);

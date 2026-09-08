@@ -1,2150 +1,912 @@
-================================================================================
- BHARAT VIRASAT - HERITAGE SITES & ITEMS IMAGE LINK DIRECTORY
- Total Sites: 304
- Instructions: Paste your desired image URL after "IMAGE_URL: " for each site.
- Once you are done, save the file and let me know to apply your custom images!
-================================================================================
-
-
-################################################################################
-### STATE: PUNJAB (84 items)
-################################################################################
-
-[1] NAME: Jallianwala Bagh
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Indian freedom struggle and the architectural, religious or archaeological his...
+1. Jallianwala Bagh | Punjab | Amritsar
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Jallianwala_Bagh.jpg
 
-[2] NAME: Ram Tirath Temple Complex
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Ramayana tradition and the architectural, religious or archaeological history ...
+2. Ram Tirath Temple Complex | Punjab | Amritsar
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Ramtirath.jpg
 
-[3] NAME: Moorish Mosque
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Kapurthala State and the architectural, religious or archaeological history of...
+3. Moorish Mosque | Punjab | Kapurthala
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Moorish_Mosque_of_Kapurthala_in_the_state_of_Punjab_02.jpg
 
-[4] NAME: Baradari Gardens heritage structures
-STATE: Punjab
-CITY: Patiala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Patiala State and the architectural, religious or archaeological history of th...
+4. Baradari Gardens heritage structures | Punjab | Patiala
 IMAGE_URL: https://wanderon-images.gumlet.io/blogs/new/2024/04/baradari-garden-min.jpg
 
-[5] NAME: Gurudwara Nanaksar, Jagraon historical complex
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
+5. Gurudwara Nanaksar, Jagraon historical complex | Punjab | Ludhiana
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Photograph_of_the_main_entrance-gate_to_Gurdwara_Nanaksar_Sahib%2C_located_in_Kaleran%2C_near_Jagraon_in_the_Ludhiana_district_of_Punjab%2C_India%2C_9_April_2023.jpg
 
-[6] NAME: Pushpa Gujral Science City heritage museum area
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Educational heritage and the architectural, religious or archaeological histor...
+6. Pushpa Gujral Science City heritage museum area | Punjab | Kapurthala
 IMAGE_URL: https://ptcnews-wp.s3.ap-south-1.amazonaws.com/wp-content/uploads/2020/10/unnamed-1.jpg
 
-[7] NAME: Baba Bakala Sahib historical gurdwara
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Tegh Bahadur heritage and the architectural, religious or archaeological ...
+7. Baba Bakala Sahib historical gurdwara | Punjab | Amritsar
 IMAGE_URL: https://newz24india.com/wp-content/uploads/2025/07/baba-baakala-780x470.jpg
 
-[8] NAME: Sanghol Archaeological Site
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Buddhist and ancient Punjab and the architectural, religious or archaeological...
-IMAGE_URL: https://mindtrip.ai/cdn-cgi/image/format%3Dwebp%2Cw%3D1200/https%3A/images.mindtrip.ai/locations/67da/7dc6/bd4f/0f4f/9d92/5745/fd6c/805b
+8. Sanghol Archaeological Site | Punjab | Fatehgarh Sahib
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Ancient%20Buddhist%20Stupa%20and%20site%2C%20Sanghol.%20%2829912%29.jpg
 
-[9] NAME: Mubarak Manzil
-STATE: Punjab
-CITY: Malerkotla
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Malerkotla State and the architectural, religious or archaeological history of...
+9. Mubarak Manzil | Punjab | Malerkotla
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Mubarak_Manzil_Palace%2C_Malerkotla_01.jpg
 
-[10] NAME: Panch Mandir
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Kapurthala State and the architectural, religious or archaeological history of...
+10. Panch Mandir | Punjab | Kapurthala
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Photograph_of_the_Panch_Mandir%2C_Kapurthala%2C_Kapurthala_State%2C_published_in_%27Indian_States%2C_A_Biographical%2C_Historical%2C_and_Administrative_Survey%27_%281922%29_%28cropped%29.jpg
 
-[11] NAME: Samadhi of Maharaja Ranjit Singh, Amritsar memorial heritage
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh Empire and the architectural, religious or archaeological history of the ...
+11. Samadhi of Maharaja Ranjit Singh, Amritsar memorial heritage | Punjab | Amritsar
 IMAGE_URL: 
 
-[12] NAME: Virasat-e-Khalsa heritage complex
-STATE: Punjab
-CITY: Rupnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh history and culture and the architectural, religious or archaeological hi...
+12. Virasat-e-Khalsa heritage complex | Punjab | Rupnagar
 IMAGE_URL: https://topplacesindia.com/img/attractions/punjab/virasat-e-khalsa/virasat-e-khalsa-hero.jpg
 
-[13] NAME: Khalsa College Main Building
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Colonial-era Punjab and the architectural, religious or archaeological history...
+13. Khalsa College Main Building | Punjab | Amritsar
 IMAGE_URL: https://amritsar.guide/assets/static/locations/gallery/1617096936_45_2.jpg
 
-[14] NAME: Maharaja Ranjit Singh War Museum heritage site
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Punjab military history and the architectural, religious or archaeological his...
+14. Maharaja Ranjit Singh War Museum heritage site | Punjab | Ludhiana
 IMAGE_URL: 
 
-[15] NAME: Maiser Khana Temple Complex
-STATE: Punjab
-CITY: Bathinda
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Punjab religious heritage and the architectural, religious or archaeological h...
+15. Maiser Khana Temple Complex | Punjab | Bathinda
 IMAGE_URL: 
 
-[16] NAME: Akal Takht Sahib
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Hargobind and Sikh tradition and the architectural, religious or archaeol...
+16. Akal Takht Sahib | Punjab | Amritsar
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Akal_takht.jpg
 
-[17] NAME: Gurudwara Sri Fatehgarh Sahib
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh martyrdom history and the architectural, religious or archaeological hist...
+17. Gurudwara Sri Fatehgarh Sahib | Punjab | Fatehgarh Sahib
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Original_Gurdwara_Sri_Fatehgarh_Sahib.jpg
 
-[18] NAME: Mud Fort Archaeological Mound
-STATE: Punjab
-CITY: Fazilka
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Archaeological heritage and the architectural, religious or archaeological his...
+18. Mud Fort Archaeological Mound | Punjab | Fazilka
 IMAGE_URL: 
 
-[19] NAME: Sri Harmandir Sahib (Golden Temple)
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh Gurus and Sikh Empire and the architectural, religious or archaeological ...
+19. Sri Harmandir Sahib (Golden Temple) | Punjab | Amritsar
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Golden%20Temple.jpg
+
+20. Gurudwara Manji Sahib, Alamgir | Punjab | Ludhiana
 IMAGE_URL: 
 
-[20] NAME: Gurudwara Manji Sahib, Alamgir
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Gobind Singh history and the architectural, religious or archaeological h...
+21. Sanghol Buddhist Stupa Remains | Punjab | Fatehgarh Sahib
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Ancient%20Buddhist%20Stupa%20and%20site%2C%20Sanghol.%20%2829912%29.jpg
+
+22. Ajaibgarh Fort | Punjab | Rupnagar
 IMAGE_URL: 
 
-[21] NAME: Sanghol Buddhist Stupa Remains
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Buddhist heritage and the architectural, religious or archaeological history o...
+23. Gurudwara Hatt Sahib | Punjab | Kapurthala
 IMAGE_URL: 
 
-[22] NAME: Ajaibgarh Fort
-STATE: Punjab
-CITY: Rupnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Regional kingdoms and the architectural, religious or archaeological history o...
+24. Gurudwara Sant Ghat Sahib | Punjab | Kapurthala
 IMAGE_URL: 
 
-[23] NAME: Gurudwara Hatt Sahib
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
-IMAGE_URL: 
+25. Gurudwara Tarn Taran Sahib | Punjab | Tarn Taran
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/GurudwaraTarn%20Taran%20Sahib%2C%20Punjab%2C%20India.jpg
 
-[24] NAME: Gurudwara Sant Ghat Sahib
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
-IMAGE_URL: 
-
-[25] NAME: Gurudwara Tarn Taran Sahib
-STATE: Punjab
-CITY: Tarn Taran
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Arjan Dev and Sikh heritage and the architectural, religious or archaeolo...
-IMAGE_URL: 
-
-[26] NAME: Bathinda Fort (Qila Mubarak)
-STATE: Punjab
-CITY: Bathinda
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Regional kingdoms and Delhi Sultanate and the architectural, religious or arch...
+26. Bathinda Fort (Qila Mubarak) | Punjab | Bathinda
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Qila_Mubarak_in_Bathinda.jpg
 
-[27] NAME: Jagatjit Palace
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Kapurthala State and the architectural, religious or archaeological history of...
-IMAGE_URL: 
+27. Jagatjit Palace | Punjab | Kapurthala
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Jagatjit%20Palace%20-%20Kapurthala%20Sainik%20School.jpg
 
-[28] NAME: Takht Sri Kesgarh Sahib
-STATE: Punjab
-CITY: Rupnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Gobind Singh / Khalsa heritage and the architectural, religious or archae...
-IMAGE_URL: 
+28. Takht Sri Kesgarh Sahib | Punjab | Rupnagar
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Takhat%20Sri%20Kesgarh%20Sahib.jpg
 
-[29] NAME: Qila Mubarak
-STATE: Punjab
-CITY: Patiala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Patiala State and the architectural, religious or archaeological history of th...
-IMAGE_URL: 
+29. Qila Mubarak | Punjab | Patiala
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Qila_Mubarak%2C_Patiala.jpg
 
-[30] NAME: Durgiana Temple
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Punjab religious heritage and the architectural, religious or archaeological h...
+30. Durgiana Temple | Punjab | Amritsar
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Durgiana_Temple%2C_Amritsar.jpg
 
-[31] NAME: Killa Raipur heritage structures
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Punjab rural heritage and the architectural, religious or archaeological histo...
+31. Killa Raipur heritage structures | Punjab | Ludhiana
 IMAGE_URL: 
 
-[32] NAME: Gurudwara Jyoti Saroop Sahib
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh martyrdom history and the architectural, religious or archaeological hist...
+32. Gurudwara Jyoti Saroop Sahib | Punjab | Fatehgarh Sahib
 IMAGE_URL: 
 
-[33] NAME: Gateway of Old Sarai Akbar/Jahangir
-STATE: Punjab
-CITY: Tarn Taran
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Mughal Empire and the architectural, religious or archaeological history of th...
+33. Gateway of Old Sarai Akbar/Jahangir | Punjab | Tarn Taran
 IMAGE_URL: 
 
-[34] NAME: Phillaur Fort (Maharaja Ranjit Singh Fort)
-STATE: Punjab
-CITY: Jalandhar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh Empire and British period and the architectural, religious or archaeologi...
+34. Phillaur Fort (Maharaja Ranjit Singh Fort) | Punjab | Jalandhar
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Phillaur-fort.jpg
 
-[35] NAME: Pul Kanjri
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Maharaja Ranjit Singh and the architectural, religious or archaeological histo...
+35. Pul Kanjri | Punjab | Amritsar
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Pul_Kanjari.JPG
 
-[36] NAME: Baoli Sahib, Goindwal
-STATE: Punjab
-CITY: Tarn Taran
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Amar Das and Sikh heritage and the architectural, religious or archaeolog...
+36. Baoli Sahib, Goindwal | Punjab | Tarn Taran
 IMAGE_URL: 
 
-[37] NAME: Gurdwara Nanaksar Sahib heritage site
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
+37. Gurdwara Nanaksar Sahib heritage site | Punjab | Ludhiana
 IMAGE_URL: 
 
-[38] NAME: Jandiala Guru Thatheras Heritage Site
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Traditional metal craft heritage and the architectural, religious or archaeolo...
+38. Jandiala Guru Thatheras Heritage Site | Punjab | Amritsar
 IMAGE_URL: 
 
-[39] NAME: Harike Fort heritage site
-STATE: Punjab
-CITY: Tarn Taran
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Regional Punjab history and the architectural, religious or archaeological his...
+39. Harike Fort heritage site | Punjab | Tarn Taran
 IMAGE_URL: 
 
-[40] NAME: Gurudwara Parivar Vichora Sahib
-STATE: Punjab
-CITY: Rupnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Gobind Singh history and the architectural, religious or archaeological h...
+40. Gurudwara Parivar Vichora Sahib | Punjab | Rupnagar
 IMAGE_URL: 
 
-[41] NAME: Jama Masjid, Malerkotla
-STATE: Punjab
-CITY: Malerkotla
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Malerkotla heritage and the architectural, religious or archaeological history...
+41. Jama Masjid, Malerkotla | Punjab | Malerkotla
 IMAGE_URL: 
 
-[42] NAME: Nakodar Tombs
-STATE: Punjab
-CITY: Jalandhar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Mughal-period Punjab and the architectural, religious or archaeological histor...
+42. Nakodar Tombs | Punjab | Jalandhar
 IMAGE_URL: 
 
-[43] NAME: Gurudwara Chhevin Padshahi
-STATE: Punjab
-CITY: Jalandhar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Hargobind heritage and the architectural, religious or archaeological his...
+43. Gurudwara Chhevin Padshahi | Punjab | Jalandhar
 IMAGE_URL: 
 
-[44] NAME: Kanjli Wetland heritage structures
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Colonial Punjab and the architectural, religious or archaeological history of ...
+44. Kanjli Wetland heritage structures | Punjab | Kapurthala
 IMAGE_URL: 
 
-[45] NAME: Bahadurgarh Fort
-STATE: Punjab
-CITY: Patiala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Mughal and Sikh-period history and the architectural, religious or archaeologi...
+45. Bahadurgarh Fort | Punjab | Patiala
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Bahdurgarh_fort_Patiala_Punjab_IMG_1.jpg
+
+46. Ropar Archaeological Site | Punjab | Rupnagar
 IMAGE_URL: 
 
-[46] NAME: Ropar Archaeological Site
-STATE: Punjab
-CITY: Rupnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Harappan and ancient heritage and the architectural, religious or archaeologic...
+47. Dargah of Sheikh Ahmad Farooqi | Punjab | Fatehgarh Sahib
 IMAGE_URL: 
 
-[47] NAME: Dargah of Sheikh Ahmad Farooqi
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sufi heritage and the architectural, religious or archaeological history of th...
+48. Aam Khas Bagh | Punjab | Fatehgarh Sahib
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Aam_khas_baag%2C_sirhind_%28Punjab%29_01.jpg
+
+49. Gurudwara Tilla Baba Farid | Punjab | Faridkot
 IMAGE_URL: 
 
-[48] NAME: Aam Khas Bagh
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Mughal Empire and the architectural, religious or archaeological history of th...
+50. Moti Bagh Palace | Punjab | Patiala
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/MotiBaghPalace.jpg
+
+51. Lodhi Fort | Punjab | Ludhiana
 IMAGE_URL: 
 
-[49] NAME: Gurudwara Tilla Baba Farid
-STATE: Punjab
-CITY: Faridkot
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh and Sufi heritage and the architectural, religious or archaeological hist...
+52. Ram Bagh Gate | Punjab | Amritsar
 IMAGE_URL: 
 
-[50] NAME: Moti Bagh Palace
-STATE: Punjab
-CITY: Patiala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Patiala State and the architectural, religious or archaeological history of th...
+53. Anandpur Sahib historic gurdwara heritage complex | Punjab | Rupnagar
 IMAGE_URL: 
 
-[51] NAME: Lodhi Fort
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Lodi Sultanate and the architectural, religious or archaeological history of t...
+54. Gurudwara Nanaksar Jagraon | Punjab | Ludhiana
 IMAGE_URL: 
 
-[52] NAME: Ram Bagh Gate
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh Empire and the architectural, religious or archaeological history of the ...
+55. Gurudwara Goindwal Sahib | Punjab | Tarn Taran
 IMAGE_URL: 
 
-[53] NAME: Anandpur Sahib historic gurdwara heritage complex
-STATE: Punjab
-CITY: Rupnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Gobind Singh and Sikh heritage and the architectural, religious or archae...
+56. Gurudwara Sri Moti Ram Mehra | Punjab | Fatehgarh Sahib
 IMAGE_URL: 
 
-[54] NAME: Gurudwara Nanaksar Jagraon
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
+57. Khadoor Sahib historical gurdwara complex | Punjab | Tarn Taran
 IMAGE_URL: 
 
-[55] NAME: Gurudwara Goindwal Sahib
-STATE: Punjab
-CITY: Tarn Taran
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Amar Das heritage and the architectural, religious or archaeological hist...
+58. Gurdwara Sri Charan Kamal Sahib, Machhiwara | Punjab | Ludhiana
 IMAGE_URL: 
 
-[56] NAME: Gurudwara Sri Moti Ram Mehra
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh martyrdom history and the architectural, religious or archaeological hist...
+59. Gurudwara Saragarhi Memorial | Punjab | Ferozepur
 IMAGE_URL: 
 
-[57] NAME: Khadoor Sahib historical gurdwara complex
-STATE: Punjab
-CITY: Tarn Taran
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Angad Dev heritage and the architectural, religious or archaeological his...
+60. Raj Mahal, Faridkot | Punjab | Faridkot
 IMAGE_URL: 
 
-[58] NAME: Gurdwara Sri Charan Kamal Sahib, Machhiwara
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Gobind Singh history and the architectural, religious or archaeological h...
+61. Rauza Sharif | Punjab | Fatehgarh Sahib
 IMAGE_URL: 
 
-[59] NAME: Gurudwara Saragarhi Memorial
-STATE: Punjab
-CITY: Ferozepur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh military history and the architectural, religious or archaeological histo...
+62. Gurudwara Dukh Nivaran Sahib | Punjab | Patiala
 IMAGE_URL: 
 
-[60] NAME: Raj Mahal, Faridkot
-STATE: Punjab
-CITY: Faridkot
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Faridkot State and the architectural, religious or archaeological history of t...
+63. Alamgir Gurudwara | Punjab | Ludhiana
 IMAGE_URL: 
 
-[61] NAME: Rauza Sharif
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sufi heritage and the architectural, religious or archaeological history of th...
+64. Qila Androon, Malerkotla | Punjab | Malerkotla
 IMAGE_URL: 
 
-[62] NAME: Gurudwara Dukh Nivaran Sahib
-STATE: Punjab
-CITY: Patiala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
+65. Shiv Mandir, Gur Mandi | Punjab | Jalandhar
 IMAGE_URL: 
 
-[63] NAME: Alamgir Gurudwara
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Gobind Singh history and the architectural, religious or archaeological h...
+66. Gobindgarh Fort | Punjab | Amritsar
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Gobindgarh%20Fort.jpg
+
+67. Takht Sri Damdama Sahib | Punjab | Bathinda
 IMAGE_URL: 
 
-[64] NAME: Qila Androon, Malerkotla
-STATE: Punjab
-CITY: Malerkotla
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Malerkotla State and the architectural, religious or archaeological history of...
+68. Sheesh Mahal | Punjab | Patiala
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Sheesh_Mahal%2C_Patiala.jpg
+
+69. Sarai Amanat Khan Gateway | Punjab | Tarn Taran
 IMAGE_URL: 
 
-[65] NAME: Shiv Mandir, Gur Mandi
-STATE: Punjab
-CITY: Jalandhar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Punjab religious heritage and the architectural, religious or archaeological h...
+70. Fatehgarh Sahib Fort Heritage Site | Punjab | Fatehgarh Sahib
 IMAGE_URL: 
 
-[66] NAME: Gobindgarh Fort
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Bhangi Misl, Maharaja Ranjit Singh and British period and the architectural, r...
+71. Maharaja Ranjit Singh Museum, Phillaur Fort | Punjab | Jalandhar
 IMAGE_URL: 
 
-[67] NAME: Takht Sri Damdama Sahib
-STATE: Punjab
-CITY: Bathinda
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Gobind Singh and Sikh heritage and the architectural, religious or archae...
+72. Qila Raipur Fort Heritage | Punjab | Ludhiana
 IMAGE_URL: 
 
-[68] NAME: Sheesh Mahal
-STATE: Punjab
-CITY: Patiala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Maharajas of Patiala and the architectural, religious or archaeological histor...
+73. Baba Atal Rai Tower | Punjab | Amritsar
 IMAGE_URL: 
 
-[69] NAME: Sarai Amanat Khan Gateway
-STATE: Punjab
-CITY: Tarn Taran
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Mughal Empire and the architectural, religious or archaeological history of th...
+74. Sultanpur Lodhi heritage gurdwara complex | Punjab | Kapurthala
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Gurdwara%20Shri%20Ber%20Sahib.jpg
+
+75. Qila Bahadurgarh Mosque | Punjab | Patiala
 IMAGE_URL: 
 
-[70] NAME: Fatehgarh Sahib Fort Heritage Site
-STATE: Punjab
-CITY: Fatehgarh Sahib
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh history and the architectural, religious or archaeological history of the...
+76. Devi Talab Temple | Punjab | Jalandhar
 IMAGE_URL: 
 
-[71] NAME: Maharaja Ranjit Singh Museum, Phillaur Fort
-STATE: Punjab
-CITY: Jalandhar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh Empire and the architectural, religious or archaeological history of the ...
+77. Gurudwara Talhan Sahib | Punjab | Jalandhar
 IMAGE_URL: 
 
-[72] NAME: Qila Raipur Fort Heritage
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Regional Punjab history and the architectural, religious or archaeological his...
+78. Gurudwara Ber Sahib | Punjab | Kapurthala
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Gurdwara%20Shri%20Ber%20Sahib.jpg
+
+79. Qila Mubarak, Faridkot | Punjab | Faridkot
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Photograph%20of%20the%20gate%20of%20Faridkot%20Fort%20of%20the%20erstwhile%20Faridkot%20State.jpg
+
+80. Gurudwara Sri Hargobindgarh Sahib | Punjab | Rupnagar
 IMAGE_URL: 
 
-[73] NAME: Baba Atal Rai Tower
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
+81. Ram Bagh Palace | Punjab | Amritsar
 IMAGE_URL: 
 
-[74] NAME: Sultanpur Lodhi heritage gurdwara complex
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Nanak heritage and the architectural, religious or archaeological history...
+82. Gurudwara Charan Kamal | Punjab | Ludhiana
 IMAGE_URL: 
 
-[75] NAME: Qila Bahadurgarh Mosque
-STATE: Punjab
-CITY: Patiala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Mughal heritage and the architectural, religious or archaeological history of ...
+83. Feroz Shah Archaeological Site | Punjab | Ferozepur
 IMAGE_URL: 
 
-[76] NAME: Devi Talab Temple
-STATE: Punjab
-CITY: Jalandhar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Punjab religious heritage and the architectural, religious or archaeological h...
+84. Gurudwara Kiratpur Sahib | Punjab | Rupnagar
 IMAGE_URL: 
 
-[77] NAME: Gurudwara Talhan Sahib
-STATE: Punjab
-CITY: Jalandhar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
+85. Khakhra | Gujarat | Gujarat
 IMAGE_URL: 
 
-[78] NAME: Gurudwara Ber Sahib
-STATE: Punjab
-CITY: Kapurthala
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Nanak heritage and the architectural, religious or archaeological history...
+86. Madhavpur Fair | Gujarat | Madhavpur
 IMAGE_URL: 
 
-[79] NAME: Qila Mubarak, Faridkot
-STATE: Punjab
-CITY: Faridkot
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Faridkot State and the architectural, religious or archaeological history of t...
+87. Handvo | Gujarat | Gujarat
 IMAGE_URL: 
 
-[80] NAME: Gurudwara Sri Hargobindgarh Sahib
-STATE: Punjab
-CITY: Rupnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
-IMAGE_URL: 
-
-[81] NAME: Ram Bagh Palace
-STATE: Punjab
-CITY: Amritsar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Maharaja Ranjit Singh and the architectural, religious or archaeological histo...
-IMAGE_URL: 
-
-[82] NAME: Gurudwara Charan Kamal
-STATE: Punjab
-CITY: Ludhiana
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Sikh heritage and the architectural, religious or archaeological history of th...
-IMAGE_URL: 
-
-[83] NAME: Feroz Shah Archaeological Site
-STATE: Punjab
-CITY: Ferozepur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing First Anglo-Sikh War and the architectural, religious or archaeological histor...
-IMAGE_URL: 
-
-[84] NAME: Gurudwara Kiratpur Sahib
-STATE: Punjab
-CITY: Rupnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Punjab representing Guru Hargobind and Sikh heritage and the architectural, religious or archaeolo...
-IMAGE_URL: 
-
-
-################################################################################
-### STATE: GUJARAT (102 items)
-################################################################################
-
-[85] NAME: Khakhra
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Thin roasted spiced flatbread
-IMAGE_URL: 
-
-[86] NAME: Madhavpur Fair
-STATE: Gujarat
-CITY: Madhavpur
-CATEGORY: culture
-DESCRIPTION: Religious and cultural traditions associated with Madhavpur
-IMAGE_URL: 
-
-[87] NAME: Handvo
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Fermented savoury preparation commonly made with lentils and rice
-IMAGE_URL: 
-
-[88] NAME: Mahabat Khan Maqbara
-STATE: Gujarat
-CITY: Junagadh
-CATEGORY: architecture
-DESCRIPTION: Ornate mausoleum complex known for elaborate Indo-Islamic and European-influenced details.
+88. Mahabat Khan Maqbara | Gujarat | Junagadh
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Mahabat_ka_Makbara_Junagadh_India.jpg
 
-[89] NAME: Dandi Kutir Museum
-STATE: Gujarat
-CITY: Gandhinagar
-CATEGORY: research
-DESCRIPTION: Museum experience related to Mahatma Gandhi and Gujarat's freedom movement context.
+89. Dandi Kutir Museum | Gujarat | Gandhinagar
 IMAGE_URL: 
 
-[90] NAME: Living and Learning Design Centre Crafts Museum
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: research
-DESCRIPTION: Craft traditions and design heritage of Kutch.
+90. Living and Learning Design Centre Crafts Museum | Gujarat | Kutch
 IMAGE_URL: 
 
-[91] NAME: Rann Utsav
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Crafts, music, food, desert culture and tourism
+91. Rann Utsav | Gujarat | Kutch
 IMAGE_URL: 
 
-[92] NAME: Lakhpat Fort
-STATE: Gujarat
-CITY: Lakhpat
-CATEGORY: architecture
-DESCRIPTION: Fortified settlement near the Kutch coast, associated with historic trade routes.
+92. Lakhpat Fort | Gujarat | Lakhpat
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort%20Lakhpat.jpg
+
+93. Sardar Vallabhbhai Patel National Museum | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[93] NAME: Sardar Vallabhbhai Patel National Museum
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: research
-DESCRIPTION: Museum related to Sardar Vallabhbhai Patel and modern Indian history.
+94. Tarnetar Fair | Gujarat | Tarnetar
 IMAGE_URL: 
 
-[94] NAME: Tarnetar Fair
-STATE: Gujarat
-CITY: Tarnetar
-CATEGORY: culture
-DESCRIPTION: Folk culture, music, dance and traditional gathering
+95. Jama Masjid Ahmedabad | Gujarat | Ahmedabad
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Jama%20Masjid%20Ahmedabad.jpg
+
+96. Sidi Saiyyed Mosque | Gujarat | Ahmedabad
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Ahmedabad%20-%20Sidi%20Saiyyed%20Mosque%201.jpg
+
+97. Mata Ni Pachedi | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[95] NAME: Jama Masjid Ahmedabad
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Major congregational mosque of the historic city, noted for its Indo-Islamic architecture.
+98. Polo Monument and Vijaynagar Forest | Gujarat | Sabarkantha
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Polo%20Monument%20and%20Vijaynagar%20Forest-%20Jain%20Temples.jpg
+
+99. Bharatiya Sanskruti Darshan Museum | Gujarat | Bhuj, Kutch
 IMAGE_URL: 
 
-[96] NAME: Sidi Saiyyed Mosque
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Famous for its intricate stone jali work, especially the celebrated tree-of-life motif.
+100. Gujarati Thali Tradition | Gujarat | Gujarat
 IMAGE_URL: 
 
-[97] NAME: Mata Ni Pachedi
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: culture
-DESCRIPTION: Sacred textile art traditionally used as a backdrop for shrines; historically associated with Devi Pujak communities.
-IMAGE_URL: 
-
-[98] NAME: Polo Monument and Vijaynagar Forest
-STATE: Gujarat
-CITY: Sabarkantha
-CATEGORY: architecture
-DESCRIPTION: Explore monuments in a forested landscape.
-IMAGE_URL: 
-
-[99] NAME: Bharatiya Sanskruti Darshan Museum
-STATE: Gujarat
-CITY: Bhuj, Kutch
-CATEGORY: research
-DESCRIPTION: Traditional Kutch culture, Rabari bhungas, musical instruments, wood and stone carvings, textiles.
-IMAGE_URL: 
-
-[100] NAME: Gujarati Thali Tradition
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: culture
-DESCRIPTION: Meal tradition combining dal, shaak, kathol, breads, accompaniments and sweets.
-IMAGE_URL: 
-
-[101] NAME: Aina Mahal
-STATE: Gujarat
-CITY: Bhuj
-CATEGORY: architecture
-DESCRIPTION: Palace complex associated with Kutch royal history and decorative interiors.
+101. Aina Mahal | Gujarat | Bhuj
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Aina_mahal.jpg_01.jpg
 
-[102] NAME: Ganthiya
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Fried gram-flour savoury snack
+102. Ganthiya | Gujarat | Gujarat
 IMAGE_URL: 
 
-[103] NAME: Mata Ni Pachedi Tradition
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: culture
-DESCRIPTION: Sacred textile tradition involving hand block printing and painting.
+103. Mata Ni Pachedi Tradition | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[104] NAME: Rotlo
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: culture
-DESCRIPTION: Traditional millet-based flatbread
+104. Rotlo | Gujarat | Gujarat
 IMAGE_URL: 
 
-[105] NAME: Pol Heritage
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: culture
-DESCRIPTION: Traditional clustered residential neighbourhoods of historic Ahmedabad.
+105. Pol Heritage | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[106] NAME: Bhujodi Crafts Village
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Explore Kutch weaving and local craft traditions.
+106. Bhujodi Crafts Village | Gujarat | Kutch
 IMAGE_URL: 
 
-[107] NAME: Rotary Dolls Museum
-STATE: Gujarat
-CITY: Rajkot
-CATEGORY: research
-DESCRIPTION: Dolls representing cultures and traditions from different regions.
+107. Rotary Dolls Museum | Gujarat | Rajkot
 IMAGE_URL: 
 
-[108] NAME: Prag Mahal
-STATE: Gujarat
-CITY: Bhuj
-CATEGORY: architecture
-DESCRIPTION: Grand palace associated with Bhuj's royal heritage.
+108. Prag Mahal | Gujarat | Bhuj
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Prag_Mahal_Bhuj.jpg
 
-[109] NAME: Maharaja Fatehsingh Museum
-STATE: Gujarat
-CITY: Vadodara
-CATEGORY: research
-DESCRIPTION: Art and royal collection associated with Vadodara's Gaekwad heritage.
+109. Maharaja Fatehsingh Museum | Gujarat | Vadodara
 IMAGE_URL: 
 
-[110] NAME: Ashoka Edicts
-STATE: Gujarat
-CITY: Junagadh
-CATEGORY: research
-DESCRIPTION: Rock edicts attributed to Ashoka, part of Junagadh's layered archaeological history.
+110. Ashoka Edicts | Gujarat | Junagadh
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Edicts%20of%20Ashoka%20at%20Junagadh%20Gujarat%20%28cropped%29.jpg
+
+111. Champaner-Pavagadh Archaeological Park | Gujarat | Pavagadh/Champaner
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Champaner%20pavagadh%20archaeological%20park.jpg
+
+112. Prabhas Patan Museum | Gujarat | Gir Somnath
 IMAGE_URL: 
 
-[111] NAME: Champaner-Pavagadh Archaeological Park
-STATE: Gujarat
-CITY: Pavagadh/Champaner
-CATEGORY: research
-DESCRIPTION: Cultural landscape containing fortifications, palaces, mosques, temples, stepwells and water systems.
+113. Bhavnath Fair | Gujarat | Junagadh
 IMAGE_URL: 
 
-[112] NAME: Prabhas Patan Museum
-STATE: Gujarat
-CITY: Gir Somnath
-CATEGORY: research
-DESCRIPTION: Museum associated with the archaeological and historical heritage of Prabhas Patan.
+114. ChampanerâPavagadh Cultural Trail | Gujarat | Panchmahal
 IMAGE_URL: 
 
-[113] NAME: Bhavnath Fair
-STATE: Gujarat
-CITY: Junagadh
-CATEGORY: culture
-DESCRIPTION: Fair associated with Bhavnath and Girnar traditions
+115. Veechar Cultural and Heritage Museum for Utensils | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[114] NAME: ChampanerâPavagadh Cultural Trail
-STATE: Gujarat
-CITY: Panchmahal
-CATEGORY: research
-DESCRIPTION: Explore the layered archaeological and sacred landscape.
+116. Thepla | Gujarat | Gujarat
 IMAGE_URL: 
 
-[115] NAME: Veechar Cultural and Heritage Museum for Utensils
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: research
-DESCRIPTION: Collection focused on traditional utensils and domestic material culture.
+117. Kirti Toran, Vadnagar | Gujarat | Vadnagar
 IMAGE_URL: 
 
-[116] NAME: Thepla
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Spiced flatbread commonly made with wheat and fenugreek
+118. Ghooghra | Gujarat | Gujarat
 IMAGE_URL: 
 
-[117] NAME: Kirti Toran, Vadnagar
-STATE: Gujarat
-CITY: Vadnagar
-CATEGORY: architecture
-DESCRIPTION: Historic ceremonial gateway in Vadnagar.
+119. Dholavira | Gujarat | Khadir Bet, Kutch
 IMAGE_URL: 
 
-[118] NAME: Ghooghra
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Sweet stuffed pastry
+120. Ajrakh | Gujarat | Kutch
 IMAGE_URL: 
 
-[119] NAME: Dholavira
-STATE: Gujarat
-CITY: Khadir Bet, Kutch
-CATEGORY: research
-DESCRIPTION: Ancient planned settlement noted for urban planning, reservoirs and water-management systems.
+121. Rann of Kutch Cultural Experience | Gujarat | Kutch
 IMAGE_URL: 
 
-[120] NAME: Ajrakh
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Uses vegetable/mineral colours and multiple blocks; traditional process can take weeks.
+122. Kite Museum | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[121] NAME: Rann of Kutch Cultural Experience
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Experience salt desert landscape, crafts and local cultural activities.
+123. Lalbhai Dalpatbhai Museum | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[122] NAME: Kite Museum
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: research
-DESCRIPTION: Collection related to kite-making and kite culture.
+124. Kutch Embroidery | Gujarat | Kutch
 IMAGE_URL: 
 
-[123] NAME: Lalbhai Dalpatbhai Museum
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: research
-DESCRIPTION: Museum collection related to Indian art and archaeology.
-IMAGE_URL: 
-
-[124] NAME: Kutch Embroidery
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Dense motifs and mirror work are signature forms of Kutch textile art.
-IMAGE_URL: 
-
-[125] NAME: Adalaj Ni Vav
-STATE: Gujarat
-CITY: Adalaj
-CATEGORY: architecture
-DESCRIPTION: Five-storey stepwell showing Indo-Islamic architectural fusion, carved pillars and climatic design.
+125. Adalaj Ni Vav | Gujarat | Adalaj
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Adalaj_ki_Vav_Gujarat_240A1370_72.jpg
 
-[126] NAME: Bhadreshwar Jain Tirth
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: architecture
-DESCRIPTION: Historic Jain pilgrimage site in Kutch.
+126. Bhadreshwar Jain Tirth | Gujarat | Kutch
 IMAGE_URL: 
 
-[127] NAME: Balasinor Dinosaur Museum
-STATE: Gujarat
-CITY: Mahisagar
-CATEGORY: research
-DESCRIPTION: Dinosaur and fossil heritage of the Balasinor region.
+127. Balasinor Dinosaur Museum | Gujarat | Mahisagar
 IMAGE_URL: 
 
-[128] NAME: Kutchi Textile Traditions
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Embroidery, mirror work, weaving and block printing traditions.
+128. Kutchi Textile Traditions | Gujarat | Kutch
 IMAGE_URL: 
 
-[129] NAME: Vijay Vilas Palace
-STATE: Gujarat
-CITY: Mandvi
-CATEGORY: architecture
-DESCRIPTION: Royal palace near Mandvi with gardens and architectural details.
+129. Vijay Vilas Palace | Gujarat | Mandvi
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Vijay_Vilas_Palace_Mandvi_02.jpg
 
-[130] NAME: Gandhian Heritage
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Sabarmati Ashram and Dandi are major locations connected with Gandhi and India's freedom movement.
+130. Gandhian Heritage | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[131] NAME: Adi Kadi Vav
-STATE: Gujarat
-CITY: Junagadh
-CATEGORY: architecture
-DESCRIPTION: Historic rock-cut stepwell associated with Uparkot Fort.
+131. Adi Kadi Vav | Gujarat | Junagadh
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Adi_kadi_vav_-_Junagadh_-Gujrat-DSC0002.jpg
 
-[132] NAME: Khandvi
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Besan-based steamed rolls with a soft texture
+132. Khandvi | Gujarat | Gujarat
 IMAGE_URL: 
 
-[133] NAME: Patan Heritage Trail
-STATE: Gujarat
-CITY: Patan
-CATEGORY: culture
-DESCRIPTION: Combine Rani-ki-Vav with Patola textile heritage.
+133. Patan Heritage Trail | Gujarat | Patan
 IMAGE_URL: 
 
-[134] NAME: Patola
-STATE: Gujarat
-CITY: Patan
-CATEGORY: culture
-DESCRIPTION: Highly complex resist-dyeing of both warp and weft before weaving.
+134. Patola | Gujarat | Patan
 IMAGE_URL: 
 
-[135] NAME: Basundi
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Reduced sweetened milk dessert
+135. Basundi | Gujarat | Gujarat
 IMAGE_URL: 
 
-[136] NAME: Dutch Cemetery
-STATE: Gujarat
-CITY: Surat
-CATEGORY: architecture
-DESCRIPTION: Historic cemetery reflecting Surat's role as an international trading port.
+136. Dutch Cemetery | Gujarat | Surat
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Surat_castleS.jpg
+
+137. National Salt Satyagraha Memorial | Gujarat | Dandi, Navsari
 IMAGE_URL: 
 
-[137] NAME: National Salt Satyagraha Memorial
-STATE: Gujarat
-CITY: Dandi, Navsari
-CATEGORY: research
-DESCRIPTION: Memorial documenting the Salt March and its historical context.
+138. Kutch Rabari Culture | Gujarat | Kutch
 IMAGE_URL: 
 
-[138] NAME: Kutch Rabari Culture
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Traditional pastoral community culture, textiles and distinctive architecture.
+139. Dev Ni Mori | Gujarat | Aravalli
 IMAGE_URL: 
 
-[139] NAME: Dev Ni Mori
-STATE: Gujarat
-CITY: Aravalli
-CATEGORY: research
-DESCRIPTION: Archaeological site associated with Buddhist remains in north Gujarat.
-IMAGE_URL: 
-
-[140] NAME: Sarkhej Roza
-STATE: Gujarat
-CITY: Makarba, Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Mosque, tomb and palace complex around a large tank, associated with Ahmed Khattu Ganj Baksh.
+140. Sarkhej Roza | Gujarat | Makarba, Ahmedabad
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Sarkhej_Roza.jpg
 
-[141] NAME: Bandhani
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: culture
-DESCRIPTION: Traditional resist-dyeing technique producing dotted and patterned textiles.
+141. Bandhani | Gujarat | Gujarat
 IMAGE_URL: 
 
-[142] NAME: Historic City of Ahmedabad
-STATE: Gujarat
-CITY: Old Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Historic walled city known for pols, gates, mosques, temples and urban heritage.
+142. Historic City of Ahmedabad | Gujarat | Old Ahmedabad
 IMAGE_URL: 
 
-[143] NAME: Patan Patola Heritage Museum
-STATE: Gujarat
-CITY: Patan
-CATEGORY: research
-DESCRIPTION: Patola weaving and the double-ikat textile tradition.
+143. Patan Patola Heritage Museum | Gujarat | Patan
 IMAGE_URL: 
 
-[144] NAME: Vautha Fair
-STATE: Gujarat
-CITY: Vautha
-CATEGORY: culture
-DESCRIPTION: Traditional fair and pilgrimage gathering
+144. Vautha Fair | Gujarat | Vautha
 IMAGE_URL: 
 
-[145] NAME: ModheraâPatan Heritage Trail
-STATE: Gujarat
-CITY: Mehsana
-CATEGORY: architecture
-DESCRIPTION: Connect Solanki-era architecture and stepwell heritage.
+145. ModheraâPatan Heritage Trail | Gujarat | Mehsana
 IMAGE_URL: 
 
-[146] NAME: Calico Museum of Textiles
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: research
-DESCRIPTION: Historic and traditional Indian textiles, including Gujarat textile traditions.
+146. Calico Museum of Textiles | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[147] NAME: Kutch Museum Circuit
-STATE: Gujarat
-CITY: Bhuj
-CATEGORY: research
-DESCRIPTION: Explore multiple museums focused on Kutch history, crafts and culture.
+147. Kutch Museum Circuit | Gujarat | Bhuj
 IMAGE_URL: 
 
-[148] NAME: Patola Weaving Tradition
-STATE: Gujarat
-CITY: Patan
-CATEGORY: culture
-DESCRIPTION: Highly skilled double-ikat weaving tradition associated with Patan.
+148. Patola Weaving Tradition | Gujarat | Patan
 IMAGE_URL: 
 
-[149] NAME: Zari Work
-STATE: Gujarat
-CITY: Surat
-CATEGORY: culture
-DESCRIPTION: Surat is associated with traditional zari and textile work.
+149. Zari Work | Gujarat | Surat
 IMAGE_URL: 
 
-[150] NAME: Navghan Kuwo
-STATE: Gujarat
-CITY: Junagadh
-CATEGORY: architecture
-DESCRIPTION: Historic well within the Uparkot heritage landscape.
+150. Navghan Kuwo | Gujarat | Junagadh
 IMAGE_URL: 
 
-[151] NAME: Rani-ki-Vav
-STATE: Gujarat
-CITY: Patan
-CATEGORY: architecture
-DESCRIPTION: Intricately carved multi-level stepwell with extensive sculptural decoration.
+151. Rani-ki-Vav | Gujarat | Patan
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Rani_ki_vav7%2C_patan%2C_gujarat.jpg
 
-[152] NAME: Sanskar Kendra
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: research
-DESCRIPTION: Museum space documenting Ahmedabad's culture and city life.
+152. Sanskar Kendra | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[153] NAME: Dabeli
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: architecture
-DESCRIPTION: Spiced potato filling served in a bun
+153. Dabeli | Gujarat | Kutch
 IMAGE_URL: 
 
-[154] NAME: Taranga Caves
-STATE: Gujarat
-CITY: Mehsana
-CATEGORY: architecture
-DESCRIPTION: Cave heritage associated with the Taranga landscape.
+154. Taranga Caves | Gujarat | Mehsana
 IMAGE_URL: 
 
-[155] NAME: Hutheesing Jain Temple
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Ornate Jain temple associated with Ahmedabad's mercantile and religious heritage.
+155. Hutheesing Jain Temple | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[156] NAME: Ahmedabad Heritage Walk
-STATE: Gujarat
-CITY: Old Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Guided heritage route through the historic city and its architectural and cultural layers.
+156. Ahmedabad Heritage Walk | Gujarat | Old Ahmedabad
 IMAGE_URL: 
 
-[157] NAME: Watson Museum
-STATE: Gujarat
-CITY: Rajkot
-CATEGORY: research
-DESCRIPTION: Regional history and cultural collections of Saurashtra.
+157. Watson Museum | Gujarat | Rajkot
 IMAGE_URL: 
 
-[158] NAME: International Kite Festival
-STATE: Gujarat
-CITY: Ahmedabad and other locations
-CATEGORY: culture
-DESCRIPTION: Kite flying and cultural exchange
+158. International Kite Festival | Gujarat | Ahmedabad and other locations
 IMAGE_URL: 
 
-[159] NAME: Tribal Museum
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: research
-DESCRIPTION: Material and cultural traditions associated with tribal communities.
+159. Tribal Museum | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[160] NAME: Bhunga Architecture
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: research
-DESCRIPTION: Traditional Kutch dwelling form; examples and reconstructions are documented in Kutch museums.
+160. Bhunga Architecture | Gujarat | Kutch
 IMAGE_URL: 
 
-[161] NAME: Shrikhand
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Sweetened strained yogurt dessert
+161. Shrikhand | Gujarat | Gujarat
 IMAGE_URL: 
 
-[162] NAME: Mirror Work
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Prominent in Kutch textile traditions and garments.
+162. Mirror Work | Gujarat | Kutch
 IMAGE_URL: 
 
-[163] NAME: Raas
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: culture
-DESCRIPTION: Folk dance traditionally performed with dandiya sticks.
+163. Raas | Gujarat | Gujarat
 IMAGE_URL: 
 
-[164] NAME: Undhiyu
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Mixed vegetable preparation strongly associated with Gujarati cuisine
+164. Undhiyu | Gujarat | Gujarat
 IMAGE_URL: 
 
-[165] NAME: Auto World Vintage Car Museum
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: research
-DESCRIPTION: Collection of vintage and classic automobiles.
+165. Auto World Vintage Car Museum | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[166] NAME: Chitra Vichitra Fair
-STATE: Gujarat
-CITY: Sabarkantha
-CATEGORY: culture
-DESCRIPTION: Traditional community gathering and folk culture
+166. Chitra Vichitra Fair | Gujarat | Sabarkantha
 IMAGE_URL: 
 
-[167] NAME: Patra
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Colocasia leaves prepared with spiced gram-flour mixture
+167. Patra | Gujarat | Gujarat
 IMAGE_URL: 
 
-[168] NAME: Bhadra Fort
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Historic fortification in the old city of Ahmedabad.
+168. Bhadra Fort | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[169] NAME: Ambaji Bhadarvi Poonam Fair
-STATE: Gujarat
-CITY: Ambaji
-CATEGORY: culture
-DESCRIPTION: Pilgrimage and cultural traditions
+169. Ambaji Bhadarvi Poonam Fair | Gujarat | Ambaji
 IMAGE_URL: 
 
-[170] NAME: Fafda
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: culture
-DESCRIPTION: Crisp gram-flour snack traditionally paired with chutney and papaya sambaro
+170. Fafda | Gujarat | Gujarat
 IMAGE_URL: 
 
-[171] NAME: Bai Harir Ni Vav
-STATE: Gujarat
-CITY: Ahmedabad
-CATEGORY: architecture
-DESCRIPTION: Historic stepwell in Ahmedabad with carved underground architecture.
+171. Bai Harir Ni Vav | Gujarat | Ahmedabad
 IMAGE_URL: 
 
-[172] NAME: Surat Castle
-STATE: Gujarat
-CITY: Surat
-CATEGORY: architecture
-DESCRIPTION: Historic defensive structure associated with Surat's trading history.
+172. Surat Castle | Gujarat | Surat
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Surat_castleS.jpg
+
+173. Bead Work | Gujarat | Gujarat
 IMAGE_URL: 
 
-[173] NAME: Bead Work
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: culture
-DESCRIPTION: Traditional bead-based decorative craft found in Gujarat.
+174. Baroda Museum and Picture Gallery | Gujarat | Vadodara
 IMAGE_URL: 
 
-[174] NAME: Baroda Museum and Picture Gallery
-STATE: Gujarat
-CITY: Vadodara
-CATEGORY: research
-DESCRIPTION: Major museum and picture gallery in Vadodara.
+175. Khichu | Gujarat | Gujarat
 IMAGE_URL: 
 
-[175] NAME: Khichu
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Soft cooked rice-flour preparation
+176. Ajrakh Printing Tradition | Gujarat | Kutch
 IMAGE_URL: 
 
-[176] NAME: Ajrakh Printing Tradition
-STATE: Gujarat
-CITY: Kutch
-CATEGORY: culture
-DESCRIPTION: Traditional block printing and dyeing practiced in Ajrakhpur, Kutch.
-IMAGE_URL: 
-
-[177] NAME: Modhera Sun Temple
-STATE: Gujarat
-CITY: Modhera
-CATEGORY: architecture
-DESCRIPTION: Sun temple complex with ornate carvings and a large stepped tank, the Surya Kund.
+177. Modhera Sun Temple | Gujarat | Modhera
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Modhera_sun_temple_Gujarat.jpg
 
-[178] NAME: Navratri Festival
-STATE: Gujarat
-CITY: Statewide
-CATEGORY: culture
-DESCRIPTION: Garba and Raas
+178. Navratri Festival | Gujarat | Statewide
 IMAGE_URL: 
 
-[179] NAME: Wood Carving
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: culture
-DESCRIPTION: Seen in traditional homes, temples and other built heritage.
+179. Wood Carving | Gujarat | Gujarat
 IMAGE_URL: 
 
-[180] NAME: Dang Darbar
-STATE: Gujarat
-CITY: Dang
-CATEGORY: culture
-DESCRIPTION: Tribal traditions, music, dance and community gathering
+180. Dang Darbar | Gujarat | Dang
 IMAGE_URL: 
 
-[181] NAME: Lothal
-STATE: Gujarat
-CITY: Near Saragwala
-CATEGORY: research
-DESCRIPTION: Ancient trading settlement with dockyard, bead-making area, warehouses and drainage system.
+181. Lothal | Gujarat | Near Saragwala
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Lothal.jpg
+
+182. Garba | Gujarat | Gujarat
 IMAGE_URL: 
 
-[182] NAME: Garba
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: culture
-DESCRIPTION: Community circle dance strongly associated with Navratri.
+183. Khambhalida Buddhist Caves | Gujarat | Rajkot district
 IMAGE_URL: 
 
-[183] NAME: Khambhalida Buddhist Caves
-STATE: Gujarat
-CITY: Rajkot district
-CATEGORY: architecture
-DESCRIPTION: Rock-cut Buddhist cave complex with sculptural remains.
-IMAGE_URL: 
-
-[184] NAME: Uparkot Fort
-STATE: Gujarat
-CITY: Junagadh
-CATEGORY: architecture
-DESCRIPTION: Historic fort associated with Junagadh, with defensive structures and nearby caves/stepwells.
+184. Uparkot Fort | Gujarat | Junagadh
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Uparkot_fort_of_Junagadh.jpg
 
-[185] NAME: Kutch Museum
-STATE: Gujarat
-CITY: Bhuj, Kutch
-CATEGORY: research
-DESCRIPTION: Textiles, weapons, silverware, sculpture, tribal costumes and artefacts; includes Kshatrapa inscriptions and Kutchi script material.
+185. Kutch Museum | Gujarat | Bhuj, Kutch
 IMAGE_URL: 
 
-[186] NAME: Khaman
-STATE: Gujarat
-CITY: Gujarat
-CATEGORY: architecture
-DESCRIPTION: Steamed gram-flour snack
+186. Khaman | Gujarat | Gujarat
 IMAGE_URL: 
 
+187. Agra Fort | Uttar Pradesh | Agra
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Agra_Fort_in_Agra%2C_Uttar_Pradesh.jpg
 
-################################################################################
-### STATE: UTTAR PRADESH (118 items)
-################################################################################
-
-[187] NAME: Agra Fort
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and the architectural or archaeological history ...
-IMAGE_URL: 
-
-[188] NAME: Alamgir Mosque
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Aurangzeb and the architectural or archaeological hist...
+188. Alamgir Mosque | Uttar Pradesh | Varanasi
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Husainabad_Clock_Tower_-_Lucknow.jpg
 
-[189] NAME: Kans Qila
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Regional history and the architectural or archaeological history of Ma...
+189. Kans Qila | Uttar Pradesh | Mathura
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Kans_Fort.jpg
+
+190. Husainabad Clock Tower | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[190] NAME: Husainabad Clock Tower
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Tall clock tower forming part of the Husainabad heritage landscape near Chhota Imambara.
+191. Satkhanda | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[191] NAME: Satkhanda
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Nawab Muhammad Ali Shah / Awadh and the architectural or archaeologica...
+192. St. Joseph's Cathedral | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[192] NAME: St. Joseph's Cathedral
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Prominent historic Christian place of worship in central Lucknow.
+193. Banke Bihari Temple | Uttar Pradesh | Mathura
 IMAGE_URL: 
 
-[193] NAME: Banke Bihari Temple
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Braj religious heritage and the architectural or archaeological histor...
+194. Tomb of Mariam-uz-Zamani | Uttar Pradesh | Agra
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Mariam%27s%20Tomb%201.jpg
+
+195. Rani Mahal, Jhansi | Uttar Pradesh | Jhansi
 IMAGE_URL: 
 
-[194] NAME: Tomb of Mariam-uz-Zamani
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire and the architectural or archaeological history of Agra.
-IMAGE_URL: 
-
-[195] NAME: Rani Mahal, Jhansi
-STATE: Uttar Pradesh
-CITY: Jhansi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Jhansi State and the architectural or archaeological history of Jhansi.
-IMAGE_URL: 
-
-[196] NAME: Tomb of Salim Chishti
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and the architectural or archaeological history ...
+196. Tomb of Salim Chishti | Uttar Pradesh | Agra
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/TombSalimChisti.jpg
 
-[197] NAME: Tomb of Khusrau Mirza
-STATE: Uttar Pradesh
-CITY: Prayagraj
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire and the architectural or archaeological history of Praya...
+197. Tomb of Khusrau Mirza | Uttar Pradesh | Prayagraj
 IMAGE_URL: 
 
-[198] NAME: Govind Dev Temple, Vrindavan
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Rajput / Mughal period and the architectural or archaeological history...
+198. Govind Dev Temple, Vrindavan | Uttar Pradesh | Mathura
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Govind%20dev%20ji%201.jpg
+
+199. Badaun Shamsi Mosque | Uttar Pradesh | Badaun
 IMAGE_URL: 
 
-[199] NAME: Badaun Shamsi Mosque
-STATE: Uttar Pradesh
-CITY: Badaun
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Delhi Sultanate and the architectural or archaeological history of Bad...
+200. Jama Masjid, Fatehpur Sikri | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[200] NAME: Jama Masjid, Fatehpur Sikri
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and the architectural or archaeological history ...
+201. La Martiniere College (Constantia) | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[201] NAME: La Martiniere College (Constantia)
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Grand Constantia building representing a distinctive blend of European and Indian architectural influences.
+202. Ghositarama Monastery Site | Uttar Pradesh | Kaushambi
 IMAGE_URL: 
 
-[202] NAME: Ghositarama Monastery Site
-STATE: Uttar Pradesh
-CITY: Kaushambi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of K...
+203. Ashokan Pillar Site, Kaushambi | Uttar Pradesh | Kaushambi
 IMAGE_URL: 
 
-[203] NAME: Ashokan Pillar Site, Kaushambi
-STATE: Uttar Pradesh
-CITY: Kaushambi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mauryan Empire and the architectural or archaeological history of Kaus...
-IMAGE_URL: 
-
-[204] NAME: Akbar's Tomb, Sikandra
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and Jahangir and the architectural or archaeolog...
+204. Akbar's Tomb, Sikandra | Uttar Pradesh | Agra
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Akbar%27s_Tomb.jpg
 
-[205] NAME: All Saints' New Garrison Church
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Historic church reflecting Lucknow's colonial military and religious heritage.
+205. All Saints' New Garrison Church | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[206] NAME: Tomb of Saadat Ali Khan
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Mausoleum complex associated with the Awadh royal family and the Kaiserbagh heritage zone.
+206. Tomb of Saadat Ali Khan | Uttar Pradesh | Lucknow
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Tomb_of_Saadat_Ali_Khan_-Lucknow.jpg
 
-[207] NAME: Shahji Temple
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Braj heritage and the architectural or archaeological history of Mathura.
+207. Shahji Temple | Uttar Pradesh | Mathura
 IMAGE_URL: 
 
-[208] NAME: Govardhan Hill sacred heritage landscape
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Braj heritage and the architectural or archaeological history of Mathura.
+208. Govardhan Hill sacred heritage landscape | Uttar Pradesh | Mathura
 IMAGE_URL: 
 
-[209] NAME: Ashokan Elephant Capital, Sankisa
-STATE: Uttar Pradesh
-CITY: Farrukhabad
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mauryan / Buddhist heritage and the architectural or archaeological hi...
+209. Ashokan Elephant Capital, Sankisa | Uttar Pradesh | Farrukhabad
 IMAGE_URL: 
 
-[210] NAME: Naimisharanya Chakratirth
-STATE: Uttar Pradesh
-CITY: Sitapur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Hindu heritage and the architectural or archaeological history of Sita...
+210. Naimisharanya Chakratirth | Uttar Pradesh | Sitapur
 IMAGE_URL: 
 
-[211] NAME: Bateshwar Temple Complex
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Early medieval India and the architectural or archaeological history o...
+211. Bateshwar Temple Complex | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[212] NAME: Keshav Dev Temple heritage site
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Braj heritage and the architectural or archaeological history of Mathura.
+212. Keshav Dev Temple heritage site | Uttar Pradesh | Mathura
 IMAGE_URL: 
 
-[213] NAME: Khusro Bagh
-STATE: Uttar Pradesh
-CITY: Prayagraj
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire and the architectural or archaeological history of Praya...
+213. Khusro Bagh | Uttar Pradesh | Prayagraj
 IMAGE_URL: 
 
-[214] NAME: Neelkanth Temple, Kalinjar
-STATE: Uttar Pradesh
-CITY: Banda
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Chandela period and the architectural or archaeological history of Banda.
+214. Neelkanth Temple, Kalinjar | Uttar Pradesh | Banda
 IMAGE_URL: 
 
-[215] NAME: Chandela-era Jain Temples, Deogarh
-STATE: Uttar Pradesh
-CITY: Lalitpur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Jain / regional dynasties and the architectural or archaeological hist...
+215. Chandela-era Jain Temples, Deogarh | Uttar Pradesh | Lalitpur
 IMAGE_URL: 
 
-[216] NAME: Dilkusha Palace
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Nawab Saadat Ali Khan / Awadh and the architectural or archaeological ...
+216. Dilkusha Palace | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[217] NAME: Sardhana Basilica
-STATE: Uttar Pradesh
-CITY: Meerut
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Begum Samru / colonial heritage and the architectural or archaeologica...
+217. Sardhana Basilica | Uttar Pradesh | Meerut
 IMAGE_URL: 
 
-[218] NAME: Uttar Pradesh Vidhan Sabha
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Monumental legislative building representing early twentieth-century civic architecture in Lucknow.
+218. Uttar Pradesh Vidhan Sabha | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[219] NAME: Anand Bhavan
-STATE: Uttar Pradesh
-CITY: Prayagraj
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Indian freedom movement and the architectural or archaeological histor...
+219. Anand Bhavan | Uttar Pradesh | Prayagraj
 IMAGE_URL: 
 
-[220] NAME: Atala Masjid
-STATE: Uttar Pradesh
-CITY: Jaunpur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Sharqi Sultanate and the architectural or archaeological history of Ja...
+220. Atala Masjid | Uttar Pradesh | Jaunpur
 IMAGE_URL: 
 
-[221] NAME: Shah Najaf Imambara
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Imambara and mausoleum inspired by the shrine architecture of Najaf and associated with the Awadh royal family.
+221. Shah Najaf Imambara | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[222] NAME: Bithoor Brahmavart Ghat heritage structures
-STATE: Uttar Pradesh
-CITY: Kanpur Nagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Religious and freedom movement heritage and the architectural or archa...
+222. Bithoor Brahmavart Ghat heritage structures | Uttar Pradesh | Kanpur Nagar
 IMAGE_URL: 
 
-[223] NAME: Chhota Imambara
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Nawab Muhammad Ali Shah / Awadh and the architectural or archaeologica...
+223. Chhota Imambara | Uttar Pradesh | Lucknow
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Chhota%20Imambara%2C%20Lucknow%2C%20Uttar%20Pradesh.jpg
+
+224. Sibtainabad Imambara | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[224] NAME: Sibtainabad Imambara
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Awadh and the architectural or archaeological history of Lucknow.
+225. Nadan Mahal | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[225] NAME: Nadan Mahal
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Sufi heritage and the architectural or archaeological history of Lucknow.
+226. Allahabad Fort | Uttar Pradesh | Prayagraj
 IMAGE_URL: 
 
-[226] NAME: Allahabad Fort
-STATE: Uttar Pradesh
-CITY: Prayagraj
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and the architectural or archaeological history ...
+227. Sonbhadra Rock Shelters and Rock Art Sites | Uttar Pradesh | Sonbhadra
 IMAGE_URL: 
 
-[227] NAME: Sonbhadra Rock Shelters and Rock Art Sites
-STATE: Uttar Pradesh
-CITY: Sonbhadra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Prehistoric heritage and the architectural or archaeological history o...
-IMAGE_URL: 
-
-[228] NAME: Dhamek Stupa
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist / Gupta period and the architectural or archaeological histor...
+228. Dhamek Stupa | Uttar Pradesh | Varanasi
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/SARNATH_DHAMEK_STUPA.jpg
 
-[229] NAME: Fatehpur Sikri
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and the architectural or archaeological history ...
+229. Fatehpur Sikri | Uttar Pradesh | Agra
+IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/FatehpurSikriJamiMasjid20080212-3.jpg
+
+230. Jama Masjid, Jaunpur | Uttar Pradesh | Jaunpur
 IMAGE_URL: 
 
-[230] NAME: Jama Masjid, Jaunpur
-STATE: Uttar Pradesh
-CITY: Jaunpur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Sharqi Sultanate and the architectural or archaeological history of Ja...
+231. Ashokan Pillar at Sarnath | Uttar Pradesh | Varanasi
 IMAGE_URL: 
 
-[231] NAME: Ashokan Pillar at Sarnath
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mauryan Empire / Ashoka and the architectural or archaeological histor...
+232. Bateshwar Jain Temples | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[232] NAME: Bateshwar Jain Temples
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Jain heritage and the architectural or archaeological history of Agra.
+233. Kanpur Memorial Church | Uttar Pradesh | Kanpur Nagar
 IMAGE_URL: 
 
-[233] NAME: Kanpur Memorial Church
-STATE: Uttar Pradesh
-CITY: Kanpur Nagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing British colonial period and the architectural or archaeological histor...
+234. Tomb of Mushir Zadi | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[234] NAME: Tomb of Mushir Zadi
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Historic tomb in the Kaiserbagh area forming part of Lucknow's Nawabi funerary heritage.
+235. Sikandar Bagh | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[235] NAME: Sikandar Bagh
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Nawab Wajid Ali Shah / Awadh and the architectural or archaeological h...
+236. Bahu Begum ka Maqbara | Uttar Pradesh | Ayodhya
 IMAGE_URL: 
 
-[236] NAME: Bahu Begum ka Maqbara
-STATE: Uttar Pradesh
-CITY: Ayodhya
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Awadh and the architectural or archaeological history of Ayodhya.
+237. Raj Ghat Archaeological Site | Uttar Pradesh | Varanasi
 IMAGE_URL: 
 
-[237] NAME: Raj Ghat Archaeological Site
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Ancient Varanasi and the architectural or archaeological history of Va...
+238. Jetavana Monastery Complex | Uttar Pradesh | Shravasti
 IMAGE_URL: 
 
-[238] NAME: Jetavana Monastery Complex
-STATE: Uttar Pradesh
-CITY: Shravasti
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of S...
+239. Anandabodhi Tree Site | Uttar Pradesh | Shravasti
 IMAGE_URL: 
 
-[239] NAME: Anandabodhi Tree Site
-STATE: Uttar Pradesh
-CITY: Shravasti
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of S...
+240. Chaukhandi Stupa | Uttar Pradesh | Varanasi
 IMAGE_URL: 
 
-[240] NAME: Chaukhandi Stupa
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist and Mughal periods and the architectural or archaeological hi...
+241. Guptar Ghat historic structures | Uttar Pradesh | Ayodhya
 IMAGE_URL: 
 
-[241] NAME: Guptar Ghat historic structures
-STATE: Uttar Pradesh
-CITY: Ayodhya
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Ayodhya heritage and the architectural or archaeological history of Ay...
+242. Ramabhar Stupa | Uttar Pradesh | Kushinagar
 IMAGE_URL: 
 
-[242] NAME: Ramabhar Stupa
-STATE: Uttar Pradesh
-CITY: Kushinagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of K...
+243. All Saints Cathedral | Uttar Pradesh | Prayagraj
 IMAGE_URL: 
 
-[243] NAME: All Saints Cathedral
-STATE: Uttar Pradesh
-CITY: Prayagraj
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing British colonial period and the architectural or archaeological histor...
+244. Swaraj Bhavan | Uttar Pradesh | Prayagraj
 IMAGE_URL: 
 
-[244] NAME: Swaraj Bhavan
-STATE: Uttar Pradesh
-CITY: Prayagraj
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Indian freedom movement and the architectural or archaeological histor...
+245. Dharmarajika Stupa | Uttar Pradesh | Varanasi
 IMAGE_URL: 
 
-[245] NAME: Dharmarajika Stupa
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of V...
+246. Hanuman Garhi | Uttar Pradesh | Ayodhya
 IMAGE_URL: 
 
-[246] NAME: Hanuman Garhi
-STATE: Uttar Pradesh
-CITY: Ayodhya
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Ayodhya religious heritage and the architectural or archaeological his...
+247. Mulagandha Kuti Archaeological Remains | Uttar Pradesh | Varanasi
 IMAGE_URL: 
 
-[247] NAME: Mulagandha Kuti Archaeological Remains
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of V...
+248. Kaushambi Archaeological Site | Uttar Pradesh | Kaushambi
 IMAGE_URL: 
 
-[248] NAME: Kaushambi Archaeological Site
-STATE: Uttar Pradesh
-CITY: Kaushambi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Vatsa kingdom and Buddhist heritage and the architectural or archaeolo...
+249. Garh Kundar Fort | Uttar Pradesh | Tikamgarh region
 IMAGE_URL: 
 
-[249] NAME: Garh Kundar Fort
-STATE: Uttar Pradesh
-CITY: Tikamgarh region
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Bundela heritage and the architectural or archaeological history of Ti...
+250. Ashoka Pillar, Prayagraj Fort | Uttar Pradesh | Prayagraj
 IMAGE_URL: 
 
-[250] NAME: Ashoka Pillar, Prayagraj Fort
-STATE: Uttar Pradesh
-CITY: Prayagraj
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mauryan Empire / Ashoka and the architectural or archaeological histor...
+251. 1857 Memorial Museum | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[251] NAME: 1857 Memorial Museum
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Museum within the Residency complex interpreting the events and personalities of the 1857 uprising.
+252. Panch Mahal | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[252] NAME: Panch Mahal
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and the architectural or archaeological history ...
+253. Hastinapur Archaeological Heritage Site | Uttar Pradesh | Meerut
 IMAGE_URL: 
 
-[253] NAME: Hastinapur Archaeological Heritage Site
-STATE: Uttar Pradesh
-CITY: Meerut
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mahabharata tradition and archaeology and the architectural or archaeo...
+254. Chattar Manzil | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[254] NAME: Chattar Manzil
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Awadh and the architectural or archaeological history of Lucknow.
+255. Bhool Bhulaiya | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[255] NAME: Bhool Bhulaiya
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Maze-like network of passages and corridors built as part of the Bara Imambara complex.
+256. Augharnath Temple heritage site | Uttar Pradesh | Meerut
 IMAGE_URL: 
 
-[256] NAME: Augharnath Temple heritage site
-STATE: Uttar Pradesh
-CITY: Meerut
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Indian freedom movement and the architectural or archaeological histor...
+257. Kaiserbagh Palace Complex | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[257] NAME: Kaiserbagh Palace Complex
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Nawab Wajid Ali Shah / Awadh and the architectural or archaeological h...
+258. Shahi Bridge | Uttar Pradesh | Jaunpur
 IMAGE_URL: 
 
-[258] NAME: Shahi Bridge
-STATE: Uttar Pradesh
-CITY: Jaunpur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal period and the architectural or archaeological history of Jaunpur.
-IMAGE_URL: 
-
-[259] NAME: Bara Imambara
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Nawab Asaf-ud-Daula / Awadh and the architectural or archaeological hi...
+259. Bara Imambara | Uttar Pradesh | Lucknow
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Bara_Imambara_Lucknow_Uttar_Pradesh.jpg
 
-[260] NAME: Jhansi Fort
-STATE: Uttar Pradesh
-CITY: Jhansi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Bundela and Maratha history and the architectural or archaeological hi...
+260. Jhansi Fort | Uttar Pradesh | Jhansi
 IMAGE_URL: 
 
-[261] NAME: Varaha Temple, Deogarh
-STATE: Uttar Pradesh
-CITY: Lalitpur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Gupta period and the architectural or archaeological history of Lalitpur.
+261. Varaha Temple, Deogarh | Uttar Pradesh | Lalitpur
 IMAGE_URL: 
 
-[262] NAME: Sheetla Chowkiya Dham heritage temple
-STATE: Uttar Pradesh
-CITY: Jaunpur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Regional heritage and the architectural or archaeological history of J...
+262. Sheetla Chowkiya Dham heritage temple | Uttar Pradesh | Jaunpur
 IMAGE_URL: 
 
-[263] NAME: Saheth Archaeological Site
-STATE: Uttar Pradesh
-CITY: Shravasti
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of S...
+263. Saheth Archaeological Site | Uttar Pradesh | Shravasti
 IMAGE_URL: 
 
-[264] NAME: Ramnagar Fort
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Kashi Naresh and the architectural or archaeological history of Varanasi.
+264. Ramnagar Fort | Uttar Pradesh | Varanasi
 IMAGE_URL: 
 
-[265] NAME: Dashavatara Temple
-STATE: Uttar Pradesh
-CITY: Lalitpur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Gupta period and the architectural or archaeological history of Lalitpur.
+265. Dashavatara Temple | Uttar Pradesh | Lalitpur
 IMAGE_URL: 
 
-[266] NAME: Vijaygarh Fort
-STATE: Uttar Pradesh
-CITY: Sonbhadra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Regional dynasties and the architectural or archaeological history of ...
+266. Vijaygarh Fort | Uttar Pradesh | Sonbhadra
 IMAGE_URL: 
 
-[267] NAME: Bibiyapur Kothi
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Awadh and the architectural or archaeological history of Lucknow.
+267. Bibiyapur Kothi | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[268] NAME: Jodha Bai's Palace
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and the architectural or archaeological history ...
+268. Jodha Bai's Palace | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[269] NAME: Chini ka Rauza
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Shah Jahan and the architectural or archaeological his...
+269. Chini ka Rauza | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[270] NAME: Mahaparinirvana Temple
-STATE: Uttar Pradesh
-CITY: Kushinagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of K...
+270. Mahaparinirvana Temple | Uttar Pradesh | Kushinagar
 IMAGE_URL: 
 
-[271] NAME: Agori Fort
-STATE: Uttar Pradesh
-CITY: Sonbhadra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Regional heritage and the architectural or archaeological history of S...
+271. Agori Fort | Uttar Pradesh | Sonbhadra
 IMAGE_URL: 
 
-[272] NAME: Lucknow Residency
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Awadh and British colonial period and the architectural or archaeologi...
+272. Lucknow Residency | Uttar Pradesh | Lucknow
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Lucknow_Residency.jpg
 
-[273] NAME: Vishram Ghat historic structures
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Braj heritage and the architectural or archaeological history of Mathura.
+273. Vishram Ghat historic structures | Uttar Pradesh | Mathura
 IMAGE_URL: 
 
-[274] NAME: Madan Mohan Temple, Vrindavan
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Braj heritage and the architectural or archaeological history of Mathura.
+274. Madan Mohan Temple, Vrindavan | Uttar Pradesh | Mathura
 IMAGE_URL: 
 
-[275] NAME: Rumi Darwaza
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Nawab Asaf-ud-Daula / Awadh and the architectural or archaeological hi...
+275. Rumi Darwaza | Uttar Pradesh | Lucknow
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Rumi_Darwaza_in_Lucknow.jpg
 
-[276] NAME: Ram Bagh
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Babur and the architectural or archaeological history ...
+276. Ram Bagh | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[277] NAME: Kalinjar Fort
-STATE: Uttar Pradesh
-CITY: Banda
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Chandela and later dynasties and the architectural or archaeological h...
+277. Kalinjar Fort | Uttar Pradesh | Banda
 IMAGE_URL: 
 
-[278] NAME: Nageshwarnath Temple
-STATE: Uttar Pradesh
-CITY: Ayodhya
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Ayodhya heritage and the architectural or archaeological history of Ay...
+278. Nageshwarnath Temple | Uttar Pradesh | Ayodhya
 IMAGE_URL: 
 
-[279] NAME: Kapilavastu Archaeological Site, Piprahwa-Ganwaria
-STATE: Uttar Pradesh
-CITY: Siddharthnagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of S...
+279. Kapilavastu Archaeological Site, Piprahwa-Ganwaria | Uttar Pradesh | Siddharthnagar
 IMAGE_URL: 
 
-[280] NAME: Picture Gallery
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Historic gallery in the Husainabad complex known for portraits associated with the Nawabs of Awadh.
+280. Picture Gallery | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[281] NAME: Ramghat historic riverfront structures
-STATE: Uttar Pradesh
-CITY: Chitrakoot
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Chitrakoot heritage and the architectural or archaeological history of...
+281. Ramghat historic riverfront structures | Uttar Pradesh | Chitrakoot
 IMAGE_URL: 
 
-[282] NAME: Kirti Sagar historical site
-STATE: Uttar Pradesh
-CITY: Mahoba
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Chandela heritage and the architectural or archaeological history of M...
+282. Kirti Sagar historical site | Uttar Pradesh | Mahoba
 IMAGE_URL: 
 
-[283] NAME: Kanak Bhawan
-STATE: Uttar Pradesh
-CITY: Ayodhya
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Ayodhya royal patronage and the architectural or archaeological histor...
+283. Kanak Bhawan | Uttar Pradesh | Ayodhya
 IMAGE_URL: 
 
-[284] NAME: Gupt Godavari Caves
-STATE: Uttar Pradesh
-CITY: Chitrakoot
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Chitrakoot heritage and the architectural or archaeological history of...
+284. Gupt Godavari Caves | Uttar Pradesh | Chitrakoot
 IMAGE_URL: 
 
-[285] NAME: Sardhana Palace
-STATE: Uttar Pradesh
-CITY: Meerut
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Begum Samru and the architectural or archaeological history of Meerut.
+285. Sardhana Palace | Uttar Pradesh | Meerut
 IMAGE_URL: 
 
-[286] NAME: Bharat Milap Temple heritage site
-STATE: Uttar Pradesh
-CITY: Chitrakoot
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Chitrakoot heritage and the architectural or archaeological history of...
+286. Bharat Milap Temple heritage site | Uttar Pradesh | Chitrakoot
 IMAGE_URL: 
 
-[287] NAME: Buland Darwaza
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Akbar and the architectural or archaeological history ...
+287. Buland Darwaza | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[288] NAME: Shahi Baoli
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Nawab Asaf-ud-Daula / Awadh and the architectural or archaeological hi...
+288. Shahi Baoli | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[289] NAME: Tomb of Itimad-ud-Daulah
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Nur Jahan and the architectural or archaeological hist...
+289. Tomb of Itimad-ud-Daulah | Uttar Pradesh | Agra
 IMAGE_URL: 
 
-[290] NAME: Dewa Sharif Dargah
-STATE: Uttar Pradesh
-CITY: Barabanki
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Sufi heritage and the architectural or archaeological history of Barab...
+290. Dewa Sharif Dargah | Uttar Pradesh | Barabanki
 IMAGE_URL: 
 
-[291] NAME: Asafi Mosque
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Grand mosque within the Bara Imambara complex, forming part of Lucknow's celebrated Nawabi skyline.
+291. Asafi Mosque | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[292] NAME: Bharat Kala Bhavan heritage collection site
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Cultural heritage and the architectural or archaeological history of V...
+292. Bharat Kala Bhavan heritage collection site | Uttar Pradesh | Varanasi
 IMAGE_URL: 
 
-[293] NAME: Taj Mahal
-STATE: Uttar Pradesh
-CITY: Agra
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire / Shah Jahan and the architectural or archaeological his...
+293. Taj Mahal | Uttar Pradesh | Agra
 IMAGE_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Taj_Mahal%2C_Agra%2C_India.jpg
 
-[294] NAME: Qaiserbagh Baradari
-STATE: Uttar Pradesh
-CITY: Lucknow
-CATEGORY: architecture
-DESCRIPTION: Ornamental pavilion and courtly structure within the Kaiserbagh palace precinct.
+294. Qaiserbagh Baradari | Uttar Pradesh | Lucknow
 IMAGE_URL: 
 
-[295] NAME: Maheth Archaeological Site
-STATE: Uttar Pradesh
-CITY: Shravasti
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of S...
+295. Maheth Archaeological Site | Uttar Pradesh | Shravasti
 IMAGE_URL: 
 
-[296] NAME: Man Singh Observatory (Man Mahal)
-STATE: Uttar Pradesh
-CITY: Varanasi
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Rajput / Mughal period and the architectural or archaeological history...
+296. Man Singh Observatory (Man Mahal) | Uttar Pradesh | Varanasi
 IMAGE_URL: 
 
-[297] NAME: Radha Vallabh Temple
-STATE: Uttar Pradesh
-CITY: Mathura
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Braj heritage and the architectural or archaeological history of Mathura.
+297. Radha Vallabh Temple | Uttar Pradesh | Mathura
 IMAGE_URL: 
 
-[298] NAME: Sankisa Archaeological Site
-STATE: Uttar Pradesh
-CITY: Farrukhabad
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Buddhist heritage and the architectural or archaeological history of F...
+298. Sankisa Archaeological Site | Uttar Pradesh | Farrukhabad
 IMAGE_URL: 
 
-[299] NAME: Chunar Fort
-STATE: Uttar Pradesh
-CITY: Mirzapur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mauryan, Mughal and later history and the architectural or archaeologi...
+299. Chunar Fort | Uttar Pradesh | Mirzapur
 IMAGE_URL: 
 
-[300] NAME: Jajmau Archaeological Site
-STATE: Uttar Pradesh
-CITY: Kanpur Nagar
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Ancient settlement heritage and the architectural or archaeological hi...
+300. Jajmau Archaeological Site | Uttar Pradesh | Kanpur Nagar
 IMAGE_URL: 
 
-[301] NAME: Tomb of Shah Begum
-STATE: Uttar Pradesh
-CITY: Prayagraj
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Mughal Empire and the architectural or archaeological history of Praya...
+301. Tomb of Shah Begum | Uttar Pradesh | Prayagraj
 IMAGE_URL: 
 
-[302] NAME: Lal Darwaza Mosque
-STATE: Uttar Pradesh
-CITY: Jaunpur
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Sharqi Sultanate and the architectural or archaeological history of Ja...
+302. Lal Darwaza Mosque | Uttar Pradesh | Jaunpur
 IMAGE_URL: 
 
-[303] NAME: Kakramath Temple
-STATE: Uttar Pradesh
-CITY: Mahoba
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Chandela period and the architectural or archaeological history of Mah...
+303. Kakramath Temple | Uttar Pradesh | Mahoba
 IMAGE_URL: 
 
-[304] NAME: Kampil Archaeological Heritage
-STATE: Uttar Pradesh
-CITY: Farrukhabad
-CATEGORY: research
-DESCRIPTION: Individual historical heritage site in Uttar Pradesh, representing Jain and regional heritage and the architectural or archaeological his...
+304. Kampil Archaeological Heritage | Uttar Pradesh | Farrukhabad
 IMAGE_URL: 
 

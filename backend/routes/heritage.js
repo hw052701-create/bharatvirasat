@@ -4,11 +4,15 @@ const Heritage = require('../models/Heritage');
 const authMiddleware = require('../middleware/auth');
 
 // ─── GET /api/heritage ───────────────────────────────────────────────────────
-// Get all heritage sites with filters
+// Get all active heritage sites with filters
 router.get('/', async (req, res) => {
   try {
-    const { type, state, search, page = 1, limit = 50 } = req.query;
+    const { type, state, search, page = 1, limit = 50, all } = req.query;
     const query = {};
+
+    if (all !== 'true') {
+      query.isActive = { $ne: false };
+    }
 
     if (type && type !== 'all') query.type = type;
     if (state && state !== 'all') query.state = new RegExp(state, 'i');
@@ -40,7 +44,7 @@ router.get('/', async (req, res) => {
 // ─── GET /api/heritage/featured ─────────────────────────────────────────────
 router.get('/featured', async (req, res) => {
   try {
-    const sites = await Heritage.find({ isASIProtected: true }).limit(6).sort({ views: -1 });
+    const sites = await Heritage.find({ isActive: { $ne: false } }).limit(6).sort({ views: -1, rating: -1 });
     res.json({ success: true, data: sites });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch featured sites' });
@@ -62,6 +66,7 @@ router.get('/nearby', async (req, res) => {
     const lngDelta = radKm / (111 * Math.cos(latNum * Math.PI / 180));
 
     const sites = await Heritage.find({
+      isActive: { $ne: false },
       'location.lat': { $gte: latNum - latDelta, $lte: latNum + latDelta },
       'location.lng': { $gte: lngNum - lngDelta, $lte: lngNum + lngDelta }
     }).limit(20);

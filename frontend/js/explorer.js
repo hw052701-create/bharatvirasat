@@ -75,7 +75,13 @@ const Explorer = {
       const grid = document.getElementById('heritage-grid');
       if (!grid) return;
 
-      if (Explorer.currentPage === 1 && (!res.data || res.data.length === 0)) {
+      // Filter to only show active sites / sites with verified image mapping
+      const verifiedSites = (res.data || []).filter(site => {
+        if (site.isActive === false) return false;
+        return Boolean(Explorer.siteImageMap[site.name]);
+      });
+
+      if (Explorer.currentPage === 1 && verifiedSites.length === 0) {
         grid.innerHTML = `
           <div class="empty-state" style="grid-column: 1/-1">
             <i class="fas fa-search"></i>
@@ -86,7 +92,7 @@ const Explorer = {
       }
 
       // Accumulate sites
-      Explorer.allLoadedSites = Explorer.allLoadedSites.concat(res.data || []);
+      Explorer.allLoadedSites = Explorer.allLoadedSites.concat(verifiedSites);
       Explorer.totalPages = res.pages || 1;
 
       // Render all accumulated sites

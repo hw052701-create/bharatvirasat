@@ -217,7 +217,8 @@ const App = {
       const res = await API.getFeatured();
       const row = document.getElementById('featured-row');
       if (!row) return;
-      row.innerHTML = res.data.map(site => Explorer.renderCard(site)).join('');
+      const featured = (res.data || []).filter(site => site.isActive !== false && Boolean(Explorer.siteImageMap[site.name]));
+      row.innerHTML = featured.map(site => Explorer.renderCard(site)).join('');
     } catch {}
   },
 

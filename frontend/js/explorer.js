@@ -66,7 +66,7 @@ const Explorer = {
   // ─── Load Sites ───────────────────────────────────────────────────────────
   async loadSites(search = '') {
     try {
-      const params = { page: Explorer.currentPage, limit: 40 };
+      const params = { page: Explorer.currentPage, limit: 200 };
       if (Explorer.currentType !== 'all') params.type = Explorer.currentType;
       if (Explorer.currentState !== 'all') params.state = Explorer.currentState;
       if (search) params.search = search;

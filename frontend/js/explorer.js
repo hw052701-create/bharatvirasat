@@ -31,7 +31,8 @@ const Explorer = {
           { id: 'all', label: 'All States', flag: '🇮🇳' },
           { id: 'Uttar Pradesh', label: 'Uttar Pradesh', flag: '🏛️' },
           { id: 'Gujarat', label: 'Gujarat', flag: '🦁' },
-          { id: 'Punjab', label: 'Punjab', flag: '🌾' }
+          { id: 'Punjab', label: 'Punjab', flag: '🌾' },
+          { id: 'Rajasthan', label: 'Rajasthan', flag: '🏰' }
         ].map(s => `
           <button class="state-filter-chip ${Explorer.currentState === s.id ? 'active' : ''}"
             style="padding:5px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;border:1px solid ${Explorer.currentState === s.id ? 'var(--gold)' : 'var(--border)'};background:${Explorer.currentState === s.id ? 'var(--grad-gold)' : 'var(--card-bg2)'};color:${Explorer.currentState === s.id ? 'var(--deep-blue, #0d1b2a)' : 'var(--text-secondary)'};cursor:pointer;white-space:nowrap;transition:all 0.2s;box-shadow:${Explorer.currentState === s.id ? '0 2px 8px rgba(212,175,55,0.3)' : 'none'}"
@@ -204,7 +205,23 @@ const Explorer = {
     "Bara Imambara": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bara_Imambara_Lucknow_Uttar_Pradesh.jpg",
     "Lucknow Residency": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lucknow_Residency.jpg",
     "Rumi Darwaza": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Rumi_Darwaza_in_Lucknow.jpg",
-    "Taj Mahal": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Taj_Mahal%2C_Agra%2C_India.jpg"
+    "Taj Mahal": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Taj_Mahal%2C_Agra%2C_India.jpg",
+    "Jaipur City, Rajasthan": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hawa%20Mahal%20in%20Jaipur%2C%20Rajasthan.jpg",
+    "The Jantar Mantar, Jaipur": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Full%20view%20of%20jantar%20mantar%20%2CJaipur.jpg",
+    "Hill Forts of Rajasthan": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kumbhalgarh%20Fort-Kumbhalgarh-Rajasthan-IMG%20004.jpg",
+    "Keoladeo National Park": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Keoladeo%20National%20Park%2C%20Bharatpur%2001.jpg",
+    "Akal Fossil Wood Park": "https://www.aagmanrajasthantours.com/images/Akal-Wood-Fossil-park.jpg",
+    "Great Boundary Fault at Satur": "https://thejerker.com/wp-content/uploads/2022/01/blogspot.com1_.jpg",
+    "Jhamarkotra Stromatolite Fossil Park": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Stromatolite%20Jhamarkotra%2010.jpg",
+    "Ramgarh Meteorite Impact Crater": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ramgarh%20Crater.JPG",
+    "Chittorgarh Fort": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chittorgarh%20Fort%20Rajasthan.jpg",
+    "Kumbhalgarh Fort": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kumbhalgarh%20Fort%2C%20Rajsamand%20District%2C%20Rajasthan.jpg",
+    "Ahar": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ahar%20Cenotaphs.jpg",
+    "Eklingji": "https://commons.wikimedia.org/wiki/Special:Redirect/file/EklingJi%20Temple.jpg",
+    "Nagda": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nagda%2021-71.jpg",
+    "Mehrangarh": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mehrangarh%20Fort%2C%20Rajasthan%2C%20India.JPG",
+    "Junagarh": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Junagarh%20Fort%20Bikaner.jpg",
+    "Amber Fort": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Amber%20Fort%20on%20the%20hills%20of%20Jaipur.JPG"
 },
 
   // Category & keyword-based verified images (100% tested HTTP 200)
@@ -321,7 +338,8 @@ const Explorer = {
   stateImages: {
     'Uttar Pradesh': 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=800&auto=format&fit=crop&q=80',
     'Gujarat': 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=800&auto=format&fit=crop&q=80',
-    'Punjab': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80'
+    'Punjab': 'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80',
+    'Rajasthan': 'https://images.unsplash.com/photo-1477587458883-47145ed94245?w=800&auto=format&fit=crop&q=80'
   },
 
   // Type-level verified fallback images
